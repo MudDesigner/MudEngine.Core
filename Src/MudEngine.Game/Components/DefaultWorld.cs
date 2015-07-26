@@ -9,6 +9,7 @@ namespace MudDesigner.MudEngine.Game.Components
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Core;
 
     /// <summary>
     /// The Default World class used by the engine.

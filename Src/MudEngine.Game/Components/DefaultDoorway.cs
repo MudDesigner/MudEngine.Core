@@ -7,6 +7,7 @@ namespace MudDesigner.MudEngine.Game.Components
 {
     using System;
     using System.Linq;
+    using Core;
     using MudDesigner.MudEngine.Game.Components;
 
     /// <summary>

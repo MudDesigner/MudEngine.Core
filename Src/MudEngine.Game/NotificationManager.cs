@@ -8,6 +8,8 @@ namespace MudDesigner.MudEngine.Game
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using Core.Mediation;
+    using Core;
 
     /// <summary>
     /// The mediator for all messaging

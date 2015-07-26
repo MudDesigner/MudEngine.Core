@@ -6,7 +6,7 @@
 namespace MudDesigner.MudEngine.Game
 {
     using System;
-    using MudDesigner.MudEngine.Game.Environment;
+    using Components;
 
     /// <summary>
     /// Provides a reference to a World that was loaded.

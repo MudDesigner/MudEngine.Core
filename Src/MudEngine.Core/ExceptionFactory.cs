@@ -25,7 +25,7 @@ namespace MudDesigner.MudEngine.Core
         {
             if (predicate == null)
             {
-                throw new ArgumentNullException("Exception Predicate must not be null.");
+                throw new ArgumentNullException(nameof(predicate), "Exception Predicate must not be null.");
             }
 
             return ThrowIf<TException>(predicate(), message, component, data);
@@ -41,9 +41,9 @@ namespace MudDesigner.MudEngine.Core
         /// <param name="data">The data.</param>
         public static ExceptionFactoryResult<TException> ThrowIf<TException>(Func<bool> predicate, Func<TException> exceptionFactory, IComponent component = null, params KeyValuePair<string, string>[] data) where TException : Exception, new()
         {
-            if (predicate == null)
+            if (predicate == null) 
             {
-                throw new ArgumentNullException("Exception Predicate must not be null.");
+                throw new ArgumentNullException(nameof(predicate), "Exception Predicate must not be null.");
             }
 
             return ThrowIf<TException>(predicate(), exceptionFactory, component, data);

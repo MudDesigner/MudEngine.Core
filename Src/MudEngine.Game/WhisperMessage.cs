@@ -6,7 +6,9 @@
 namespace MudDesigner.MudEngine.Game
 {
     using System;
+    using Core.Mediation;
     using MudDesigner.MudEngine.Game.Character;
+    using Components;
 
     /// <summary>
     /// Used when an object needs to send a private message to a character.

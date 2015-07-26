@@ -8,6 +8,7 @@ namespace MudDesigner.MudEngine.Game.Components
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Core;
 
     /// <summary>
     /// The Default Realm class for the engine.

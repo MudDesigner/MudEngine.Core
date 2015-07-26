@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 using MudDesigner.MudEngine.Game.Character;
+using MudDesigner.MudEngine.Game.Components;
 
 namespace MudDesigner.MudEngine.Game
 {

@@ -6,6 +6,7 @@
 namespace MudDesigner.MudEngine.Game
 {
     using System;
+    using Core.Mediation;
 
     /// <summary>
     /// Handles chat message subscriptions

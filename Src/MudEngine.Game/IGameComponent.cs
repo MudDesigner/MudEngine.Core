@@ -8,6 +8,7 @@ namespace MudDesigner.MudEngine.Game
     using Core;
     using System;
     using System.Threading.Tasks;
+    using Core.Mediation;
 
     /// <summary>
     /// Provides a series of event for components that the game needs to manage
