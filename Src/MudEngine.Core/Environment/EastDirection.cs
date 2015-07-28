@@ -6,25 +6,27 @@
 namespace MudDesigner.MudEngine.Environment
 {
     /// <summary>
-    /// Represents traveling East.
+    /// A direction that represents East.
     /// </summary>
-    public class EastDirection : ITravelDirection
+    public sealed class EastDirection : ITravelDirection
     {
         /// <summary>
-        /// Gets the direction.
+        /// Gets the direction that can be traveled.
         /// </summary>
         public string Direction
         {
             get 
             {
-                return "Easy";
+                return "East";
             }
         }
 
         /// <summary>
-        /// Gets the opposite direction.
+        /// Gets the opposite direction associated with this instance.
         /// </summary>
-        /// <returns>Returns the direction required to travel in order to go in the opposite direction of this instance.</returns>
+        /// <returns>
+        /// Returns the direction required to travel in order to go in the opposite direction of this instance.
+        /// </returns>
         public ITravelDirection GetOppositeDirection()
         {
             return new WestDirection();

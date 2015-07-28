@@ -8,7 +8,7 @@ namespace MudDesigner.MudEngine.Environment
     /// <summary>
     /// Represents rainy weather.
     /// </summary>
-    public class RainyWeather : IWeatherState
+    public sealed class RainyWeather : IWeatherState
     {
         /// <summary>
         /// Gets the occurrence probability of this weather state occurring in an environment.
@@ -23,7 +23,7 @@ namespace MudDesigner.MudEngine.Environment
         }
 
         /// <summary>
-        /// Gets the name.
+        /// Gets the name of the weather state.
         /// </summary>
         public string Name
         {

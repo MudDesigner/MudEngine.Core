@@ -3,15 +3,18 @@
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudDesigner.MudEngine.Environment
+namespace MudDesigner.MudEngine.Game.Components
 {
     using System;
+    using System.Linq;
+    using System.Reflection;
+    using Core;
 
     /// <summary>
     /// Provides a means of representing a specific time of day in hours and minutes.
     /// Methods are provided to adjust the time of day if needed.
     /// </summary>
-    public sealed class TimeOfDay : ICloneableComponent<TimeOfDay>
+    public class TimeOfDay : ICloneableComponent<TimeOfDay>
     {
         /// <summary>
         /// Gets or sets the hour.
@@ -158,16 +161,6 @@ namespace MudDesigner.MudEngine.Environment
             return string.Format("{0}:{1}", hour, minute);
         }
 
-        /// <summary>
-        /// Clones the properties of this instance to a new instance.
-        /// </summary>
-        /// <returns>
-        /// Returns a new instance with the properties of this instance copied to it.
-        /// </returns>
-        /// <para>
-        /// Cloning does not guarantee that the internal state of an object will be cloned nor
-        /// does it guarantee that the clone will be a deep clone or a shallow.
-        /// </para>
         public TimeOfDay Clone()
         {
             return new TimeOfDay { Hour = this.Hour, Minute = this.Minute, HoursPerDay = this.HoursPerDay };

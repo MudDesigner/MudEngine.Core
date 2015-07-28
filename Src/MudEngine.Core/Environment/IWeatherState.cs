@@ -5,10 +5,20 @@
 //-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine.Environment
 {
+    /// <summary>
+    /// Exposes properties that represent a state that the weather may be in.
+    /// </summary>
     public interface IWeatherState
     {
+        /// <summary>
+        /// Gets the occurrence probability of this weather state occurring in an environment.
+        /// The higher the probability relative to other weather states, the more likely it is going to occur.
+        /// </summary>
         double OccurrenceProbability { get; }
 
+        /// <summary>
+        /// Gets the name of the weather state.
+        /// </summary>
         string Name { get; }
     }
 }

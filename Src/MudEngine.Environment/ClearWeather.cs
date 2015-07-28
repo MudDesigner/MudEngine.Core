@@ -1,36 +1,36 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ThunderstormWeather.cs" company="Sully">
+// <copyright file="ClearWeather.cs" company="Sully">
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine.Environment
 {
     /// <summary>
-    /// Represents Thunderstorms
+    /// Represents clear skies, with no weather effects.
     /// </summary>
-    public sealed class ThunderstormWeather : IWeatherState
+    public class ClearWeather : IWeatherState
     {
         /// <summary>
         /// Gets the occurrence probability of this weather state occurring in an environment.
         /// The higher the probability relative to other weather states, the more likely it is going to occur.
         /// </summary>
-        public double OccurrenceProbability
-        {
-            get
+        public double OccurrenceProbability 
+        { 
+            get 
             {
-                return 15;
-            }
+                return 80; 
+            } 
         }
 
         /// <summary>
-        /// Gets the name of the weather state.
+        /// Gets the name.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return "Thunderstorm";
-            }
+        public string Name 
+        { 
+            get 
+            { 
+                return "Clear"; 
+            } 
         }
     }
 }

@@ -8,7 +8,7 @@ namespace MudDesigner.MudEngine.Environment
     /// <summary>
     /// Represents clear skies, with no weather effects.
     /// </summary>
-    public class ClearWeather : IWeatherState
+    public sealed class ClearWeather : IWeatherState
     {
         /// <summary>
         /// Gets the occurrence probability of this weather state occurring in an environment.
@@ -23,7 +23,7 @@ namespace MudDesigner.MudEngine.Environment
         }
 
         /// <summary>
-        /// Gets the name.
+        /// Gets the name of the weather state.
         /// </summary>
         public string Name 
         { 

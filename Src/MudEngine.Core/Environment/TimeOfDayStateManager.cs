@@ -12,7 +12,7 @@ namespace MudDesigner.MudEngine.Environment
     /// <summary>
     /// Provides methods for fetching an ITimeOfDayState implementation based on a TimeOfDay instance.
     /// </summary>
-    internal class TimeOfDayStateManager
+    internal sealed class TimeOfDayStateManager
     {
         /// <summary>
         /// The time of day states provided by an external source

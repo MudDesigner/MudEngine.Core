@@ -10,5 +10,11 @@ namespace MudDesigner.MudEngine
     public interface IComponent
     {
         Guid Id { get; }
+
+        bool IsEnabled { get; }
+
+        void Disable();
+
+        void Enable();
     }
 }

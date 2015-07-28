@@ -1,0 +1,99 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MudDesigner.MudEngine
+{
+    public class Autosave<TComponent> : IInitializableComponent where TComponent : IComponent
+    {
+        /// <summary>
+        /// The autosave timer
+        /// </summary>
+        private EngineTimer<TComponent> autosaveTimer;
+
+        /// <summary>
+        /// The item to save when the timer fires
+        /// </summary>
+        private TComponent ItemToSave;
+
+        /// <summary>
+        /// The delegate to call when the timer fires
+        /// </summary>
+        private Func<Task> saveDelegate;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Autosave{T}"/> class.
+        /// </summary>
+        /// <param name="itemToSave">The item to save.</param>
+        /// <param name="saveDelegate">The save delegate.</param>
+        public Autosave(TComponent itemToSave, Func<Task> saveDelegate)
+        {
+            if (itemToSave == null)
+            {
+                throw new ArgumentNullException(nameof(itemToSave), "Can not save a null item.");
+            }
+            else if (saveDelegate == null)
+            {
+                throw new ArgumentNullException(nameof(saveDelegate), "Save delegate must not be null.");
+            }
+
+            this.ItemToSave = itemToSave;
+            this.saveDelegate = saveDelegate;
+            this.AutoSaveFrequency = 0;
+        }
+
+        /// <summary>
+        /// Gets or sets the automatic save frequency in Minutes.
+        /// Set the frequency to zero in order to disable auto-save.
+        /// </summary>
+        public int AutoSaveFrequency { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the autosave timer is running.
+        /// </summary>
+        public bool IsAutosaveRunning
+        {
+            get
+            {
+                return this.autosaveTimer == null ? false : this.autosaveTimer.IsRunning;
+            }
+        }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Returns an awaitable Task</returns>
+        public Task Initialize()
+        {
+            // Default to saving every 60 seconds if the frequency is under 1 second.
+            if (this.AutoSaveFrequency < 1)
+            {
+                this.AutoSaveFrequency = 60;
+            }
+
+            this.autosaveTimer = new EngineTimer<TComponent>(this.ItemToSave);
+            double autosaveInterval = TimeSpan.FromMinutes(this.AutoSaveFrequency).TotalMilliseconds;
+
+            this.autosaveTimer.StartAsync(
+                autosaveInterval,
+                autosaveInterval,
+                0,
+                (game, timer) => this.saveDelegate());
+
+            return Task.FromResult(true);
+        }
+
+        /// <summary>
+        /// Lets this instance know that it is about to go out of scope and disposed.
+        /// The instance will perform clean-up of its resources in preperation for deletion.
+        /// </summary>
+        /// <returns>Returns an awaitable Task</returns>
+        public Task Delete()
+        {
+            this.autosaveTimer.Stop();
+            return Task.FromResult(true);
+        }
+    }
+}

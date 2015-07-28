@@ -11,7 +11,7 @@ namespace MudDesigner.MudEngine.Environment
     /// Base class for all ITimeOfDayState implementations. 
     /// This handles starting the state clock and provides methods for resetting and disposing.
     /// </summary>
-    public class TimeOfDayState
+    public sealed class TimeOfDayState : ITimeOfDayState
     {
         /// <summary>
         /// The clock used to track the time of day.
@@ -22,6 +22,7 @@ namespace MudDesigner.MudEngine.Environment
         {
             this.StateStartTime = new TimeOfDay { Hour = 0, Minute = 0, HoursPerDay = 24 };
             this.CurrentTime = this.StateStartTime.Clone();
+            this.Id = Guid.NewGuid();
         }
 
         /// <summary>
@@ -42,14 +43,18 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Gets the current time.
         /// </summary>
-        public TimeOfDay CurrentTime { get; protected set; }
+        public TimeOfDay CurrentTime { get; private set; }
+
+        public Guid Id { get; private set; }
+
+        public bool IsEnabled { get; private set; }
 
         /// <summary>
         /// Initializes the time of day state with the supplied in-game to real-world hours factor.
         /// </summary>
         /// <param name="worldTimeFactor">The world time factor.</param>
         /// <param name="hoursPerDay">The hours per day.</param>
-        public virtual void Initialize(double worldTimeFactor, int hoursPerDay)
+        public void Initialize(double worldTimeFactor, int hoursPerDay)
         {
             // Calculate how many minutes in real-world it takes to pass 1 in-game hour.
             double hourInterval = 60 * worldTimeFactor;
@@ -87,6 +92,16 @@ namespace MudDesigner.MudEngine.Environment
                 Minute = this.StateStartTime.Minute,
                 HoursPerDay = this.StateStartTime.HoursPerDay
             };
+        }
+
+        public void Disable()
+        {
+            this.IsEnabled = false;
+        }
+
+        public void Enable()
+        {
+            this.IsEnabled = true;
         }
 
         /// <summary>
