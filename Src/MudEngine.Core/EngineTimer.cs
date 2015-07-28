@@ -3,7 +3,7 @@
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudDesigner.MudEngine.Core
+namespace MudDesigner.MudEngine
 {
     using System;
     using System.Threading;

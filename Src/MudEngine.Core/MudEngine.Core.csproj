@@ -8,8 +8,8 @@
     <ProjectGuid>{3C8D5969-8510-4122-A91A-584507D1C9B6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MudDesigner.MudEngine.Core</RootNamespace>
-    <AssemblyName>MudDesigner.MudEngine.Core</AssemblyName>
+    <RootNamespace>MudDesigner.MudEngine</RootNamespace>
+    <AssemblyName>MudDesigner.MudEngine</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -39,8 +39,20 @@
   <ItemGroup>
     <Compile Include="CachedTypeData.cs" />
     <Compile Include="EngineTimer.cs" />
-    <Compile Include="ExceptionFactory.cs" />
-    <Compile Include="ExceptionFactoryResult.cs" />
+    <Compile Include="Environment\ClearWeather.cs" />
+    <Compile Include="Environment\EastDirection.cs" />
+    <Compile Include="Environment\ITravelDirection.cs" />
+    <Compile Include="Environment\IWeatherState.cs" />
+    <Compile Include="Environment\NorthDirection.cs" />
+    <Compile Include="Environment\RainyWeather.cs" />
+    <Compile Include="Environment\SouthDirection.cs" />
+    <Compile Include="Environment\ThunderstormWeather.cs" />
+    <Compile Include="Environment\TimeOfDay.cs" />
+    <Compile Include="Environment\TimeOfDayChangedEventArgs.cs" />
+    <Compile Include="Environment\TimeOfDayState.cs" />
+    <Compile Include="Environment\TimeOfDayStateManager.cs" />
+    <Compile Include="Environment\WeatherStateChangedEventArgs.cs" />
+    <Compile Include="Environment\WestDirection.cs" />
     <Compile Include="Extensions\ICollectionExtensions.cs" />
     <Compile Include="ICloneableComponent.cs" />
     <Compile Include="IComponent.cs" />
@@ -55,7 +67,6 @@
     <Compile Include="Mediation\NotificationArgs.cs" />
     <Compile Include="Mediation\NotificationManagerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TaskFromAction.cs" />
     <Compile Include="TypePool.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

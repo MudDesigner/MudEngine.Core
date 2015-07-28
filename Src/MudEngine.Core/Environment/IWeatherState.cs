@@ -1,14 +1,14 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ITravelDirection.cs" company="Sully">
+// <copyright file="IWeatherState.cs" company="Sully">
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudDesigner.MudEngine.Game.Components
+namespace MudDesigner.MudEngine.Environment
 {
-    public interface ITravelDirection
+    public interface IWeatherState
     {
-        string Direction { get; }
+        double OccurrenceProbability { get; }
 
-        ITravelDirection GetOppositeDirection();
+        string Name { get; }
     }
 }

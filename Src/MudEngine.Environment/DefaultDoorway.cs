@@ -3,17 +3,16 @@
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudDesigner.MudEngine.Game.Components
+namespace MudDesigner.MudEngine.Environment
 {
     using System;
     using System.Linq;
     using Core;
-    using MudDesigner.MudEngine.Game.Components;
 
     /// <summary>
     /// The default doorway class for the engine. Provides methods for connecting rooms, disconnecting rooms and traveling between rooms.
     /// </summary>
-    public class DefaultDoorway
+    public class DefaultDoorway : IDoorway
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DefaultDoorway"/> class.
@@ -45,9 +44,9 @@ namespace MudDesigner.MudEngine.Game.Components
         /// <summary>
         /// Gets or sets the arrival room.
         /// </summary>
-        public DefaultRoom ArrivalRoom { get; protected set; }
+        public IRoom ArrivalRoom { get; protected set; }
 
-        public DefaultRoom DepartureRoom { get; protected set; }
+        public IRoom DepartureRoom { get; protected set; }
 
         /// <summary>
         /// Connects two rooms together.

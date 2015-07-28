@@ -3,7 +3,7 @@
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudDesigner.MudEngine.Core.Mediation
+namespace MudDesigner.MudEngine.MessageBrokering
 {
     /// <summary>
     /// Allows for receiving the content of a message

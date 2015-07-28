@@ -3,7 +3,7 @@
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudDesigner.MudEngine.Core
+namespace MudDesigner.MudEngine
 {
     using System;
     using System.Collections.Concurrent;
@@ -39,7 +39,11 @@ namespace MudDesigner.MudEngine.Core
         /// <param name="type">The Type provided will have its reflected PropertyInfo and Attributes cached.</param>
         internal CachedTypeData(Type type)
         {
-            ExceptionFactory.ThrowIf<ArgumentNullException>(type == null, "Type is required.");
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type), "Type is required.");
+            }
+
             this.Type = type;
             this.propertiesBag = new ConcurrentBag<PropertyInfo>();
             this.propertyAttributesBag = new ConcurrentDictionary<PropertyInfo, IEnumerable<Attribute>>();

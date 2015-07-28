@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MudDesigner.MudEngine.Core.Mediation
+namespace MudDesigner.MudEngine.MessageBrokering
 {
     public class NotificationManagerFactory
     {

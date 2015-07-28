@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace MudDesigner.MudEngine.Core
+namespace MudDesigner.MudEngine
 {
     /// <summary>
     /// A cached Type Pool used to fetch Types, PropertyInfo's and Attributes from a cache

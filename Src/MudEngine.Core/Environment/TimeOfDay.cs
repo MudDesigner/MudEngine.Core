@@ -3,12 +3,11 @@
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudDesigner.MudEngine.Game.Components
+namespace MudDesigner.MudEngine.Environment
 {
     using System;
     using System.Linq;
     using System.Reflection;
-    using Core;
 
     /// <summary>
     /// Provides a means of representing a specific time of day in hours and minutes.

@@ -51,16 +51,16 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Fixtures\ComponentFixture.cs" />
-    <Compile Include="UnitTests\ExceptionFactory.Tests.cs" />
-    <Compile Include="UnitTests\ExceptionFactoryResult.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTests\TaskFromAction.Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Src\MudEngine.Core\MudEngine.Core.csproj">
       <Project>{3c8d5969-8510-4122-a91a-584507d1c9b6}</Project>
       <Name>MudEngine.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UnitTests\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
