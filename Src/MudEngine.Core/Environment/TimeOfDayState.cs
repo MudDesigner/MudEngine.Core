@@ -8,27 +8,26 @@ namespace MudDesigner.MudEngine.Environment
     using System;
 
     /// <summary>
-    /// Base class for all ITimeOfDayState implementations. 
-    /// This handles starting the state clock and provides methods for resetting and disposing.
+    /// ITimeOfDayState implementation that handles starting the state 
+    /// clock and provides methods for resetting and disposing.
     /// </summary>
     public sealed class TimeOfDayState : ITimeOfDayState
     {
         /// <summary>
         /// The clock used to track the time of day.
         /// </summary>
-        private EngineTimer<TimeOfDay> timeOfDayClock;
+        private EngineTimer<ITimeOfDay> timeOfDayClock;
 
         public TimeOfDayState()
         {
-            this.StateStartTime = new TimeOfDay { Hour = 0, Minute = 0, HoursPerDay = 24 };
-            this.CurrentTime = this.StateStartTime.Clone();
             this.Id = Guid.NewGuid();
+            this.CreationDate = DateTime.Now;
         }
 
         /// <summary>
         /// Occurs when the state's time is changed.
         /// </summary>
-        public event EventHandler<TimeOfDay> TimeUpdated;
+        public event EventHandler<ITimeOfDay> TimeUpdated;
 
         /// <summary>
         /// Gets the name of this state.
@@ -38,31 +37,40 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Gets or sets the time of day in the game that this state begins.
         /// </summary>
-        public TimeOfDay StateStartTime { get; set; }
+        public ITimeOfDay StateStartTime { get; set; }
 
         /// <summary>
         /// Gets the current time.
         /// </summary>
-        public TimeOfDay CurrentTime { get; private set; }
+        public ITimeOfDay CurrentTime { get; private set; }
 
         public Guid Id { get; private set; }
 
         public bool IsEnabled { get; private set; }
+
+        public DateTime CreationDate { get; private set; }
+
+        public double TimeAlive { get { return this.CreationDate.Subtract(DateTime.Now).TotalSeconds; } }
 
         /// <summary>
         /// Initializes the time of day state with the supplied in-game to real-world hours factor.
         /// </summary>
         /// <param name="worldTimeFactor">The world time factor.</param>
         /// <param name="hoursPerDay">The hours per day.</param>
-        public void Initialize(double worldTimeFactor, int hoursPerDay)
+        public void Initialize(ITimeOfDay startTime, double worldTimeFactor)
         {
+            if (startTime.HoursPerDay == 0)
+            {
+                throw new InvalidTimeOfDayException("HoursPerDay can not be zero.", startTime);
+            }
+
             // Calculate how many minutes in real-world it takes to pass 1 in-game hour.
             double hourInterval = 60 * worldTimeFactor;
 
             // Calculate how many seconds in real-world it takes to pass 1 minute in-game.
             double minuteInterval = 60 * worldTimeFactor;
 
-            this.StateStartTime.HoursPerDay = hoursPerDay;
+            this.StateStartTime = startTime.Clone();
             this.Reset();
 
             // Update the state every in-game hour or minute based on the ratio we have
@@ -86,12 +94,7 @@ namespace MudDesigner.MudEngine.Environment
                 this.timeOfDayClock.Stop();
             }
 
-            this.CurrentTime = new TimeOfDay
-            {
-                Hour = this.StateStartTime.Hour,
-                Minute = this.StateStartTime.Minute,
-                HoursPerDay = this.StateStartTime.HoursPerDay
-            };
+            this.CurrentTime = this.StateStartTime.Clone();
         }
 
         public void Disable()
@@ -162,11 +165,11 @@ namespace MudDesigner.MudEngine.Environment
         /// </summary>
         /// <param name="interval">The interval.</param>
         /// <param name="callback">The callback.</param>
-        private void StartStateClock(double interval, Action<TimeOfDay> callback)
+        private void StartStateClock(double interval, Action<ITimeOfDay> callback)
         {
             // If the minute interval is less than 1 second,
             // then we increment by the hour to reduce excess update calls.
-            this.timeOfDayClock = new EngineTimer<TimeOfDay>(this.CurrentTime);
+            this.timeOfDayClock = new EngineTimer<ITimeOfDay>(this.CurrentTime);
             this.timeOfDayClock.Start(interval, interval, 0, (state, clock) =>
                 {
                     callback(state);
@@ -179,7 +182,7 @@ namespace MudDesigner.MudEngine.Environment
         /// </summary>
         private void OnTimeUpdated()
         {
-            EventHandler<TimeOfDay> handler = this.TimeUpdated;
+            EventHandler<ITimeOfDay> handler = this.TimeUpdated;
             if (handler == null)
             {
                 return;

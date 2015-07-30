@@ -11,7 +11,7 @@ namespace MudDesigner.MudEngine.Environment
     /// Provides a means of representing a specific time of day in hours and minutes.
     /// Methods are provided to adjust the time of day if needed.
     /// </summary>
-    public sealed class TimeOfDay : ICloneableComponent<TimeOfDay>
+    public sealed class TimeOfDay : ITimeOfDay
     {
         /// <summary>
         /// Gets or sets the hour.
@@ -168,9 +168,14 @@ namespace MudDesigner.MudEngine.Environment
         /// Cloning does not guarantee that the internal state of an object will be cloned nor
         /// does it guarantee that the clone will be a deep clone or a shallow.
         /// </para>
-        public TimeOfDay Clone()
+        public ITimeOfDay Clone()
         {
-            return new TimeOfDay { Hour = this.Hour, Minute = this.Minute, HoursPerDay = this.HoursPerDay };
+            return new TimeOfDay
+            {
+                Hour = this.Hour,
+                Minute = this.Minute,
+                HoursPerDay = this.HoursPerDay
+            };
         }
     }
 }

@@ -35,19 +35,28 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
+    <None Include="Diagrams\Components.cd" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\IActor.cs" />
+    <Compile Include="Actors\ICharacter.cs" />
     <Compile Include="Autosave.cs" />
     <Compile Include="CachedTypeData.cs" />
     <Compile Include="EngineTimer.cs" />
     <Compile Include="Environment\ClearWeather.cs" />
     <Compile Include="Environment\EastDirection.cs" />
+    <Compile Include="Environment\IDoorway.cs" />
+    <Compile Include="Environment\InvalidTimeOfDayException.cs" />
     <Compile Include="Environment\IRealm.cs" />
+    <Compile Include="Environment\IRoom.cs" />
+    <Compile Include="Environment\ITimeOfDay.cs" />
     <Compile Include="Environment\ITimeOfDayState.cs" />
     <Compile Include="Environment\ITravelDirection.cs" />
     <Compile Include="Environment\IWeatherState.cs" />
     <Compile Include="Environment\IWorld.cs" />
+    <Compile Include="Environment\IZone.cs" />
     <Compile Include="Environment\NorthDirection.cs" />
+    <Compile Include="Environment\OccupancyChangedEventArgs.cs" />
     <Compile Include="Environment\RainyWeather.cs" />
     <Compile Include="Environment\SouthDirection.cs" />
     <Compile Include="Environment\ThunderstormWeather.cs" />

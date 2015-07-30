@@ -13,6 +13,10 @@ namespace MudDesigner.MudEngine
 
         bool IsEnabled { get; }
 
+        DateTime CreationDate { get; }
+
+        double TimeAlive { get; }
+
         void Disable();
 
         void Enable();

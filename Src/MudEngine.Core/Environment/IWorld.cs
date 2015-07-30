@@ -8,12 +8,6 @@ namespace MudDesigner.MudEngine.Environment
     {
         event EventHandler<TimeOfDayChangedEventArgs> TimeOfDayChanged;
 
-        string Name { get; }
-
-        double TimeFromCreation { get; }
-
-        DateTime CreationDate { get; }
-
         TimeOfDayState CurrentTimeOfDay { get; }
 
         int HoursPerDay { get; }

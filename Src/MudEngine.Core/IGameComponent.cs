@@ -28,6 +28,8 @@ namespace MudDesigner.MudEngine
 
         INotificationCenter NotificationCenter { get; }
 
+        string Name { get; }
+
         void PublishMessage<TMessage>(TMessage message) where TMessage : class, IMessage;
 
         void SubscribeToMessage<TMessage>(Action<TMessage, ISubscription> callback, Func<TMessage, bool> predicate = null) where TMessage : class, IMessage;

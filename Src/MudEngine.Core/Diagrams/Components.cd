@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Interface Name="MudDesigner.MudEngine.IComponent">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAACAAAAAAAAAAAAAAEACAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>IComponent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MudDesigner.MudEngine.IGameComponent">
+    <Position X="0.5" Y="3.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAQAEIAAAAAAgIBAAAAEAAAAwAA=</HashCode>
+      <FileName>IGameComponent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MudDesigner.MudEngine.IInitializableComponent">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IInitializableComponent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

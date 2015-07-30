@@ -4,15 +4,15 @@ namespace MudDesigner.MudEngine.Environment
 {
     public interface ITimeOfDayState : IComponent
     {
-        event EventHandler<TimeOfDay> TimeUpdated;
+        event EventHandler<ITimeOfDay> TimeUpdated;
 
-        TimeOfDay CurrentTime { get; }
+        ITimeOfDay CurrentTime { get; }
 
         string Name { get; set; }
 
-        TimeOfDay StateStartTime { get; set; }
+        ITimeOfDay StateStartTime { get; }
 
-        void Initialize(double worldTimeFactor, int hoursPerDay);
+        void Initialize(ITimeOfDay startTime, double worldTimeFactor);
 
         void Reset();
     }
