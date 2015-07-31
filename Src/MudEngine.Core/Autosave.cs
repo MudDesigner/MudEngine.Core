@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MudDesigner.MudEngine
 {
-    public class Autosave<TComponent> : IInitializableComponent where TComponent : IComponent
+    public sealed class Autosave<TComponent> : IDisposable, IInitializableComponent where TComponent : IComponent
     {
         /// <summary>
         /// The autosave timer
@@ -22,6 +22,11 @@ namespace MudDesigner.MudEngine
         /// The delegate to call when the timer fires
         /// </summary>
         private Func<Task> saveDelegate;
+
+        /// <summary>
+        /// Determines if the autosave instance is disposed of.
+        /// </summary>
+        private bool isDisposed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Autosave{T}"/> class.
@@ -45,7 +50,7 @@ namespace MudDesigner.MudEngine
         }
 
         /// <summary>
-        /// Gets or sets the automatic save frequency in Minutes.
+        /// Gets or sets the automatic save frequency in seconds.
         /// Set the frequency to zero in order to disable auto-save.
         /// </summary>
         public int AutoSaveFrequency { get; set; }
@@ -67,6 +72,11 @@ namespace MudDesigner.MudEngine
         /// <returns>Returns an awaitable Task</returns>
         public Task Initialize()
         {
+            if (this.isDisposed)
+            {
+                throw new ObjectDisposedException(typeof(Autosave<TComponent>).Name, "Can not initialize the autosave as it has already been disposed of.");
+            }
+
             // Default to saving every 60 seconds if the frequency is under 1 second.
             if (this.AutoSaveFrequency < 1)
             {
@@ -74,7 +84,7 @@ namespace MudDesigner.MudEngine
             }
 
             this.autosaveTimer = new EngineTimer<TComponent>(this.ItemToSave);
-            double autosaveInterval = TimeSpan.FromMinutes(this.AutoSaveFrequency).TotalMilliseconds;
+            double autosaveInterval = TimeSpan.FromSeconds(this.AutoSaveFrequency).TotalMilliseconds;
 
             this.autosaveTimer.StartAsync(
                 autosaveInterval,
@@ -94,6 +104,13 @@ namespace MudDesigner.MudEngine
         {
             this.autosaveTimer.Stop();
             return Task.FromResult(true);
+        }
+
+        public void Dispose()
+        {
+            this.Delete();
+            this.autosaveTimer.Dispose();
+            this.isDisposed = true;
         }
     }
 }

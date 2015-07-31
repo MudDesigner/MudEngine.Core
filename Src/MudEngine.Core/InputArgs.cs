@@ -10,7 +10,7 @@ namespace MudDesigner.MudEngine
     /// <summary>
     /// Input Arguments provided when an event is fired requiring messaging support.
     /// </summary>
-    public class InputArgs : EventArgs
+    public sealed class InputArgs : EventArgs
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InputArgs"/> class.

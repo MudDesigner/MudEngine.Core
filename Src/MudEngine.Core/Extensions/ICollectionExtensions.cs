@@ -3,7 +3,7 @@
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudDesigner.MudEngine.Core
+namespace MudDesigner.MudEngine
 {
     using System;
     using System.Collections.Generic;
@@ -38,6 +38,11 @@ namespace MudDesigner.MudEngine.Core
             var sum = weights.Sum(d => d);
 
             var rnd = new Random().NextDouble();
+            return FindWeight<T>(e, weights, sum, rnd);
+        }
+
+        private static T FindWeight<T>(ICollection<T> e, double[] weights, double sum, double randomValue)
+        {
             for (int i = 0; i < weights.Length; i++)
             {
                 // Normalize weight
@@ -45,15 +50,15 @@ namespace MudDesigner.MudEngine.Core
                     ? 1 / (double)e.Count
                     : weights.ElementAtOrDefault(i) / sum;
 
-                if (rnd < w)
+                if (randomValue < w)
                 {
                     return e.ElementAtOrDefault(i);
                 }
 
-                rnd -= w;
+                randomValue -= w;
             }
 
-            throw new Exception("Unable to produce a result from the given collection using the supplied selector.");
+            throw new InvalidOperationException("Unable to produce a result from the given collection using the supplied selector.");
         }
     }
 }

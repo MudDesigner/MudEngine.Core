@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MudDesigner.MudEngine.Environment
 {
-    public class InvalidTimeOfDayException : Exception
+    public sealed class InvalidTimeOfDayException : Exception
     {
         public InvalidTimeOfDayException(string message, ITimeOfDay timeOfDay) : base(message)
         {

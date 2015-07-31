@@ -66,7 +66,7 @@
     <Compile Include="Environment\TimeOfDayStateManager.cs" />
     <Compile Include="Environment\WeatherStateChangedEventArgs.cs" />
     <Compile Include="Environment\WestDirection.cs" />
-    <Compile Include="Environment\WorldLoadedArgs.cs" />
+    <Compile Include="WorldLoadedArgs.cs" />
     <Compile Include="Extensions\ICollectionExtensions.cs" />
     <Compile Include="ICloneableComponent.cs" />
     <Compile Include="IComponent.cs" />

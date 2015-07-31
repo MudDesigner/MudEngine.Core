@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MudDesigner.MudEngine.Environment
 {
-    public class OccupancyChangedEventArgs : EventArgs
+    public sealed class OccupancyChangedEventArgs : EventArgs
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="OccupancyChangedEventArgs"/> class.

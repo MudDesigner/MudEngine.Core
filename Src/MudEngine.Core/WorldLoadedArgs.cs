@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MudDesigner.MudEngine.Environment
+namespace MudDesigner.MudEngine
 {
-    public class WorldLoadedArgs : EventArgs
+    public sealed class WorldLoadedArgs : EventArgs
     {
     }
 }

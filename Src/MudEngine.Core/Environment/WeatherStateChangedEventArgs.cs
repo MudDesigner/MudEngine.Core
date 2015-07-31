@@ -10,7 +10,7 @@ namespace MudDesigner.MudEngine.Environment
     /// <summary>
     /// Event Arguments for when the weather state has changed.
     /// </summary>
-    public class WeatherStateChangedEventArgs : EventArgs
+    public sealed class WeatherStateChangedEventArgs : EventArgs
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WeatherStateChangedEventArgs"/> class.

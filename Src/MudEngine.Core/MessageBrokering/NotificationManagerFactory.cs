@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MudDesigner.MudEngine.MessageBrokering
 {
-    public class NotificationManagerFactory
+    public sealed class NotificationManagerFactory
     {
         private static Func<INotificationCenter> _factory;
 

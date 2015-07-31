@@ -15,7 +15,7 @@ namespace MudDesigner.MudEngine
     /// Represents a Type, its properties and attributes. This class holds cached reflection meta-data. 
     /// This lets objects ask for reflected meta-data without having to use reflection each time it needs to access the data.
     /// </summary>
-    internal class CachedTypeData
+    internal sealed class CachedTypeData
     {
         /// <summary>
         /// The attributes bag holds a cached collection of attributse for each property for the Type associated with an instance of CachedTypeData.

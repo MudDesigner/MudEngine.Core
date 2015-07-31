@@ -11,7 +11,7 @@ namespace MudDesigner.MudEngine.Environment
     /// ITimeOfDayState implementation that handles starting the state 
     /// clock and provides methods for resetting and disposing.
     /// </summary>
-    public sealed class TimeOfDayState : ITimeOfDayState
+    public sealed class TimeOfDayState : ITimeOfDayState, IDisposable
     {
         /// <summary>
         /// The clock used to track the time of day.
@@ -82,6 +82,8 @@ namespace MudDesigner.MudEngine.Environment
             {
                 this.StartStateClock(TimeSpan.FromSeconds(minuteInterval).TotalMilliseconds, (timeOfDay) => timeOfDay.IncrementByMinute(1));
             }
+
+            this.Enable();
         }
 
         /// <summary>
@@ -95,6 +97,7 @@ namespace MudDesigner.MudEngine.Environment
             }
 
             this.CurrentTime = this.StateStartTime.Clone();
+            this.Disable();
         }
 
         public void Disable()
@@ -105,6 +108,12 @@ namespace MudDesigner.MudEngine.Environment
         public void Enable()
         {
             this.IsEnabled = true;
+        }
+
+        public void Dispose()
+        {
+            this.Reset();
+            this.timeOfDayClock.Dispose();
         }
 
         /// <summary>

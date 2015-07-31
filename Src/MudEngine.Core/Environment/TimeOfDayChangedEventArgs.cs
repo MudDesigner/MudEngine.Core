@@ -10,7 +10,7 @@ namespace MudDesigner.MudEngine.Environment
     /// <summary>
     /// Event arguments for when the time of day changes.
     /// </summary>
-    public class TimeOfDayChangedEventArgs : EventArgs
+    public sealed class TimeOfDayChangedEventArgs : EventArgs
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TimeOfDayChangedEventArgs"/> class.

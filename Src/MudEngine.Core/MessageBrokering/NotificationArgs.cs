@@ -7,7 +7,7 @@ namespace MudDesigner.MudEngine.MessageBrokering
 {
     using System;
 
-    public class NotificationArgs
+    public sealed class NotificationArgs
     {
         public NotificationArgs(ISubscription subscription, Type messageType)
         {
