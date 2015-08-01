@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MudDesigner.MudEngine;
-using Tests.Fixtures;
+using MudDesigner.MudEngine.Tests.Fixture;
 
-namespace Tests.UnitTests
+namespace MudDesigner.MudEngine.Tests
 {
     [TestClass]
     public class EngineTimerTests
@@ -62,6 +61,25 @@ namespace Tests.UnitTests
         [TestCategory("Engine")]
         [TestCategory("Engine Core")]
         [Owner("Johnathon Sullinger")]
+        public async Task Stop_disables_the_timer()
+        {
+            // Arrange
+            var fixture = new ComponentFixture();
+            var engineTimer = new EngineTimer<ComponentFixture>(fixture);
+
+            // Act
+            engineTimer.Start(0, 1, 0, (component, timer) => timer.Stop());
+            await Task.Delay(20);
+
+            // Assert
+            Assert.IsFalse(engineTimer.IsRunning, "Engine Timer was not started.");
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
         public void Callback_invoked_when_running()
         {
             // Arrange
@@ -75,6 +93,27 @@ namespace Tests.UnitTests
 
             // Assert
             Assert.IsTrue(callbackInvoked, "Engine Timer did not invoke the callback as expected.");
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public async Task Timer_stops_when_number_of_fires_is_hit()
+        {
+            // Arrange
+            var fixture = new ComponentFixture();
+            var engineTimer = new EngineTimer<ComponentFixture>(fixture);
+            int callbackCount = 0;
+
+            // Act
+            engineTimer.Start(0, 1, 2, (component, timer) => { callbackCount += 1; });
+            await Task.Delay(20);
+
+            // Assert
+            Assert.IsFalse(engineTimer.IsRunning, "Timer was not stopped.");
+            Assert.AreEqual(2, callbackCount, "Engine Timer did not invoke the callback as expected.");
         }
     }
 }

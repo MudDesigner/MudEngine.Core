@@ -6,8 +6,8 @@
     <ProjectGuid>{016D925F-C920-40F7-B5DA-F96A13C97918}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tests</RootNamespace>
-    <AssemblyName>Tests</AssemblyName>
+    <RootNamespace>MudDesigner.MudEngine.Tests</RootNamespace>
+    <AssemblyName>MudDesigner.MudEngine.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -52,10 +52,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Fixtures\AttributeFixture.cs" />
     <Compile Include="Fixtures\ComponentFixture.cs" />
+    <Compile Include="Fixtures\TypePoolFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTests\Autosave.Tests.cs" />
     <Compile Include="UnitTests\EngineTimer.Tests.cs" />
+    <Compile Include="UnitTests\InputArgs.Tests.cs" />
+    <Compile Include="UnitTests\TypePool.Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Src\MudEngine.Core\MudEngine.Core.csproj">

@@ -1,44 +1,26 @@
 ﻿using System;
 using MudDesigner.MudEngine;
 
-namespace Tests.Fixtures
+namespace MudDesigner.MudEngine.Tests.Fixture
 {
-    class ComponentFixture : IComponent
+    public class ComponentFixture : IComponent
     {
-        public DateTime CreationDate
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public DateTime CreationDate { get; private set; } = DateTime.Now;
 
         public Guid Id { get; private set; } = Guid.NewGuid();
 
-        public bool IsEnabled
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public bool IsEnabled { get; set; }
 
-        public double TimeAlive
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public double TimeAlive { get; set; }
 
         public void Disable()
         {
-            throw new NotImplementedException();
+            this.IsEnabled = false;
         }
 
         public void Enable()
         {
-            throw new NotImplementedException();
+            this.IsEnabled = true;
         }
     }
 }

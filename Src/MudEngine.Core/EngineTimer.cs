@@ -110,16 +110,11 @@ namespace MudDesigner.MudEngine
         /// <param name="numberOfFires">Specifies the number of times to invoke the timer callback when the interval is reached. Set to 0 for infinite.</param>
         public void Start(double startDelay, double interval, int numberOfFires, Action<T, EngineTimer<T>> callback)
         {
-            this.IsRunning = true;
-
-            this.timerTask = Task
-                .Delay(TimeSpan.FromMilliseconds(startDelay), this.Token)
-                .ContinueWith(
-                    (task, state) => RunTimer(task, (Tuple<Action<T, EngineTimer<T>>, T>)state, interval, numberOfFires),
-                    Tuple.Create(callback, this.StateData),
-                    CancellationToken.None,
-                    TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnRanToCompletion,
-                    TaskScheduler.Default);
+            this.StartTimer(
+                (task, state) => RunTimer(task, (Tuple<Action<T, EngineTimer<T>>, T>)state, interval, numberOfFires),
+                Tuple.Create(callback, this.StateData),
+                false,
+                startDelay);
         }
 
         /// <summary>
@@ -130,16 +125,11 @@ namespace MudDesigner.MudEngine
         /// <param name="numberOfFires">Specifies the number of times to invoke the timer callback when the interval is reached. Set to 0 for infinite.</param>
         public void StartAsync(double startDelay, double interval, int numberOfFires, Func<T, EngineTimer<T>, Task> callback)
         {
-            this.IsRunning = true;
-
-            this.timerTask = Task
-                .Delay(TimeSpan.FromMilliseconds(startDelay), this.Token)
-                .ContinueWith(
-                    async (task, state) => await RunTimerAsync(task, (Tuple<Func<T, EngineTimer<T>, Task>, T>)state, interval, numberOfFires),
-                    Tuple.Create(callback, this.StateData),
-                    CancellationToken.None,
-                    TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnRanToCompletion,
-                    TaskScheduler.Default);
+            this.StartTimer(
+                (task, state) => RunTimerAsync(task, (Tuple<Func<T, EngineTimer<T>, Task>, T>)state, interval, numberOfFires),
+                Tuple.Create(callback, this.StateData),
+                true,
+                startDelay);
         }
 
         /// <summary>
@@ -170,22 +160,42 @@ namespace MudDesigner.MudEngine
             base.Dispose(disposing);
         }
 
-        private async Task RunTimer(Task task, Tuple<Action<T, EngineTimer<T>>, T> state, double interval, int numberOfFires)
+        private void StartTimer(Func<Task, object, Task> timerDelegate, object data, bool isAsync, double startDelay)
         {
-            while (!this.IsCancellationRequested)
-            {
-                // Only increment if we are supposed to.
-                if (numberOfFires > 0)
-                {
-                    this.fireCount++;
-                }
+            this.IsRunning = true;
 
-                state.Item1(state.Item2, this);
-                await PerformTimerCancellationCheck(interval, numberOfFires);
-            }
+            this.timerTask = Task
+                .Delay(TimeSpan.FromMilliseconds(startDelay), this.Token)
+                .ContinueWith(
+                    timerDelegate,
+                    data,
+                    CancellationToken.None,
+                    TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnRanToCompletion,
+                    TaskScheduler.Default);
         }
 
-        private async Task RunTimerAsync(Task task, Tuple<Func<T, EngineTimer<T>, Task>, T> state, double interval, int numberOfFires)
+        private Task RunTimer(Task task, Tuple<Action<T, EngineTimer<T>>, T> state, double interval, int numberOfFires)
+        {
+            return this.Run(
+                task,
+                () =>
+                {
+                    state.Item1(state.Item2, this);
+                    return Task.FromResult(0);
+                },
+                interval,
+                numberOfFires);
+        }
+
+        private Task RunTimerAsync(Task task, Tuple<Func<T, EngineTimer<T>, Task>, T> state, double interval, int numberOfFires)
+        {
+            return this.Run(
+                task,
+                () => state.Item1(state.Item2, this),
+                interval, numberOfFires);
+        }
+
+        private async Task Run(Task task, Func<Task> callback, double interval, int numberOfFires)
         {
             while (!this.IsCancellationRequested)
             {
@@ -195,7 +205,7 @@ namespace MudDesigner.MudEngine
                     this.fireCount++;
                 }
 
-                await state.Item1(state.Item2, this);
+                await callback();
                 await PerformTimerCancellationCheck(interval, numberOfFires);
             }
         }

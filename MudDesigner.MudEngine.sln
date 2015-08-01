@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{4D375D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F24B4635-D87F-422A-B658-41E30EDAAB67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudEngine.Runtime.Tests", "Tests\MudEngine.Runtime.Tests\MudEngine.Runtime.Tests.csproj", "{016D925F-C920-40F7-B5DA-F96A13C97918}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudEngine.Core.Tests", "Tests\MudEngine.Runtime.Tests\MudEngine.Core.Tests.csproj", "{016D925F-C920-40F7-B5DA-F96A13C97918}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudEngine.Core", "Src\MudEngine.Core\MudEngine.Core.csproj", "{3C8D5969-8510-4122-A91A-584507D1C9B6}"
 EndProject

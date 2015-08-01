@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MudDesigner.MudEngine;
-using Tests.Fixtures;
+using MudDesigner.MudEngine.Tests.Fixture;
 
-namespace Tests.UnitTests
+namespace MudDesigner.MudEngine.Tests
 {
     [TestClass]
     public class AutosaveTests
