@@ -67,6 +67,7 @@
     <Compile Include="UnitTests\Environment\OccupancyChangedEventArgs.Tests.cs" />
     <Compile Include="UnitTests\Environment\TimeOfDay.Tests.cs" />
     <Compile Include="UnitTests\Environment\TimeOfDayChangedEventArgs.Tests.cs" />
+    <Compile Include="UnitTests\Environment\TimeOfDayStateManager.Tests.cs" />
     <Compile Include="UnitTests\Environment\Weather.Tests.cs" />
     <Compile Include="UnitTests\ExtensionsTests\ICollectionExtensions.Tests.cs" />
     <Compile Include="UnitTests\ExtensionsTests\ObjectExtensions.Tests.cs" />
