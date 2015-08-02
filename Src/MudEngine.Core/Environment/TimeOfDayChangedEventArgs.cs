@@ -17,8 +17,17 @@ namespace MudDesigner.MudEngine.Environment
         /// </summary>
         /// <param name="transitionFrom">The transition from.</param>
         /// <param name="transitionTo">The transition to.</param>
-        public TimeOfDayChangedEventArgs(TimeOfDayState transitionFrom, TimeOfDayState transitionTo)
+        public TimeOfDayChangedEventArgs(ITimeOfDayState transitionFrom, ITimeOfDayState transitionTo)
         {
+            if (transitionTo == null)
+            {
+                throw new ArgumentNullException(nameof(transitionTo), "A state must be provided to transition to.");
+            }
+            else if (transitionFrom == null)
+            {
+                throw new ArgumentNullException(nameof(transitionFrom), "A state must be provided to transition from.");
+            }
+
             this.TransitioningFrom = transitionFrom;
             this.TransitioningTo = transitionTo;
         }
@@ -26,11 +35,11 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Gets the state that is being transitioned away from.
         /// </summary>
-        public TimeOfDayState TransitioningFrom { get; private set; }
+        public ITimeOfDayState TransitioningFrom { get; private set; }
 
         /// <summary>
         /// Gets the state that is being transitioned to.
         /// </summary>
-        public TimeOfDayState TransitioningTo { get; private set; }
+        public ITimeOfDayState TransitioningTo { get; private set; }
     }
 }

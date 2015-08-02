@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MudDesigner.MudEngine.MessageBrokering
 {
-    public sealed class NotificationManagerFactory
+    public static class NotificationManagerFactory
     {
         private static Func<INotificationCenter> _factory;
 
-        public void SetFactory(Func<INotificationCenter> factory)
+        public static void SetFactory(Func<INotificationCenter> factory)
         {
             NotificationManagerFactory._factory = factory;
         }

@@ -34,7 +34,7 @@ namespace MudDesigner.MudEngine
                 return e.ElementAtOrDefault(0);
             }
 
-            var weights = e.Select(item => Math.Max(weightSelector(item), 0)).ToArray();
+            var weights = weightSelector == null ? new double[0] : e.Select(item => Math.Max(weightSelector(item), 0)).ToArray();
             var sum = weights.Sum(d => d);
 
             var rnd = new Random().NextDouble();

@@ -37,9 +37,7 @@ namespace MudDesigner.MudEngine.Environment
         /// </returns>
         internal TimeOfDayState GetTimeOfDayState(DateTime? currentTime = null)
         {
-            TimeOfDay time = new TimeOfDay();
-            time.Hour = currentTime.Value.Hour;
-            time.Minute = currentTime.Value.Minute;
+            TimeOfDay time = new TimeOfDay(currentTime.Value.Hour, currentTime.Value.Minute);
 
             return this.GetTimeOfDayState(time);
         }

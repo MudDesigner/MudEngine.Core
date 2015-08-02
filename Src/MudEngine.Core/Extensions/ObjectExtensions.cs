@@ -25,13 +25,18 @@ namespace MudDesigner.MudEngine
         /// </returns>
         public static string GetPropertyName<T>(this T obj, Expression<Func<T, object>> expr)
         {
+            if (expr == null)
+            {
+                throw new ArgumentNullException(nameof(expr), "You must provide a member expression specifying the property in order to determine the property name.");
+            }
+
             var member = expr.Body as MemberExpression;
             var unary = expr.Body as UnaryExpression;
             var memberExpression = member ?? (unary != null ? unary.Operand as MemberExpression : null);
 
             if (memberExpression == null)
             {
-                return null;
+                throw new NotSupportedException("The expression provided is not supported in this usage.");
             }
 
             return memberExpression.Member.Name;

@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq, Version=4.2.1507.118, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Moq.4.2.1507.0118\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -58,8 +62,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTests\Autosave.Tests.cs" />
     <Compile Include="UnitTests\EngineTimer.Tests.cs" />
+    <Compile Include="UnitTests\Environment\TravelDirection.Tests.cs" />
+    <Compile Include="UnitTests\Environment\InvalidTimeOfDayException.Tests.cs" />
+    <Compile Include="UnitTests\Environment\OccupancyChangedEventArgs.Tests.cs" />
+    <Compile Include="UnitTests\Environment\TimeOfDay.Tests.cs" />
+    <Compile Include="UnitTests\Environment\TimeOfDayChangedEventArgs.Tests.cs" />
+    <Compile Include="UnitTests\Environment\Weather.Tests.cs" />
+    <Compile Include="UnitTests\ExtensionsTests\ICollectionExtensions.Tests.cs" />
+    <Compile Include="UnitTests\ExtensionsTests\ObjectExtensions.Tests.cs" />
     <Compile Include="UnitTests\InputArgs.Tests.cs" />
-    <Compile Include="UnitTests\TypePool.Tests.cs" />
+    <Compile Include="UnitTests\ReflectedCache.Tests.cs" />
+    <Compile Include="UnitTests\TypeCache.Tests.cs" />
+    <Compile Include="UnitTests\AttributeCache.Tests.cs" />
+    <Compile Include="UnitTests\PropertyCache.Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Src\MudEngine.Core\MudEngine.Core.csproj">
@@ -67,7 +82,9 @@
       <Name>MudEngine.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
