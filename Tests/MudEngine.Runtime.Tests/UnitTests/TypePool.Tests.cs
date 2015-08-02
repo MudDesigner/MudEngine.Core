@@ -40,6 +40,71 @@ namespace MudDesigner.MudEngine.Tests
         [TestCategory("MudDesigner")]
         [TestCategory("Engine")]
         [TestCategory("Engine Core")]
+        [ExpectedException(typeof(ArgumentNullException))]
+        [Owner("Johnathon Sullinger")]
+        public void Clear_type_from_pool_with_null_instance_throws_exception()
+        {
+            // Act
+            TypePool.ClearTypeFromPool(null);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Clear_type_from_pool_clears_cache()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            TypePool.AddType(typeof(TypePoolFixture));
+
+            // Act
+            TypePool.ClearTypeFromPool(fixture);
+
+            // Assert
+            Assert.IsFalse(TypePool.HasTypeInCache<TypePoolFixture>());
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Has_type_in_cache_returns_true_when_type_is_cached()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            TypePool.AddType(typeof(TypePoolFixture));
+
+            // Act
+            bool exists = TypePool.HasTypeInCache(fixture);
+
+            // Assert
+            Assert.IsTrue(exists);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Has_type_in_cache_returns_false_when_type_is_never_cached()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            
+            // Act
+            bool exists = TypePool.HasTypeInCache(fixture);
+
+            // Assert
+            Assert.IsFalse(exists);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
         [Owner("Johnathon Sullinger")]
         public void Add_type_twice_does_not_return_duplicates()
         {
@@ -218,10 +283,10 @@ namespace MudDesigner.MudEngine.Tests
         {
             //Arrange
             // Creates an initial cache for us
-            this.Get_properties_for_type_without_cache();
+            var properties = TypePool.GetPropertiesForType<TypePoolFixture>();
 
             // Act
-            var properties = TypePool.GetPropertiesForType<TypePoolFixture>();
+            properties = TypePool.GetPropertiesForType<TypePoolFixture>();
 
             // Assert
             Assert.IsTrue(properties.Count() == 11, "The number of properties expected back did not match the number of properties returned for the fixture.");
@@ -273,6 +338,58 @@ namespace MudDesigner.MudEngine.Tests
         [TestCategory("Engine")]
         [TestCategory("Engine Core")]
         [Owner("Johnathon Sullinger")]
+        public void Get_properties_from_instance()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+
+            // Act
+            IEnumerable<PropertyInfo> properties = TypePool.GetPropertiesForType(fixture);
+
+            // Assert
+            Assert.IsNotNull(properties);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Get_properties_from_null_instance_throws_exception()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+
+            // Act
+            IEnumerable<PropertyInfo> properties = TypePool.GetPropertiesForType<TypePoolFixture>(null, null);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_properties_from_instance_with_predicate()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+
+            // Act
+            IEnumerable<PropertyInfo> properties = 
+                TypePool.GetPropertiesForType(
+                    fixture, 
+                    p => p.Name == fixture.GetPropertyName(pr => pr.IsEnabled));
+
+            // Assert
+            Assert.IsNotNull(properties);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
         public void Remove_type_from_pool_without_cache()
         {
             // Act
@@ -299,6 +416,9 @@ namespace MudDesigner.MudEngine.Tests
             Assert.IsFalse(TypePool.HasTypeInCache<ComponentFixture>());
         }
 
+        #endregion
+
+        #region Performance Tests
         [TestMethod]
         [TestCategory("MudDesigner")]
         [TestCategory("Engine")]
@@ -559,7 +679,7 @@ namespace MudDesigner.MudEngine.Tests
             IEnumerable<Attribute> attributes = TypePool.GetAttributes(type);
 
             // Assert
-            Assert.IsTrue(attributes.Count() == 1);
+            Assert.IsTrue(attributes.Count() == 3);
         }
 
         [TestMethod]
@@ -572,13 +692,13 @@ namespace MudDesigner.MudEngine.Tests
             // Arrange
             var type = typeof(TypePoolFixture);
             var fixture = new TypePoolFixture();
-            var property = TypePool.GetProperty(type, p => p.Name == nameof(fixture.Number));
+            var property = TypePool.GetProperty(type, p => p.Name == nameof(fixture.PropertyWithAttribute));
 
             // Act
             IEnumerable<Attribute> attributes = TypePool.GetAttributes(type, property);
 
             // Assert
-            Assert.IsTrue(attributes.Count() == 1);
+            Assert.IsTrue(attributes.Count() == 3);
         }
 
         [TestMethod]
@@ -592,7 +712,7 @@ namespace MudDesigner.MudEngine.Tests
             IEnumerable<Attribute> attributes = TypePool.GetAttributes<AttributeFixture, TypePoolFixture>();
 
             // Assert
-            Assert.IsTrue(attributes.Count() == 1);
+            Assert.IsTrue(attributes.Count() == 2);
         }
 
         [TestMethod]
@@ -604,13 +724,14 @@ namespace MudDesigner.MudEngine.Tests
         {
             // Arrange
             var fixture = new TypePoolFixture();
-            PropertyInfo property = typeof(TypePoolFixture).GetProperty(nameof(fixture.Number));
+            PropertyInfo property = typeof(TypePoolFixture).GetProperty(nameof(fixture.PropertyWithAttribute));
 
             // Act
-            IEnumerable<Attribute> attributes = TypePool.GetAttributes<AttributeFixture, TypePoolFixture>(property);
+            IEnumerable<Attribute> attributes = 
+                TypePool.GetAttributes<AttributeFixture, TypePoolFixture>(property);
 
             // Assert
-            Assert.IsTrue(attributes.Count() == 1);
+            Assert.IsTrue(attributes.Count() == 2);
         }
 
         [TestMethod]
@@ -625,7 +746,8 @@ namespace MudDesigner.MudEngine.Tests
             PropertyInfo property = typeof(TypePoolFixture).GetProperty(nameof(fixture.LongFixture));
 
             // Act
-            IEnumerable<Attribute> attributes = TypePool.GetAttributes<AttributeFixture, TypePoolFixture>(property);
+            IEnumerable<Attribute> attributes = 
+                TypePool.GetAttributes<AttributeFixture, TypePoolFixture>(property);
 
             // Assert
             Assert.IsTrue(attributes.Count() == 0);
@@ -640,14 +762,15 @@ namespace MudDesigner.MudEngine.Tests
         {
             // Arrange
             var fixture = new TypePoolFixture();
-            PropertyInfo property = typeof(TypePoolFixture).GetProperty(nameof(fixture.Number));
+            PropertyInfo property = typeof(TypePoolFixture).GetProperty(nameof(fixture.PropertyWithAttribute));
 
             // Act
-            IEnumerable<Attribute> attributes = TypePool
-                .GetAttributes<AttributeFixture, TypePoolFixture>(property, attribute => attribute.GetType() == typeof(AttributeFixture));
+            IEnumerable<Attribute> attributes = 
+                TypePool.GetAttributes<AttributeFixture, TypePoolFixture>
+                    (property, attribute => attribute.GetType() == typeof(AttributeFixture));
 
             // Assert
-            Assert.IsTrue(attributes.Count() == 1);
+            Assert.IsTrue(attributes.Count() == 2);
             Assert.AreEqual(typeof(AttributeFixture), attributes.FirstOrDefault().GetType());
         }
 
@@ -659,11 +782,484 @@ namespace MudDesigner.MudEngine.Tests
         public void Get_attributes_from_generic_type_with_predicate()
         {
             // Act
-            IEnumerable<Attribute> attributes = TypePool
-                .GetAttributes<AttributeFixture, TypePoolFixture>(null, attribute => attribute.GetType() == typeof(AttributeFixture));
+            IEnumerable<Attribute> attributes = 
+                TypePool.GetAttributes<AttributeFixture, TypePoolFixture>(
+                    null, attribute => attribute.GetType() == typeof(AttributeFixture));
 
             // Assert
-            Assert.IsTrue(attributes.Count() == 1);
+            Assert.IsTrue(attributes.Count() == 2);
+            Assert.AreEqual(typeof(AttributeFixture), attributes.FirstOrDefault().GetType());
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_attributes_of_T_from_type()
+        {
+            // Act
+            IEnumerable<Attribute> attributes = TypePool
+                .GetAttributes<AttributeFixture>(typeof(TypePoolFixture));
+
+            // Assert
+            Assert.IsTrue(attributes.Count() == 2);
+            Assert.AreEqual(typeof(AttributeFixture), attributes.FirstOrDefault().GetType());
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_attributes_of_T_from_property_on_type()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            PropertyInfo property = typeof(TypePoolFixture).GetProperty(fixture.GetPropertyName(p => p.PropertyWithAttribute));
+
+            // Act
+            IEnumerable<Attribute> attributes = TypePool
+                .GetAttributes<AttributeFixture>(typeof(TypePoolFixture), property);
+
+            // Assert
+            Assert.IsTrue(attributes.Count() == 2);
+            Assert.AreEqual(typeof(AttributeFixture), attributes.FirstOrDefault().GetType());
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attributes_from_instance()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            
+            // Act
+            IEnumerable<Attribute> attributes = 
+                TypePool.GetAttributes<AttributeFixture, TypePoolFixture>(fixture);
+
+            // Assert
+            Assert.IsTrue(attributes.Count() == 2);
+            Assert.AreEqual(typeof(AttributeFixture), attributes.FirstOrDefault().GetType());
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attributes_from_instance_property()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            var property = typeof(TypePoolFixture).GetProperty(fixture.GetPropertyName(p => p.PropertyWithAttribute));
+
+            // Act
+            IEnumerable<Attribute> attributes =
+                TypePool.GetAttributes<AttributeFixture, TypePoolFixture>(fixture, property);
+
+            // Assert
+            Assert.IsTrue(attributes.Count() == 2);
+            Assert.AreEqual(typeof(AttributeFixture), attributes.FirstOrDefault().GetType());
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attributes_from_instance_property_with_predicate()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            var property = typeof(TypePoolFixture).GetProperty(fixture.GetPropertyName(p => p.PropertyWithAttribute));
+
+            // Act
+            IEnumerable<Attribute> attributes =
+                TypePool.GetAttributes<AttributeFixture, TypePoolFixture>(
+                    fixture, property, attribute => attribute is AttributeFixture);
+
+            // Assert
+            Assert.IsTrue(attributes.Count() == 2);
+            Assert.AreEqual(typeof(AttributeFixture), attributes.FirstOrDefault().GetType());
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attributes_from_instance_with_predicate()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            
+            // Act
+            IEnumerable<Attribute> attributes =
+                TypePool.GetAttributes<AttributeFixture, TypePoolFixture>(
+                    fixture, null, attribute => attribute is AttributeFixture);
+
+            // Assert
+            Assert.IsTrue(attributes.Count() == 2);
+            Assert.AreEqual(typeof(AttributeFixture), attributes.FirstOrDefault().GetType());
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attributes_from_null_instance()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+
+            // Act
+            IEnumerable<Attribute> attributes =
+                TypePool.GetAttributes<AttributeFixture, TypePoolFixture>(null, null, null);
+
+            // Assert
+            Assert.IsTrue(attributes.Count() == 2);
+            Assert.AreEqual(typeof(AttributeFixture), attributes.FirstOrDefault().GetType());
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_attribute_from_type()
+        {
+            // Act
+            Attribute attribute =
+                TypePool.GetAttribute(typeof(TypePoolFixture));
+
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_attribute_from_property_on_type()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            var property = typeof(TypePoolFixture).GetProperty(fixture.GetPropertyName(p => p.PropertyWithAttribute));
+
+            // Act
+            Attribute attribute =
+                TypePool.GetAttribute(typeof(TypePoolFixture), property);
+
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_attribute_from_property_on_type_with_predicate()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            var property = typeof(TypePoolFixture).GetProperty(fixture.GetPropertyName(p => p.PropertyWithAttribute));
+
+            // Act
+            Attribute attribute =
+                TypePool.GetAttribute(typeof(TypePoolFixture), property, a => a is AttributeFixture);
+
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_attribute_on_type_with_predicate()
+        {
+            // Act
+            Attribute attribute =
+                TypePool.GetAttribute(typeof(TypePoolFixture), null, a => a is AttributeFixture);
+
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Get_attribute_on_null_type()
+        {
+            // Act
+            Attribute attribute = TypePool.GetAttribute(null, null, null);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_attributes_of_T_from_property_on_type_with_predicate()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            PropertyInfo property = typeof(TypePoolFixture).GetProperty(fixture.GetPropertyName(p => p.PropertyWithAttribute));
+
+            // Act
+            IEnumerable<Attribute> attributes = 
+                TypePool.GetAttributes<AttributeFixture>(
+                    typeof(TypePoolFixture), property, attribute => attribute is AttributeFixture);
+
+            // Assert
+            Assert.IsTrue(attributes.Count() == 2);
+            Assert.AreEqual(typeof(AttributeFixture), attributes.FirstOrDefault().GetType());
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attribute_from_type()
+        {
+            // Act
+            AttributeFixture attribute =
+                TypePool.GetAttribute<AttributeFixture>(typeof(TypePoolFixture));
+
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attribute_from_property_on_type()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            var property = typeof(TypePoolFixture).GetProperty(fixture.GetPropertyName(p => p.PropertyWithAttribute));
+
+            // Act
+            AttributeFixture attribute =
+                TypePool.GetAttribute<AttributeFixture>(typeof(TypePoolFixture), property);
+
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attribute_from_property_on_type_with_predicate()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            var property = typeof(TypePoolFixture).GetProperty(fixture.GetPropertyName(p => p.PropertyWithAttribute));
+
+            // Act
+            AttributeFixture attribute =
+                TypePool.GetAttribute<AttributeFixture>(typeof(TypePoolFixture), property, a => a.IsEnabled);
+
+            // Assert
+            Assert.IsNotNull(attribute);
+            Assert.IsTrue(attribute.IsEnabled);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attribute_on_type_with_predicate()
+        {
+            // Act
+            AttributeFixture attribute =
+                TypePool.GetAttribute<AttributeFixture>(typeof(TypePoolFixture), null, a => a.IsEnabled);
+
+            // Assert
+            Assert.IsNotNull(attribute);
+            Assert.IsTrue(attribute.IsEnabled);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Get_generic_attribute_on_null_type()
+        {
+            // Act
+            AttributeFixture attribute = TypePool.GetAttribute<AttributeFixture>(null, null, null);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attribute_from_instance()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+
+            // Act
+            AttributeFixture attribute =
+                TypePool.GetAttribute<AttributeFixture, TypePoolFixture>();
+
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attribute_from_instance_property()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            var property = typeof(TypePoolFixture).GetProperty(fixture.GetPropertyName(p => p.PropertyWithAttribute));
+
+            // Act
+            AttributeFixture attribute =
+                TypePool.GetAttribute<AttributeFixture, TypePoolFixture>(property);
+
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_single_attribute_from_instance_property()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            var property = typeof(TypePoolFixture).GetProperty(fixture.GetPropertyName(p => p.PropertyWithAttribute));
+
+            // Act
+            AttributeFixture attribute =
+                TypePool.GetAttribute<AttributeFixture, TypePoolFixture>(property, fixture);
+
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_single_attribute_from_instance_property_with_predicate()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            var property = typeof(TypePoolFixture).GetProperty(fixture.GetPropertyName(p => p.PropertyWithAttribute));
+
+            // Act
+            AttributeFixture attribute =
+                TypePool.GetAttribute<AttributeFixture, TypePoolFixture>(
+                    property, 
+                    fixture,
+                    a => a.IsEnabled);
+
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attribute_from_null_instance_with_predicate()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            var property = typeof(TypePoolFixture).GetProperty(fixture.GetPropertyName(p => p.PropertyWithAttribute));
+
+            // Act
+            AttributeFixture attribute =
+                TypePool.GetAttribute<AttributeFixture, TypePoolFixture>(
+                    property, null, a => a.IsEnabled);
+
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attribute_from_null_property_and_null_instance_with_predicate()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+            var property = typeof(TypePoolFixture).GetProperty(fixture.GetPropertyName(p => p.PropertyWithAttribute));
+
+            // Act
+            AttributeFixture attribute =
+                TypePool.GetAttribute<AttributeFixture, TypePoolFixture>(
+                    null, null, a => a.IsEnabled);
+
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_generic_attribute_from_null_instance()
+        {
+            // Arrange
+            var fixture = new TypePoolFixture();
+
+            // Act
+            IEnumerable<Attribute> attributes =
+                TypePool.GetAttributes<AttributeFixture, TypePoolFixture>(null, null, null);
+
+            // Assert
+            Assert.IsTrue(attributes.Count() == 2);
+            Assert.AreEqual(typeof(AttributeFixture), attributes.FirstOrDefault().GetType());
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Core")]
+        [Owner("Johnathon Sullinger")]
+        public void Get_attributes_of_T_from_type_with_predicate()
+        {
+            // Act
+            IEnumerable<Attribute> attributes = 
+                TypePool.GetAttributes<AttributeFixture>(
+                    typeof(TypePoolFixture), null, attribute => attribute is AttributeFixture);
+
+            // Assert
+            Assert.IsTrue(attributes.Count() == 2);
             Assert.AreEqual(typeof(AttributeFixture), attributes.FirstOrDefault().GetType());
         }
 
@@ -677,7 +1273,7 @@ namespace MudDesigner.MudEngine.Tests
             // Arrange
             var type = typeof(TypePoolFixture);
             var fixture = new TypePoolFixture();
-            var property = TypePool.GetProperty(type, p => p.Name == nameof(fixture.Number));
+            var property = TypePool.GetProperty(type, p => p.Name == nameof(fixture.PropertyWithAttribute));
 
             // Act
             IEnumerable<Attribute> attributes = TypePool.GetAttributes(
@@ -686,7 +1282,7 @@ namespace MudDesigner.MudEngine.Tests
                 attribute => attribute.GetType() == typeof(AttributeFixture));
 
             // Assert
-            Assert.IsTrue(attributes.Count() == 1);
+            Assert.IsTrue(attributes.Count() == 2);
         }
 
 
@@ -701,13 +1297,13 @@ namespace MudDesigner.MudEngine.Tests
             // Arrange
             var type = typeof(TypePoolFixture);
             var fixture = new TypePoolFixture();
-            var property = TypePool.GetProperty(type, p => p.Name == nameof(fixture.Number));
+            var property = TypePool.GetProperty(type, p => p.Name == nameof(fixture.PropertyWithAttribute));
             IEnumerable<Attribute> attributes = TypePool.GetAttributes(type, property);
 
             // Act
 
             // Assert
-            Assert.IsTrue(attributes.Count() == 1);
+            Assert.IsTrue(attributes.Count() == 3);
         }
         #endregion
     }

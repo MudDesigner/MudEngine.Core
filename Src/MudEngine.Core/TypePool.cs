@@ -251,6 +251,11 @@ namespace MudDesigner.MudEngine
         public static IEnumerable<PropertyInfo> GetPropertiesForType<T>(T item, Func<PropertyInfo, bool> predicate = null)
             where T : class
         {
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item), "You must provide an instance of T");
+            }
+
             Type desiredType = item.GetType();
             return GetPropertiesForType(desiredType, predicate);
         }
@@ -278,14 +283,7 @@ namespace MudDesigner.MudEngine
         public static PropertyInfo GetProperty(Type type, Func<PropertyInfo, bool> predicate)
         {
             CachedTypeData cacheType = TypePropertyCache.GetOrAdd(type, new CachedTypeData(type));
-            try
-            {
-                return cacheType.GetProperty(predicate);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            return cacheType.GetProperty(predicate);
         }
 
         /// <summary>

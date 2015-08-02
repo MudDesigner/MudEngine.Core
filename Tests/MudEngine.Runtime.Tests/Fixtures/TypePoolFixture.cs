@@ -9,7 +9,9 @@ namespace MudDesigner.MudEngine.Tests.Fixture
     public class TypePoolFixture : ComponentFixture
     {
         [AttributeFixture]
-        public int Number { get; set; } = 15;
+        [AttributeFixture(true)]
+        [System.ComponentModel.DefaultValue(5)]
+        public int PropertyWithAttribute { get; set; } = 15;
 
         public double DoubleNumber { get; set; }
 
