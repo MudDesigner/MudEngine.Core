@@ -50,7 +50,7 @@ namespace MudDesigner.MudEngine.Environment
 
         public DateTime CreationDate { get; private set; }
 
-        public double TimeAlive { get { return this.CreationDate.Subtract(DateTime.Now).TotalSeconds; } }
+        public double TimeAlive { get { return DateTime.Now.Subtract(this.CreationDate).TotalSeconds; } }
 
         /// <summary>
         /// Initializes the time of day state with the supplied in-game to real-world hours factor.
@@ -59,6 +59,11 @@ namespace MudDesigner.MudEngine.Environment
         /// <param name="hoursPerDay">The hours per day.</param>
         public void Initialize(ITimeOfDay startTime, double worldTimeFactor)
         {
+            if (startTime == null)
+            {
+                throw new ArgumentNullException(nameof(startTime), "startTime can not be null.");
+            }
+
             if (startTime.HoursPerDay == 0)
             {
                 throw new InvalidTimeOfDayException("HoursPerDay can not be zero.", startTime);
