@@ -67,6 +67,7 @@
     <Compile Include="Environment\TimeOfDayStateManager.cs" />
     <Compile Include="Environment\WeatherStateChangedEventArgs.cs" />
     <Compile Include="Environment\WestDirection.cs" />
+    <Compile Include="IGameConfiguration.cs" />
     <Compile Include="MessageBrokering\StandardMessage.cs" />
     <Compile Include="PropertyCache.cs" />
     <Compile Include="TypeCache.cs" />

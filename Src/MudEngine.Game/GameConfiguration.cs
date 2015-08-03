@@ -10,9 +10,9 @@ namespace MudDesigner.MudEngine.Game
     /// <summary>
     /// Provides meta-information for the currently running game.
     /// </summary>
-    public class GameInformation
+    public class GameConfiguration : IGameConfiguration
     {
-        public GameInformation()
+        public GameConfiguration()
         {
             this.Version = new Version("1.0.0.0");
         }

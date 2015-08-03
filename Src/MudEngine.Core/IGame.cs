@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MudDesigner.MudEngine.Environment;
+using MudDesigner.MudEngine.Game;
 
 namespace MudDesigner.MudEngine
 {
@@ -11,8 +13,10 @@ namespace MudDesigner.MudEngine
 
         bool IsRunning { get; }
 
-        // IWorld[] Worlds { get; }
+        Task Configure(IGameConfiguration config);
 
-        //Task AddWorld(IWorld world);
+        IWorld[] Worlds { get; }
+
+        Task AddWorld(IWorld world);
     }
 }

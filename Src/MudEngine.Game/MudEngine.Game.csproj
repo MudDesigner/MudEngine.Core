@@ -34,48 +34,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Autosave.cs" />
-    <Compile Include="ChatMessageBase.cs" />
-    <Compile Include="CommandMessage.cs" />
-    <Compile Include="CommandRequestMessage.cs" />
-    <Compile Include="ComponentRequest.cs" />
-    <Compile Include="Components\CharacterFactory.cs" />
-    <Compile Include="Components\CharacterInformation.cs" />
-    <Compile Include="Components\CharacterMessage.cs" />
-    <Compile Include="Components\CommandCompletionArgs.cs" />
-    <Compile Include="Components\CommandManager.cs" />
-    <Compile Include="Components\CommandManagerFactory.cs" />
-    <Compile Include="Components\DefaultPlayer.cs" />
-    <Compile Include="Components\ICharacter.cs" />
-    <Compile Include="Components\ICharacterInformation.cs" />
-    <Compile Include="Components\ICommandManager.cs" />
-    <Compile Include="Components\IInputCommand.cs" />
-    <Compile Include="Components\InformationMessage.cs" />
-    <Compile Include="Components\InputCommandResult.cs" />
-    <Compile Include="Components\IPlayer.cs" />
-    <Compile Include="Components\ISecurityPermission.cs" />
-    <Compile Include="Components\ISecurityRole.cs" />
-    <Compile Include="Components\SecurityRole.cs" />
-    <Compile Include="DefaultGame.cs" />
-    <Compile Include="Components\OccupancyChangedEventArgs.cs" />
-    <Compile Include="Components\TimeOfDayStateManager.cs" />
+    <Compile Include="MudGame.cs" />
     <Compile Include="GameComponent.cs" />
-    <Compile Include="GameInformation.cs" />
-    <Compile Include="IChatMessage.cs" />
-    <Compile Include="IGame.cs" />
-    <Compile Include="IGameComponent.cs" />
-    <Compile Include="Notification.cs" />
-    <Compile Include="NotificationManager.cs" />
+    <Compile Include="GameConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShoutMessage.cs" />
-    <Compile Include="WhisperMessage.cs" />
-    <Compile Include="WorldLoadedArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MudEngine.Core\MudEngine.Core.csproj">
       <Project>{3c8d5969-8510-4122-a91a-584507d1c9b6}</Project>
       <Name>MudEngine.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Actors\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,12 +9,12 @@ namespace MudDesigner.MudEngine.Game
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Components;
+    using Environment;
 
     /// <summary>
     /// The Default engine implementation of the IGame interface. This implementation provides validation support via ValidationBase.
     /// </summary>
-    public class DefaultGame : GameComponent, IGame
+    public class MudGame : GameComponent, IGame
     {
         //private ILoggingService loggingService;
 
@@ -23,11 +23,11 @@ namespace MudDesigner.MudEngine.Game
         private List<IWorld> worlds = new List<IWorld>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultGame" /> class.
+        /// Initializes a new instance of the <see cref="MudGame" /> class.
         /// </summary>
         /// <param name="loggingService">The logging service.</param>
         /// <param name="worldService">The world service.</param>
-        public DefaultGame(/*ILoggingService loggingService, IWorldService worldService*/)
+        public MudGame(/*ILoggingService loggingService, IWorldService worldService*/)
         {
             //ExceptionFactory
             //    .ThrowIf<ArgumentNullException>(loggingService == null, "Logging service can not be null.", this)
@@ -36,24 +36,21 @@ namespace MudDesigner.MudEngine.Game
             //this.loggingService = loggingService;
             //this.worldService = worldService;
 
-            this.Information = new GameInformation();
-            this.Autosave = new Autosave<DefaultGame>(this, this.SaveWorlds) { AutoSaveFrequency = 1 };
+            this.Configuration = new GameConfiguration();
+            this.Autosave = new Autosave<IGame>(this, this.SaveWorlds) { AutoSaveFrequency = 1 };
         }
 
-        /// <summary>
-        /// Occurs when a world is loaded, prior to initialization of the world.
-        /// </summary>
-        public event Func<DefaultGame, WorldLoadedArgs, Task> WorldLoaded;
+        public event Func<IGame, WorldLoadedArgs, Task> WorldLoaded;
 
         /// <summary>
         /// Gets information pertaining to the game.
         /// </summary>
-        public GameInformation Information { get; protected set; }
+        public IGameConfiguration Configuration { get; protected set; }
 
         /// <summary>
         /// Gets the Autosaver responsible for automatically saving the game at a set interval.
         /// </summary>
-        public Autosave<DefaultGame> Autosave { get; protected set; }
+        public Autosave<IGame> Autosave { get; protected set; }
 
         /// <summary>
         /// Gets a value indicating that the initialized or not.
@@ -74,6 +71,12 @@ namespace MudDesigner.MudEngine.Game
             {
                 return this.worlds.ToArray();
             }
+        }
+
+        public Task Configure(IGameConfiguration configuration)
+        {
+            this.Configuration = configuration;
+            return Task.FromResult(0);
         }
 
         /// <summary>

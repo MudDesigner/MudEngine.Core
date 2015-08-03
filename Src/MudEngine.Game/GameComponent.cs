@@ -8,7 +8,7 @@ namespace MudDesigner.MudEngine.Game
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Core.Mediation;
+    using MessageBrokering;
 
     /// <summary>
     /// The root class for all game Types.
@@ -21,39 +21,34 @@ namespace MudDesigner.MudEngine.Game
         {
             this.subscriptions = new Dictionary<Type, ISubscription>();
             this.Id = Guid.NewGuid();
+            this.CreationDate = DateTime.Now;
         }
 
-        /// <summary>
-        /// The Loading event is fired during initialization of the component prior to being loaded.
-        /// </summary>
         public event Func<IGameComponent, Task> Loading;
 
-        /// <summary>
-        /// The Loaded event is fired upon completion of the components initialization and loading.
-        /// </summary>
         public event EventHandler<EventArgs> Loaded;
 
-        /// <summary>
-        /// The Deleting event is fired immediately upon a delete request.
-        /// </summary>
         public event Func<IGameComponent, Task> Deleting;
 
-        /// <summary>
-        /// The Deleted event is fired once the object has finished processing it's unloading and clean up.
-        /// </summary>
         public event EventHandler<EventArgs> Deleted;
 
-        public INotificationCenter NotificationCenter { get; private set; }
-        
-        /// <summary>
-        /// Gets or sets the unique identifier.
-        /// </summary>
-        public Guid Id { get; set; }
+        public INotificationCenter NotificationCenter { get; protected set; }
 
-        public DateTime CreatedDate { get; set; }
+        public string Name { get; protected set; }
 
-        public DateTime LastUpdatedDate { get; set; }
+        public Guid Id { get; private set; }
 
+        public bool IsEnabled { get; protected set; }
+
+        public DateTime CreationDate { get; private set; }
+
+        public double TimeAlive
+        {
+            get
+            {
+                return DateTime.Now.Subtract(this.CreationDate).TotalSeconds;
+            }
+        }
 
         /// <summary>
         /// Initializes the game component.
@@ -62,6 +57,9 @@ namespace MudDesigner.MudEngine.Game
         public async Task Initialize()
         {
             await this.LoadingBegan();
+
+            this.IsEnabled = true;
+
             await this.Load();
             this.LoadingCompleted();
         }
@@ -82,11 +80,21 @@ namespace MudDesigner.MudEngine.Game
             this.OnDeleted();
         }
 
+        public void Disable()
+        {
+            this.IsEnabled = false;
+        }
+
+        public void Enable()
+        {
+            this.IsEnabled = true;
+        }
+
         public void PublishMessage<TMessage>(TMessage message) where TMessage : class, IMessage
         {
             if (this.NotificationCenter == null)
             {
-                throw new NullReferenceException($"{this.GetType().Name} has a null INotificationCenter reference and can not use it to publish messages.");
+                throw new NullReferenceException($"{this.GetType().Name} has a null {typeof(INotificationCenter).Name} reference and can not use it to publish messages.");
             }
 
             this.NotificationCenter.Publish(message);
@@ -96,7 +104,7 @@ namespace MudDesigner.MudEngine.Game
         {
             if (this.NotificationCenter == null)
             {
-                throw new NullReferenceException($"{this.GetType().Name} has a null INotificationCenter reference and can not use it to subscribe to publications.");
+                throw new NullReferenceException($"{this.GetType().Name} has a null {typeof(INotificationCenter).Name} reference and can not use it to publish messages.");
             }
 
             ISubscription subscription = null;
