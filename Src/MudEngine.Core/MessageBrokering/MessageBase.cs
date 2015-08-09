@@ -18,10 +18,7 @@ namespace MudDesigner.MudEngine.MessageBrokering
 
         /// <summary>
         /// Gets the content of the message.
-        /// </summary>
-        /// <returns>
-        /// Returns the message content
-        /// </returns>
+        /// </summar>y
         public TContentType GetContent()
         {
             return this.Content;

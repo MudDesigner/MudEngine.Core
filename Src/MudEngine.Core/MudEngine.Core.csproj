@@ -67,7 +67,7 @@
     <Compile Include="Environment\TimeOfDayStateManager.cs" />
     <Compile Include="Environment\WeatherStateChangedEventArgs.cs" />
     <Compile Include="Environment\WestDirection.cs" />
-    <None Include="Environment\WorldManager.cs" />
+    <Compile Include="Environment\WorldManager.cs" />
     <Compile Include="IGameConfiguration.cs" />
     <Compile Include="MessageBrokering\StandardMessage.cs" />
     <Compile Include="PropertyCache.cs" />
@@ -83,11 +83,11 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="MessageBrokering\IMessage.cs" />
     <Compile Include="MessageBrokering\INotification.cs" />
-    <Compile Include="MessageBrokering\INotificationCenter.cs" />
+    <Compile Include="MessageBrokering\IMessageBroker.cs" />
     <Compile Include="MessageBrokering\ISubscription.cs" />
     <Compile Include="MessageBrokering\MessageBase.cs" />
     <Compile Include="MessageBrokering\NotificationArgs.cs" />
-    <Compile Include="MessageBrokering\NotificationManagerFactory.cs" />
+    <Compile Include="MessageBrokering\MessageBrokerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectedCache.cs" />
   </ItemGroup>
