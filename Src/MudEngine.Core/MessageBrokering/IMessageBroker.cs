@@ -10,7 +10,7 @@ namespace MudDesigner.MudEngine.MessageBrokering
     /// <summary>
     /// Provides a contract for Mediators to use when handling notifications between objects.
     /// </summary>
-    public interface INotificationCenter
+    public interface IMessageBroker
     {
         /// <summary>
         /// Sets up a new handler and returns it for subscription set up.

@@ -8,14 +8,14 @@ namespace MudDesigner.MudEngine.MessageBrokering
 {
     public static class NotificationManagerFactory
     {
-        private static Func<INotificationCenter> _factory;
+        private static Func<IMessageBroker> _factory;
 
-        public static void SetFactory(Func<INotificationCenter> factory)
+        public static void SetFactory(Func<IMessageBroker> factory)
         {
             NotificationManagerFactory._factory = factory;
         }
 
-        public static INotificationCenter CreateNotificationCenter()
+        public static IMessageBroker CreateNotificationCenter()
         {
             return _factory();
         }

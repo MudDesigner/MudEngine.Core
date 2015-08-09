@@ -34,7 +34,7 @@ namespace MudDesigner.MudEngine
         /// </summary>
         event EventHandler<EventArgs> Deleted;
 
-        INotificationCenter NotificationCenter { get; }
+        IMessageBroker NotificationCenter { get; }
 
         /// <summary>
         /// Gets the name of this component.
@@ -71,6 +71,6 @@ namespace MudDesigner.MudEngine
         /// Sets the notification manager to be used by this component.
         /// </summary>
         /// <param name="notificationManager">The notification manager.</param>
-        void SetNotificationManager(INotificationCenter notificationManager);
+        void SetNotificationManager(IMessageBroker notificationManager);
     }
 }

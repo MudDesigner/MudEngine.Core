@@ -32,7 +32,7 @@ namespace MudDesigner.MudEngine.Game
 
         public event EventHandler<EventArgs> Deleted;
 
-        public INotificationCenter NotificationCenter { get; protected set; }
+        public IMessageBroker NotificationCenter { get; protected set; }
 
         public string Name { get; protected set; }
 
@@ -94,7 +94,7 @@ namespace MudDesigner.MudEngine.Game
         {
             if (this.NotificationCenter == null)
             {
-                throw new NullReferenceException($"{this.GetType().Name} has a null {typeof(INotificationCenter).Name} reference and can not use it to publish messages.");
+                throw new NullReferenceException($"{this.GetType().Name} has a null {typeof(IMessageBroker).Name} reference and can not use it to publish messages.");
             }
 
             this.NotificationCenter.Publish(message);
@@ -104,7 +104,7 @@ namespace MudDesigner.MudEngine.Game
         {
             if (this.NotificationCenter == null)
             {
-                throw new NullReferenceException($"{this.GetType().Name} has a null {typeof(INotificationCenter).Name} reference and can not use it to publish messages.");
+                throw new NullReferenceException($"{this.GetType().Name} has a null {typeof(IMessageBroker).Name} reference and can not use it to publish messages.");
             }
 
             ISubscription subscription = null;
@@ -142,7 +142,7 @@ namespace MudDesigner.MudEngine.Game
             this.subscriptions.Clear();
         }
 
-        public void SetNotificationManager(INotificationCenter notificationManager)
+        public void SetNotificationManager(IMessageBroker notificationManager)
         {
             this.NotificationCenter = notificationManager;
         }
