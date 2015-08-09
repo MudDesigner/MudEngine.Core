@@ -8,6 +8,7 @@ namespace MudDesigner.MudEngine
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using MessageBrokering;
 
     /// <summary>
     /// <para>
@@ -163,6 +164,7 @@ namespace MudDesigner.MudEngine
         private void StartTimer(Func<Task, object, Task> timerDelegate, object data, bool isAsync, double startDelay)
         {
             this.IsRunning = true;
+            MessageBrokerFactory.Instance.Publish(new DebugMessage($"Starting timer for an instance of {this.StateData.GetType().Name}"));
 
             this.timerTask = Task
                 .Delay(TimeSpan.FromMilliseconds(startDelay), this.Token)

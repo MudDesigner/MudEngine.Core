@@ -12,7 +12,7 @@ namespace MudDesigner.MudEngine.Environment
     /// <summary>
     /// Provides methods for creating and maintaining worlds
     /// </summary>
-    public interface IWorld : IGameComponent
+    public interface IWorld : IGameComponent, ICloneableComponent<IWorld>
     {
         /// <summary>
         /// Occurs when the time of day has changed for this world.
@@ -43,7 +43,7 @@ namespace MudDesigner.MudEngine.Environment
         /// Gets the available time periods for this world.
         /// </summary>
         /// <returns>Returns an array of time periods</returns>
-        ITimePeriod[] GetAvailableTimeOfDays();
+        ITimePeriod[] GetTimePeriodsForWorld();
 
         /// <summary>
         /// Gets all of the realms that have been added to this world.
@@ -52,21 +52,22 @@ namespace MudDesigner.MudEngine.Environment
         IRealm[] GetRealmsInWorld();
 
         /// <summary>
-        /// Adds the given realm to this world instance.
+        /// Initializes and then adds the given realm to this world instance.
         /// </summary>
         /// <param name="realm">The realm to add.</param>
         /// <returns>Returns an awaitable Task</returns>
         Task AddRealmToWorld(IRealm realm);
 
         /// <summary>
-        /// Adds the realms to world.
+        /// Adds a collection of realms to world, initializing them as they are added.
         /// </summary>
         /// <param name="realms">The realms.</param>
         /// <returns>Returns an awaitable Task</returns>
         Task AddRealmsToWorld(IEnumerable<IRealm> realms);
 
         /// <summary>
-        /// Removes the given realm from this world instance.
+        /// Removes the given realm from this world instance, deleting the realm in the process.
+        /// If it must be reused, you may clone the realm and add the clone to another world.
         /// </summary>
         /// <param name="realm">The realm to remove.</param>
         /// <returns>Returns an awaitable Task</returns>
@@ -75,6 +76,8 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Removes a collection of realms from this world instance.
         /// If any of the realms don't exist in the world, they will be ignored.
+        /// The realms will be deleted during the process.
+        /// If they must be reused, you may clone the realm and add the clone to another world.
         /// </summary>
         /// <param name="realms">The realms collection.</param>
         /// <returns>Returns an awaitable Task</returns>

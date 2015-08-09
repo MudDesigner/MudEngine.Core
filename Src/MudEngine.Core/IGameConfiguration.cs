@@ -32,10 +32,24 @@ namespace MudDesigner.MudEngine
         /// </summary>
         string Website { get; set; }
 
-        IConfigurationComponent[] GetConfigurationComponents();
+        /// <summary>
+        /// Gets the game configuration components that have been registered.
+        /// </summary>
+        /// <returns>Returns an array of configuration components</returns>
+        IAdapter[] GetConfigurationComponents();
 
-        void UseGameComponent<T>() where T : IConfigurationComponent;
+        /// <summary>
+        /// Tells the game configuration that a specific component must be used by the game.
+        /// A new instance of TConfigComponent will be created when the game starts.
+        /// </summary>
+        /// <typeparam name="TConfigComponent">The type of the configuration component to use.</typeparam>
+        void UseGameComponent<TConfigComponent>() where TConfigComponent : class, IAdapter, new();
 
-        void UseGameComponent<T>(T component) where T : IConfigurationComponent;
+        /// <summary>
+        /// Tells the game configuration that a specific component must be used by the game.
+        /// </summary>
+        /// <typeparam name="TConfigComponent">The type of the configuration component.</typeparam>
+        /// <param name="component">The component instance you want to use.</param>
+        void UseGameComponent<TConfigComponent>(TConfigComponent component) where TConfigComponent : class, IAdapter;
     }
 }

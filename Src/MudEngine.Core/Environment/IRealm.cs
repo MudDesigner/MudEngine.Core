@@ -37,7 +37,7 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Gets the World that owns this Realm.
         /// </summary>
-        IWorld Owner { get; }
+        IWorld Owner { get; set; }
 
         /// <summary>
         /// Adds a given zone to this Realm.

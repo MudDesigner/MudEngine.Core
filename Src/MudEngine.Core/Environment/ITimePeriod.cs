@@ -33,11 +33,11 @@ namespace MudDesigner.MudEngine.Environment
         ITimeOfDay StateStartTime { get; }
 
         /// <summary>
-        /// Initializes the specified start time and starts ticking the time of day clock.
+        /// Starts the time period, ticking the time of day clock.
         /// </summary>
         /// <param name="startTime">The time of day this period begins at.</param>
         /// <param name="worldTimeFactor">The world time factor. This value can be used to adjust the interval between time of day updates.</param>
-        void Initialize(ITimeOfDay startTime, double worldTimeFactor);
+        void Start(ITimeOfDay startTime, double worldTimeFactor);
 
         /// <summary>
         /// Resets this instance, zeroing out the current time back to the time periods start time.

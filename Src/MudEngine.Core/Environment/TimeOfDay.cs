@@ -165,6 +165,15 @@ namespace MudDesigner.MudEngine.Environment
         }
 
         /// <summary>
+        /// Sets the hours per day.
+        /// </summary>
+        /// <param name="hoursPerDay">The hours per day.</param>
+        public void SetHoursPerDay(int hoursPerDay)
+        {
+            this.HoursPerDay = hoursPerDay;
+        }
+
+        /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>

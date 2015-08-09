@@ -6,7 +6,6 @@
 namespace MudDesigner.MudEngine.Game
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using MessageBrokering;
 
@@ -15,33 +14,58 @@ namespace MudDesigner.MudEngine.Game
     /// </summary>
     public abstract class GameComponent : IGameComponent
     {
-        private Dictionary<Type, ISubscription> subscriptions;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameComponent"/> class.
+        /// </summary>
         public GameComponent()
         {
-            this.subscriptions = new Dictionary<Type, ISubscription>();
             this.Id = Guid.NewGuid();
             this.CreationDate = DateTime.Now;
         }
 
+        /// <summary>
+        /// The Loading event is fired during initialization of the component prior to being loaded.
+        /// </summary>
         public event Func<IGameComponent, Task> Loading;
 
+        /// <summary>
+        /// The Loaded event is fired upon completion of the components initialization and loading.
+        /// </summary>
         public event EventHandler<EventArgs> Loaded;
 
+        /// <summary>
+        /// The Deleting event is fired immediately upon a delete request.
+        /// </summary>
         public event Func<IGameComponent, Task> Deleting;
 
+        /// <summary>
+        /// The Deleted event is fired once the object has finished processing it's unloading and clean up.
+        /// </summary>
         public event EventHandler<EventArgs> Deleted;
 
-        public IMessageBroker NotificationCenter { get; protected set; }
-
+        /// <summary>
+        /// Gets the name of this component.
+        /// </summary>
         public string Name { get; protected set; }
 
-        public Guid Id { get; private set; }
+        /// <summary>
+        /// Gets the unique identifier for this component.
+        /// </summary>
+        public Guid Id { get; protected set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is enabled.
+        /// </summary>
         public bool IsEnabled { get; protected set; }
 
+        /// <summary>
+        /// Gets the date that this component was instanced.
+        /// </summary>
         public DateTime CreationDate { get; private set; }
 
+        /// <summary>
+        /// Gets the amount number of seconds that this component instance has been alive.
+        /// </summary>
         public double TimeAlive
         {
             get
@@ -53,98 +77,63 @@ namespace MudDesigner.MudEngine.Game
         /// <summary>
         /// Initializes the game component.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns an awaitable Task</returns>
         public async Task Initialize()
         {
+            MessageBrokerFactory.Instance.Publish(new InfoMessage($"Initializing {this.Name ?? "GameComponent"} ({this.GetType().Name})"));
             await this.LoadingBegan();
 
             this.IsEnabled = true;
 
             await this.Load();
             this.LoadingCompleted();
+
+            MessageBrokerFactory.Instance.Publish(new InfoMessage($"Initialization of {this.Name ?? "GameComponent"} ({this.GetType().Name}) completed."));
         }
 
         /// <summary>
+        /// Lets this instance know that it is about to go out of scope and disposed.
+        /// The instance will perform clean-up of its resources in preperation for deletion.
+        /// </summary>
+        /// <para>
         /// Informs the component that it is no longer needed, allowing it to perform clean up.
         /// Objects registered to one of the two delete events will be notified of the delete request.
-        /// </summary>
-        /// <returns></returns>
+        /// </para>
+        /// <returns>Returns an awaitable Task</returns>
         public async Task Delete()
         {
             await this.OnDeleteRequested();
             await this.Unload();
-
-            // In the event the instance did not correctly unsubscribe from all of its subscriptions,
-            // we ensure all of our subscriptions are unsubscribed from.
-            this.UnsubscribeFromAllMessages();
             this.OnDeleted();
         }
 
+        /// <summary>
+        /// Disables this instance.
+        /// </summary>
         public void Disable()
         {
             this.IsEnabled = false;
         }
 
+        /// <summary>
+        /// Enables this instance.
+        /// </summary>
         public void Enable()
         {
             this.IsEnabled = true;
         }
 
-        public void PublishMessage<TMessage>(TMessage message) where TMessage : class, IMessage
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
         {
-            if (this.NotificationCenter == null)
-            {
-                throw new NullReferenceException($"{this.GetType().Name} has a null {typeof(IMessageBroker).Name} reference and can not use it to publish messages.");
-            }
-
-            this.NotificationCenter.Publish(message);
-        }
-
-        public void SubscribeToMessage<TMessage>(Action<TMessage, ISubscription> callback, Func<TMessage, bool> predicate = null) where TMessage : class, IMessage
-        {
-            if (this.NotificationCenter == null)
-            {
-                throw new NullReferenceException($"{this.GetType().Name} has a null {typeof(IMessageBroker).Name} reference and can not use it to publish messages.");
-            }
-
-            ISubscription subscription = null;
-            Type messageType = typeof(TMessage);
-            if (this.subscriptions.TryGetValue(messageType, out subscription))
-            {
-                subscription.Unsubscribe();
-                this.subscriptions.Remove(messageType);
-            }
-
-            subscription = this.NotificationCenter.Subscribe<TMessage>(callback, predicate);
-            this.subscriptions.Add(messageType, subscription);
-        }
-
-        public void UnsubscribeFromMessage<TMessage>() where TMessage : class, IMessage
-        {
-            Type messageType = typeof(TMessage);
-            ISubscription subscription = null;
-            if (!this.subscriptions.TryGetValue(messageType, out subscription))
-            {
-                return;
-            }
-
-            subscription.Unsubscribe();
-            this.subscriptions.Remove(messageType);
-        }
-
-        public void UnsubscribeFromAllMessages()
-        {
-            foreach(KeyValuePair<Type, ISubscription> pair in this.subscriptions)
-            {
-                pair.Value.Unsubscribe();
-            }
-
-            this.subscriptions.Clear();
-        }
-
-        public void SetNotificationManager(IMessageBroker notificationManager)
-        {
-            this.NotificationCenter = notificationManager;
+            return string.IsNullOrEmpty(this.Name)
+                ? $"{this.GetType().Name}"
+                : $"{this.Name} ({this.GetType().Name})";
         }
 
         /// <summary>

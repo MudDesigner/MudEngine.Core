@@ -6,15 +6,19 @@
 namespace MudDesigner.MudEngine.Game
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Provides meta-information for the currently running game.
     /// </summary>
     public class GameConfiguration : IGameConfiguration
     {
+        private List<IAdapter> components;
+
         public GameConfiguration()
         {
             this.Version = new Version("1.0.0.0");
+            this.components = new List<IAdapter>();
         }
 
         /// <summary>
@@ -37,19 +41,39 @@ namespace MudDesigner.MudEngine.Game
         /// </summary>
         public string Website { get; set; }
 
-        public IConfigurationComponent[] GetConfigurationComponents()
+        /// <summary>
+        /// Gets the configuration components.
+        /// </summary>
+        /// <returns></returns>
+        public IAdapter[] GetConfigurationComponents()
         {
-            throw new NotImplementedException();
+            return this.components.ToArray();
         }
 
-        public void UseGameComponent<T>() where T : IConfigurationComponent
+        /// <summary>
+        /// Tells the game configuration that a specific component must be used by the game.
+        /// A new instance of TConfigComponent will be created when the game starts.
+        /// </summary>
+        /// <typeparam name="TConfigComponent">The type of the configuration component to use.</typeparam>
+        public void UseGameComponent<TConfigComponent>() where TConfigComponent : class, IAdapter, new()
         {
-            throw new NotImplementedException();
+            this.components.Add(new TConfigComponent());
         }
 
-        public void UseGameComponent<T>(T component) where T : IConfigurationComponent
+        /// <summary>
+        /// Tells the game configuration that a specific component must be used by the game.
+        /// </summary>
+        /// <typeparam name="TConfigComponent">The type of the configuration component.</typeparam>
+        /// <param name="component">The component instance you want to use.</param>
+        /// <exception cref="System.ArgumentNullException">$The configuration component provided of Type {component.GetType().Name} was null.</exception>
+        public void UseGameComponent<TConfigComponent>(TConfigComponent component) where TConfigComponent : class, IAdapter
         {
-            throw new NotImplementedException();
+            if (component == null)
+            {
+                throw new ArgumentNullException(nameof(component), $"The configuration component provided of Type {component.GetType().Name} was null.");
+            }
+
+            this.components.Add(component);
         }
     }
 }

@@ -50,5 +50,11 @@ namespace MudDesigner.MudEngine.Environment
         /// </summary>
         /// <param name="minutes">The minutes to increment.</param>
         void IncrementByMinute(int minutes);
+
+        /// <summary>
+        /// Sets the hours per day.
+        /// </summary>
+        /// <param name="hoursPerDay">The hours per day.</param>
+        void SetHoursPerDay(int hoursPerDay);
     }
 }

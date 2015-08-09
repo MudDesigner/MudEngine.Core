@@ -13,16 +13,20 @@ namespace MudDesigner.MudEngine
     public interface IInitializableComponent
     {
         /// <summary>
-        /// Initializes this instance.
+        /// Initializes the component.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns an awaitable Task</returns>
         Task Initialize();
 
         /// <summary>
         /// Lets this instance know that it is about to go out of scope and disposed.
         /// The instance will perform clean-up of its resources in preperation for deletion.
         /// </summary>
-        /// <returns></returns>
+        /// <para>
+        /// Informs the component that it is no longer needed, allowing it to perform clean up.
+        /// Objects registered to one of the two delete events will be notified of the delete request.
+        /// </para>
+        /// <returns>Returns an awaitable Task</returns>
         Task Delete();
     }
 }

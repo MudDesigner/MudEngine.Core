@@ -1,20 +1,21 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="StandardMessage.cs" company="Sully">
+// <copyright file="DebugMessage.cs" company="Sully">
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudDesigner.MudEngine.MessageBrokering
+namespace MudDesigner.MudEngine
 {
     /// <summary>
     /// Standard string based message
     /// </summary>
-    public sealed class StandardMessage : MessageBase<string>
+    [MessageVerbosity(MessageScope.High)]
+    public sealed class DebugMessage : MessageBase<string>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StandardMessage"/> class.
+        /// Initializes a new instance of the <see cref="DebugMessage"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
-        public StandardMessage(string message)
+        public DebugMessage(string message)
         {
             this.Content = message;
         }

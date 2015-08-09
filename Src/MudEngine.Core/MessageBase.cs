@@ -3,7 +3,7 @@
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudDesigner.MudEngine.MessageBrokering
+namespace MudDesigner.MudEngine
 {
     /// <summary>
     /// Provides methods for dispatching notifications to subscription handlers

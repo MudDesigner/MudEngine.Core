@@ -68,13 +68,13 @@ namespace MudDesigner.MudEngine.Environment
         public double TimeAlive { get { return DateTime.Now.Subtract(this.CreationDate).TotalSeconds; } }
 
         /// <summary>
-        /// Initializes the specified start time and starts ticking the time of day clock.
+        /// Starts the time period, ticking the time of day clock.
         /// </summary>
         /// <param name="startTime">The time of day this period begins at.</param>
         /// <param name="worldTimeFactor">The world time factor. This value can be used to adjust the interval between time of day updates.</param>
         /// <exception cref="System.ArgumentNullException">startTime can not be null.</exception>
         /// <exception cref="MudDesigner.MudEngine.Environment.InvalidTimeOfDayException">HoursPerDay can not be zero.</exception>
-        public void Initialize(ITimeOfDay startTime, double worldTimeFactor)
+        public void Start(ITimeOfDay startTime, double worldTimeFactor)
         {
             if (startTime == null)
             {

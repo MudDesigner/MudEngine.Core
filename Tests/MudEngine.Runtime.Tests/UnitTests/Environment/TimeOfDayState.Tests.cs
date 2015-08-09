@@ -94,7 +94,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             var state = new TimePeriod();
 
             // Act
-            state.Initialize(null, 2);
+            state.Start(null, 2);
         }
 
         [TestMethod]
@@ -111,7 +111,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             var state = new TimePeriod();
 
             // Act
-            state.Initialize(day, 2);
+            state.Start(day, 2);
         }
 
         [TestMethod]
@@ -133,7 +133,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             var state = new TimePeriod();
 
             // Act
-            state.Initialize(day, 0.05);
+            state.Start(day, 0.05);
 
             // Assert
             Assert.IsNotNull(state.StateStartTime);
@@ -180,7 +180,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             Mock.Get(day.Clone()).Setup(mock => mock.Clone()).Returns(day);
 
             // Act
-            state.Initialize(day, 0.005);
+            state.Start(day, 0.005);
             await Task.Delay(TimeSpan.FromSeconds(1));
 
             // Assert

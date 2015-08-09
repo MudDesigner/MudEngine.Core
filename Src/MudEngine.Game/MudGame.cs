@@ -7,6 +7,7 @@ namespace MudDesigner.MudEngine.Game
 {
     using System;
     using System.Threading.Tasks;
+    using MessageBrokering;
 
     /// <summary>
     /// The Default engine implementation of the IGame interface. This implementation provides validation support via ValidationBase.
@@ -56,18 +57,24 @@ namespace MudDesigner.MudEngine.Game
         /// <returns>Returns an awaitable Task</returns>
         public async Task StartAsync()
         {
+            MessageBrokerFactory.Instance.Publish(new GameMessage("Starting game."));
+
             if (!this.IsEnabled)
             {
                 await this.Initialize();
             }
 
-            IConfigurationComponent[] components = this.Configuration.GetConfigurationComponents();
-            foreach (IConfigurationComponent component in components)
+            MessageBrokerFactory.Instance.Publish(new GameMessage("Configuring game configuration components."));
+            IAdapter[] components = this.Configuration.GetConfigurationComponents();
+            foreach (AdapterBase component in components)
             {
+                MessageBrokerFactory.Instance.Publish(new GameMessage($"Initializing {component.Name} component."));
                 await component.Initialize();
+                MessageBrokerFactory.Instance.Publish(new GameMessage($"{component.Name} initialization completed."));
             }
 
             this.IsRunning = true;
+            MessageBrokerFactory.Instance.Publish(new GameMessage("Game started."));
         }
 
         /// <summary>
@@ -80,9 +87,9 @@ namespace MudDesigner.MudEngine.Game
             {
                 this.IsEnabled = false;
                 this.IsRunning = false;
-                foreach (IConfigurationComponent component in this.Configuration.GetConfigurationComponents())
+                foreach (IAdapter component in this.Configuration.GetConfigurationComponents())
                 {
-                    component.Disable();
+                    component.Delete();
                 }
             }
 

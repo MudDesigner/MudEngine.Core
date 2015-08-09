@@ -14,6 +14,21 @@ namespace MudDesigner.MudEngine.MessageBrokering
     {
         private static Func<IMessageBroker> _factory;
 
+        private static IMessageBroker instance;
+
+        public static IMessageBroker Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = CreateBroker();
+                }
+
+                return instance;
+            }
+        }
+
         /// <summary>
         /// Sets a delegate factory that will be responsible for creating a message broker.
         /// </summary>
@@ -31,7 +46,7 @@ namespace MudDesigner.MudEngine.MessageBrokering
         {
             if (MessageBrokerFactory._factory == null)
             {
-                // return new MessageBroker();
+                return new MessageBroker();
             }
 
             return _factory();
