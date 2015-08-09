@@ -7,18 +7,34 @@ namespace MudEngine.Game.Environment
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using MudDesigner.MudEngine.Environment;
     using MudDesigner.MudEngine.Game;
 
+    /// <summary>
+    /// Provides methods for creating and maintaining worlds
+    /// </summary>
     public class MudWorld : GameComponent, IWorld
     {
+        /// <summary>
+        /// The time periods assigned to this world
+        /// </summary>
         private List<ITimePeriod> timePeriods;
 
+        /// <summary>
+        /// The time period manager
+        /// </summary>
         private TimePeriodManager timePeriodManager;
 
+        /// <summary>
+        /// The realms assigned to this world
+        /// </summary>
         private List<IRealm> realms;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MudWorld"/> class.
+        /// </summary>
         public MudWorld()
         {
             this.HoursPerDay = 24;
@@ -30,12 +46,24 @@ namespace MudEngine.Game.Environment
             this.Name = "Mud World";
         }
 
+        /// <summary>
+        /// Occurs when the time of day has changed for this world.
+        /// </summary>
         public event EventHandler<TimeOfDayChangedEventArgs> TimeOfDayChanged;
 
+        /// <summary>
+        /// Gets the current time of day period for this world.
+        /// </summary>
         public ITimePeriod CurrentTimeOfDay { get; protected set; }
 
+        /// <summary>
+        /// Gets or sets the game day to real hour ratio.
+        /// </summary>
         public double GameDayToRealHourRatio { get; set; }
 
+        /// <summary>
+        /// Gets the adjustment factor used to convert real-world time to in-game time
+        /// </summary>
         public double GameTimeAdjustmentFactor
         {
             get
@@ -44,6 +72,9 @@ namespace MudEngine.Game.Environment
             }
         }
 
+        /// <summary>
+        /// Gets how many hours it takes to complete one full day in this world.
+        /// </summary>
         public int HoursPerDay { get; protected set; }
 
         /// <summary>
@@ -118,6 +149,10 @@ namespace MudEngine.Game.Environment
             {
                 throw new InvalidTimeOfDayException("The time of day does not define the number of hours there are in a day.", timePeriod.StateStartTime);
             }
+            else if (this.timePeriods.Any(period => period.StateStartTime.Equals(timePeriod.StateStartTime)))
+            {
+                throw new InvalidTimePeriodException(timePeriod, "You can not have two time periods with the same start time in the same world.");
+            }
             
             this.timePeriods.Add(timePeriod);
         }
@@ -189,7 +224,15 @@ namespace MudEngine.Game.Environment
         /// <param name="timePeriod">The time period being removed.</param>
         public void RemoveTimePeriodFromWorld(ITimePeriod timePeriod)
         {
-            throw new NotImplementedException();
+            if (timePeriod == null)
+            {
+                return;
+            }
+
+            if (this.timePeriods.Contains(timePeriod))
+            {
+                this.timePeriods.Remove(timePeriod);
+            }
         }
 
         /// <summary>
@@ -233,14 +276,35 @@ namespace MudEngine.Game.Environment
             return clone;
         }
 
-        protected override Task Load()
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
         {
-            throw new NotImplementedException();
+            return string.Format("{0} in the {1} in {2}.", this.CurrentTimeOfDay.CurrentTime.ToString(), this.CurrentTimeOfDay.Name, this.Name);
         }
 
+        /// <summary>
+        /// Loads the component and any resources or dependencies it might have.
+        /// Called during initialization of the component
+        /// </summary>
+        /// <returns></returns>
+        protected override Task Load()
+        {
+            return Task.FromResult(0);
+        }
+
+        /// <summary>
+        /// Unloads this instance and any resources or dependencies it might be using.
+        /// Called during deletion of the component.
+        /// </summary>
+        /// <returns></returns>
         protected override Task Unload()
         {
-            throw new NotImplementedException();
+            return Task.FromResult(0);
         }
     }
 }
