@@ -37,7 +37,7 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Gets the realm that owns this zone.
         /// </summary>
-        IRealm Owner { get; }
+        IRealm Owner { get; set; }
 
         /// <summary>
         /// Gets all of the weather states for this zone.

@@ -61,6 +61,11 @@ namespace MudDesigner.MudEngine.Environment
             this.timeOfDayStates = states.OrderBy(item => item.StateStartTime.Hour).ThenBy(item => item.StateStartTime.Minute);
         }
 
+        public ITimeOfDay CreateTimeOfDay(int hour, int minute, int hoursPerDay)
+        {
+            return _factory(hour, minute, hoursPerDay);
+        }
+
         /// <summary>
         /// Looks at a supplied time of day and figures out what TimeOfDayState needs to be returned that matches the time of day.
         /// </summary>
@@ -72,7 +77,7 @@ namespace MudDesigner.MudEngine.Environment
         {
             ITimeOfDay time = TimePeriodManager._factory(currentTime.Value.Hour, currentTime.Value.Minute, _hoursPerDay);
             
-            return this.GetTimeOfDayState(time);
+            return this.GetTimePeriodForDay(time);
         }
 
         /// <summary>
@@ -82,7 +87,7 @@ namespace MudDesigner.MudEngine.Environment
         /// <returns>
         /// Returns an instance of ITimePeriod that represents the current time of day in the game.
         /// </returns>
-        public ITimePeriod GetTimeOfDayState(ITimeOfDay currentGameTime = null)
+        public ITimePeriod GetTimePeriodForDay(ITimeOfDay currentGameTime = null)
         {
             ITimePeriod inProgressState = null;
             ITimePeriod nextState = null;

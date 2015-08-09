@@ -9,8 +9,8 @@ namespace MudEngine.Game.Environment
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using MudDesigner.MudEngine;
     using MudDesigner.MudEngine.Environment;
-    using MudDesigner.MudEngine.Game;
 
     /// <summary>
     /// Provides methods for creating and maintaining worlds
@@ -21,11 +21,6 @@ namespace MudEngine.Game.Environment
         /// The time periods assigned to this world
         /// </summary>
         private List<ITimePeriod> timePeriods;
-
-        /// <summary>
-        /// The time period manager
-        /// </summary>
-        private TimePeriodManager timePeriodManager;
 
         /// <summary>
         /// The realms assigned to this world
@@ -42,7 +37,7 @@ namespace MudEngine.Game.Environment
 
             this.realms = new List<IRealm>();
             this.timePeriods = new List<ITimePeriod>();
-            this.timePeriodManager = new TimePeriodManager(this.timePeriods);
+            this.TimePeriodManager = new TimePeriodManager(this.timePeriods);
             this.Name = "Mud World";
         }
 
@@ -50,6 +45,11 @@ namespace MudEngine.Game.Environment
         /// Occurs when the time of day has changed for this world.
         /// </summary>
         public event EventHandler<TimeOfDayChangedEventArgs> TimeOfDayChanged;
+
+        /// <summary>
+        /// Gets the time period manager used to manage the different times of the day a world can be in.
+        /// </summary>
+        public TimePeriodManager TimePeriodManager { get; private set; }
 
         /// <summary>
         /// Gets the current time of day period for this world.
@@ -76,6 +76,18 @@ namespace MudEngine.Game.Environment
         /// Gets how many hours it takes to complete one full day in this world.
         /// </summary>
         public int HoursPerDay { get; protected set; }
+
+        /// <summary>
+        /// Gets the available time periods for this world.
+        /// </summary>
+        /// <returns>Returns an array of time periods</returns>
+        public ITimePeriod[] GetTimePeriodsForWorld() => this.timePeriods.ToArray();
+
+        /// <summary>
+        /// Gets all of the realms that have been added to this world.
+        /// </summary>
+        /// <returns>Returns an array of realms</returns>
+        public IRealm[] GetRealmsInWorld() => this.realms.ToArray();
 
         /// <summary>
         /// Adds a collection of realms to world, initializing them as they are added.
@@ -155,24 +167,6 @@ namespace MudEngine.Game.Environment
             }
             
             this.timePeriods.Add(timePeriod);
-        }
-
-        /// <summary>
-        /// Gets the available time periods for this world.
-        /// </summary>
-        /// <returns>Returns an array of time periods</returns>
-        public ITimePeriod[] GetTimePeriodsForWorld()
-        {
-            return this.timePeriods.ToArray();
-        }
-
-        /// <summary>
-        /// Gets all of the realms that have been added to this world.
-        /// </summary>
-        /// <returns>Returns an array of realms</returns>
-        public IRealm[] GetRealmsInWorld()
-        {
-            return this.realms.ToArray();
         }
 
         /// <summary>
@@ -272,7 +266,7 @@ namespace MudEngine.Game.Environment
                 timePeriods = this.timePeriods,
             };
 
-            clone.timePeriodManager = new TimePeriodManager(this.timePeriods);
+            clone.TimePeriodManager = new TimePeriodManager(this.timePeriods);
             return clone;
         }
 

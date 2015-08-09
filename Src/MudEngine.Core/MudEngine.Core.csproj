@@ -48,6 +48,7 @@
     <Compile Include="Environment\ClearWeather.cs" />
     <Compile Include="Environment\EastDirection.cs" />
     <Compile Include="Environment\IDoorway.cs" />
+    <Compile Include="Environment\InvalidZoneException.cs" />
     <Compile Include="Environment\InvalidRealmException.cs" />
     <Compile Include="Environment\InvalidTimeOfDayException.cs" />
     <Compile Include="Environment\InvalidTimePeriodException.cs" />
@@ -67,7 +68,7 @@
     <Compile Include="Environment\TimeOfDay.cs" />
     <Compile Include="Environment\TimeOfDayChangedEventArgs.cs" />
     <Compile Include="Environment\TimePeriod.cs" />
-    <Compile Include="Environment\TimeOfDayStateManager.cs" />
+    <Compile Include="Environment\TimePeriodManager.cs" />
     <Compile Include="Environment\WeatherStateChangedEventArgs.cs" />
     <Compile Include="Environment\WestDirection.cs" />
     <Compile Include="Environment\WorldManager.cs" />

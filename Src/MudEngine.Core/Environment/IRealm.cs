@@ -19,7 +19,7 @@ namespace MudDesigner.MudEngine.Environment
         ITimeOfDay TimeZoneOffset { get; }
 
         /// <summary>
-        /// Gets or sets the time of day for the Realm.
+        /// Gets the time of day for the Realms time zone.
         /// </summary>
         ITimeOfDay CurrentTime { get; }
 
@@ -29,15 +29,15 @@ namespace MudDesigner.MudEngine.Environment
         int NumberOfZonesInRealm { get; }
 
         /// <summary>
+        /// Gets the World that owns this Realm.
+        /// </summary>
+        IWorld Owner { get; set; }
+
+        /// <summary>
         /// Gets the all of the zones assigned to the realm.
         /// </summary>
         /// <returns>Returns an array of each Zone contained in the Realm.</returns>
         IZone[] GetZonesInRealm();
-
-        /// <summary>
-        /// Gets the World that owns this Realm.
-        /// </summary>
-        IWorld Owner { get; set; }
 
         /// <summary>
         /// Adds a given zone to this Realm.
@@ -68,7 +68,7 @@ namespace MudDesigner.MudEngine.Environment
         /// Gets the state of the current time of day.
         /// </summary>
         /// <returns>Returns the current Time of Day State the Realm is in.</returns>
-        ITimePeriod GetCurrentTimeOfDayState();
+        ITimePeriod GetCurrentTimePeriodForZone();
 
         /// <summary>
         /// Determines whether this Realm contains the given zone.

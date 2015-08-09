@@ -20,6 +20,11 @@ namespace MudDesigner.MudEngine.Environment
         event EventHandler<TimeOfDayChangedEventArgs> TimeOfDayChanged;
 
         /// <summary>
+        /// Gets the time period manager used to manage the different times of the day a world can be in.
+        /// </summary>
+        TimePeriodManager TimePeriodManager { get; }
+
+        /// <summary>
         /// Gets the current time of day period for this world.
         /// </summary>
         ITimePeriod CurrentTimeOfDay { get; }
