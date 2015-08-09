@@ -1,9 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="Autosave.cs" company="Sully">
+//     Copyright (c) Johnathon Sullinger. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine
 {
-    public sealed class Autosave<TComponent> : IDisposable, IInitializableComponent where TComponent : IComponent
+    using System;
+    using System.Threading.Tasks;
+
+    public sealed class Autosave<TComponent> : IDisposable, IInitializableComponent where TComponent : class, IComponent
     {
         /// <summary>
         /// The autosave timer
@@ -103,6 +108,9 @@ namespace MudDesigner.MudEngine
             return Task.FromResult(true);
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             this.Delete();

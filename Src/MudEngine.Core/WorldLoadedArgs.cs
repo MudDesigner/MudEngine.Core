@@ -1,19 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MudDesigner.MudEngine.Environment;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="WorldLoadedArgs.cs" company="Sully">
+//     Copyright (c) Johnathon Sullinger. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine
 {
+    using System;
+    using MudDesigner.MudEngine.Environment;
+
+    /// <summary>
+    /// Provides the world that was loaded
+    /// </summary>
     public sealed class WorldLoadedArgs : EventArgs
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorldLoadedArgs"/> class.
+        /// </summary>
+        /// <param name="world">The world.</param>
         public WorldLoadedArgs(IWorld world)
         {
             this.World = world;
         }
 
+        /// <summary>
+        /// Gets the world.
+        /// </summary>
         public IWorld World { get; private set; }
     }
 }

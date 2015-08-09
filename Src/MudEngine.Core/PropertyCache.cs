@@ -1,9 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="PropertyCache.cs" company="Sully">
+//     Copyright (c) Johnathon Sullinger. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+
+    /// <summary>
+    /// Provides methods for fetching PropertyInfo instances off an object without using reflection.
+    /// </summary>
     public static class PropertyCache
     {
         /// <summary>

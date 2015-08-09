@@ -13,16 +13,36 @@ namespace MudDesigner.MudEngine.Environment
     /// </summary>
     public sealed class TimeOfDay : ITimeOfDay
     {
+        /// <summary>
+        /// A default constant value for the number of hours in a given day
+        /// </summary>
         private const int _defaultHoursPerDay = 24;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimeOfDay"/> class.
+        /// </summary>
+        /// <para>
+        /// Creates an instance with a default time of day of 0:00
+        /// </para>
         public TimeOfDay() : this(0, 0, _defaultHoursPerDay)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimeOfDay"/> class.
+        /// </summary>
+        /// <param name="hour">The hour to start the time of day at.</param>
+        /// <param name="minute">The minute to start the time of day at.</param>
         public TimeOfDay(int hour, int minute) : this(hour, minute, _defaultHoursPerDay)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimeOfDay"/> class.
+        /// </summary>
+        /// <param name="hour">The hour to start the time of day at.</param>
+        /// <param name="minute">The minute to start the time of day at.</param>
+        /// <param name="hoursPerDay">The number of hours required to complete a full day.</param>
         public TimeOfDay(int hour, int minute, int hoursPerDay)
         {
             this.Hour = hour;
@@ -31,24 +51,25 @@ namespace MudDesigner.MudEngine.Environment
         }
 
         /// <summary>
-        /// Gets or sets the hour.
+        /// Gets the current hour of the day.
         /// </summary>
         public int Hour { get; private set; }
 
         /// <summary>
-        /// Gets or sets the minute.
+        /// Gets the minute we are currently at within the current hour.
         /// </summary>
         public int Minute { get; private set; }
 
         /// <summary>
-        /// Gets or sets the hours per day.
+        /// Gets how many hours there are in a single day.
         /// </summary>
         public int HoursPerDay { get; private set; }
 
         /// <summary>
-        /// Increments instance by the number of minutes specified.
+        /// Increments the time of day by the number of minutes given.
+        /// If the value causes the current minutes to become greater than 59, then the current hour is incremented and the remainder minutes to increment are added starting at 0 minutes.
         /// </summary>
-        /// <param name="minutes">The minutes.</param>
+        /// <param name="minutes">The minutes to increment.</param>
         public void IncrementByMinute(int minutes)
         {
             if (this.Minute + minutes < 59)
@@ -74,9 +95,9 @@ namespace MudDesigner.MudEngine.Environment
         }
 
         /// <summary>
-        /// Increments the instance by the number of hours specified.
+        /// Increments the time of day by a the number of hours given.
         /// </summary>
-        /// <param name="hours">The hour.</param>
+        /// <param name="hours">The hours to add.</param>
         public void IncrementByHour(int hours)
         {
             // We can't increment more than 23 hours. Next hour is rolled over to 0.
@@ -97,9 +118,10 @@ namespace MudDesigner.MudEngine.Environment
         }
 
         /// <summary>
-        /// Decrements instance by the number of minutes specified.
+        /// Decrements the time of day by the number of minutes given.
+        /// If the value causes the current minutes to become lower than zero, then the current hour is decremented and the remainder minutes to decrement are deducted starting at 59 minutes.
         /// </summary>
-        /// <param name="minutes">The minutes.</param>
+        /// <param name="minutes">The minutes to decrement.</param>
         public void DecrementByMinute(int minutes)
         {
             if (this.Minute - minutes < 0)
@@ -123,9 +145,9 @@ namespace MudDesigner.MudEngine.Environment
         }
 
         /// <summary>
-        /// Decrements the instance by the number of hours specified.
+        /// Decrements the time of day by a the number of hours given.
         /// </summary>
-        /// <param name="hours">The hour.</param>
+        /// <param name="hours">The hours to decrement.</param>
         public void DecrementByHour(int hours)
         {
             // We can't decrement less than 0 hours. So we reset to the number of hours in a day.

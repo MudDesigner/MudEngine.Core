@@ -8,16 +8,16 @@ namespace MudDesigner.MudEngine.Environment
     using System;
 
     /// <summary>
-    /// Event arguments for when the time of day changes.
+    /// Event arguments for when a time period changes.
     /// </summary>
     public sealed class TimeOfDayChangedEventArgs : EventArgs
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TimeOfDayChangedEventArgs"/> class.
         /// </summary>
-        /// <param name="transitionFrom">The transition from.</param>
-        /// <param name="transitionTo">The transition to.</param>
-        public TimeOfDayChangedEventArgs(ITimeOfDayState transitionFrom, ITimeOfDayState transitionTo)
+        /// <param name="transitionFrom">The time period being transitioned from.</param>
+        /// <param name="transitionTo">The time period being transition to.</param>
+        public TimeOfDayChangedEventArgs(ITimePeriod transitionFrom, ITimePeriod transitionTo)
         {
             if (transitionTo == null)
             {
@@ -35,11 +35,11 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Gets the state that is being transitioned away from.
         /// </summary>
-        public ITimeOfDayState TransitioningFrom { get; private set; }
+        public ITimePeriod TransitioningFrom { get; private set; }
 
         /// <summary>
         /// Gets the state that is being transitioned to.
         /// </summary>
-        public ITimeOfDayState TransitioningTo { get; private set; }
+        public ITimePeriod TransitioningTo { get; private set; }
     }
 }

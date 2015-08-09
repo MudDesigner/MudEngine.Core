@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MudDesigner.MudEngine.Actors;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="OccupancyChangedEventArgs.cs" company="Sully">
+//     Copyright (c) Johnathon Sullinger. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine.Environment
 {
+    using System;
+    using MudDesigner.MudEngine.Actors;
+
     public sealed class OccupancyChangedEventArgs : EventArgs
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="OccupancyChangedEventArgs" /> class.
         /// </summary>
-        /// <param name="occupant">The occupant.</param>
-        /// <param name="travelDirection">The travel direction.</param>
-        /// <param name="departureRoom">The departure room.</param>
-        /// <param name="arrivalRoom">The arrival room.</param>
+        /// <param name="occupant">The occupant responsible for the change.</param>
+        /// <param name="travelDirection">The direction of travel the occupant is going.</param>
+        /// <param name="departureRoom">The room the occupant is departing from.</param>
+        /// <param name="arrivalRoom">The room the occupant is arriving in.</param>
         /// <exception cref="System.ArgumentNullException">
         /// A valid Occupant must be provided.
         /// or
@@ -61,12 +62,12 @@ namespace MudDesigner.MudEngine.Environment
         public ITravelDirection TravelDirection { get; private set; }
 
         /// <summary>
-        /// Gets the departure room.
+        /// Gets the room the occupant is departing from.
         /// </summary>
         public IRoom DepartureRoom { get; private set; }
 
         /// <summary>
-        /// Gets the arrival room.
+        /// Gets the room the occupant is arriving in.
         /// </summary>
         public IRoom ArrivalRoom { get; private set; }
     }

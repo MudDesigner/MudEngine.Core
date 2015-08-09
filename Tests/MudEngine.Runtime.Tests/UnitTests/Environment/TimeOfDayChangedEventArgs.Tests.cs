@@ -17,8 +17,8 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
         public void New_instance_assigns_properties_from_ctor()
         {
             // Arrange
-            var transitionTo = Mock.Of<ITimeOfDayState>();
-            var transitionFrom = Mock.Of<ITimeOfDayState>();
+            var transitionTo = Mock.Of<ITimePeriod>();
+            var transitionFrom = Mock.Of<ITimePeriod>();
 
             // Act
             var args = new TimeOfDayChangedEventArgs(transitionFrom, transitionTo);
@@ -38,7 +38,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
         public void Exception_thrown_when_transitionTo_is_null()
         {
             // Arrange
-            var transitionFrom = Mock.Of<ITimeOfDayState>();
+            var transitionFrom = Mock.Of<ITimePeriod>();
 
             // Act
             var args = new TimeOfDayChangedEventArgs(null, transitionFrom);
@@ -54,7 +54,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
         public void Exception_thrown_when_transitionFrom_is_null()
         {
             // Arrange
-            var transitionTo = Mock.Of<ITimeOfDayState>();
+            var transitionTo = Mock.Of<ITimePeriod>();
 
             // Act
             var args = new TimeOfDayChangedEventArgs(transitionTo, null);

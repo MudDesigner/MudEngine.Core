@@ -1,9 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="TypeCache.cs" company="Sully">
+//     Copyright (c) Johnathon Sullinger. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine
 {
+    using System;
+    using System.Linq;
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// Provides methods for fetching Types from a cache.
+    /// </summary>
     public static class TypeCache
     {
         /// <summary>

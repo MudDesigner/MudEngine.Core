@@ -68,7 +68,7 @@ namespace MudDesigner.MudEngine.Environment
         /// Gets the state of the current time of day.
         /// </summary>
         /// <returns>Returns the current Time of Day State the Realm is in.</returns>
-        ITimeOfDayState GetCurrentTimeOfDayState();
+        ITimePeriod GetCurrentTimeOfDayState();
 
         /// <summary>
         /// Determines whether this Realm contains the given zone.

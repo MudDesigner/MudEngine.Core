@@ -54,20 +54,63 @@ namespace MudDesigner.MudEngine.Environment
         /// <returns>Returns an array of Characters</returns>
         ICharacter[] GetCharactersInRoom();
 
+        /// <summary>
+        /// Adds the supplied actor to the room as an occupant.
+        /// </summary>
+        /// <param name="actor">The actor being added to the room.</param>
+        /// <returns>Returns an awaitable Task</returns>
         Task AddActorToRoom(IActor actor);
 
+        /// <summary>
+        /// Adds a collection of actors to this room instance.
+        /// </summary>
+        /// <param name="actors">The actors to add to the room.</param>
+        /// <returns>Returns an awaitable Task</returns>
         Task AddActorsToRoom(IEnumerable<IActor> actors);
 
+        /// <summary>
+        /// Removes the given actor from this room instance.
+        /// </summary>
+        /// <param name="actor">The actor to remove.</param>
+        /// <returns>Returns an awaitable Task</returns>
         Task RemoveActorFromRoom(IActor actor);
 
+        /// <summary>
+        /// Removes a collection of actors from this room instance.
+        /// </summary>
+        /// <para>
+        /// If an actor in the collection does not exist in the room, it is ignored.
+        /// </para>
+        /// <param name="actors">The actors to remove.</param>
+        /// <returns>Returns an awaitable Task</returns>
         Task RemoveActorsFromRoom(IEnumerable<IActor> actors);
 
+        /// <summary>
+        /// Creates a doorway that can be configured and be connected to any room.
+        /// </summary>
+        /// <param name="travelDirectionToReachDoor">The travel direction an actor must travel in order to reach the door.</param>
+        /// <returns>Returns a valid instance of an IDoorway implementation</returns>
         IDoorway CreateDoorway(ITravelDirection travelDirectionToReachDoor);
 
+        /// <summary>
+        /// Adds a given doorway to this room instance.
+        /// </summary>
+        /// <param name="doorway">The doorway doorway to add.</param>
+        /// <returns>Returns an awaitable Task</returns>
         Task AddDoorwayToRoom(IDoorway doorway);
 
+        /// <summary>
+        /// Removes the given doorway from this room instance.
+        /// </summary>
+        /// <param name="doorway">The doorway being removed from the room.</param>
+        /// <returns>Returns an awaitable Task</returns>
         Task RemoveDoorwayFromRoom(IDoorway doorway);
 
+        /// <summary>
+        /// Removes the doorway associated with the travel direction given.
+        /// </summary>
+        /// <param name="travelDirection">The travel direction that must be removed from the room.</param>
+        /// <returns>Returns an awaitable Task</returns>
         Task RemoveDoorwayFromRoom(ITravelDirection travelDirection);
 
         /// <summary>
@@ -75,6 +118,9 @@ namespace MudDesigner.MudEngine.Environment
         /// </summary>
         void SealRoom();
 
+        /// <summary>
+        /// Unseals the room so that actors may enter and leave as they please.
+        /// </summary>
         void UnsealRoom();
     }
 }

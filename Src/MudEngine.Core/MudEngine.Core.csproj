@@ -51,7 +51,7 @@
     <Compile Include="Environment\IRealm.cs" />
     <Compile Include="Environment\IRoom.cs" />
     <Compile Include="Environment\ITimeOfDay.cs" />
-    <Compile Include="Environment\ITimeOfDayState.cs" />
+    <Compile Include="Environment\ITimePeriod.cs" />
     <Compile Include="Environment\ITravelDirection.cs" />
     <Compile Include="Environment\IWeatherState.cs" />
     <Compile Include="Environment\IWorld.cs" />
@@ -67,6 +67,7 @@
     <Compile Include="Environment\TimeOfDayStateManager.cs" />
     <Compile Include="Environment\WeatherStateChangedEventArgs.cs" />
     <Compile Include="Environment\WestDirection.cs" />
+    <None Include="Environment\WorldManager.cs" />
     <Compile Include="IGameConfiguration.cs" />
     <Compile Include="MessageBrokering\StandardMessage.cs" />
     <Compile Include="PropertyCache.cs" />

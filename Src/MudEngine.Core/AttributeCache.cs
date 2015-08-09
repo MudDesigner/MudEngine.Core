@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="AttributeCache.cs" company="Sully">
+//     Copyright (c) Johnathon Sullinger. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+
+    /// <summary>
+    /// Provides methods for fetching attributes from a cache instead of using reflection.
+    /// </summary>
     public static class AttributeCache
     {
         /// <summary>

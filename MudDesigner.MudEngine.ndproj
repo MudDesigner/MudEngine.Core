@@ -20,14 +20,14 @@
     <Name>System.Threading.Tasks.Parallel</Name>
   </FrameworkAssemblies>
   <Dirs>
-    <Dir>C:\Users\Sully\Documents\GitHubVisualStudio\MudEngine\Tests\MudEngine.Runtime.Tests\bin\Debug</Dir>
     <Dir>C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319</Dir>
     <Dir>C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\WPF</Dir>
+    <Dir>C:\Users\Sully\Documents\GitHubVisualStudio\MudEngine\Tests\MudEngine.Runtime.Tests\bin\Debug</Dir>
   </Dirs>
   <MergeCodeGeneratedByCompiler>True</MergeCodeGeneratedByCompiler>
   <Report Kind="0" SectionsEnabled="45055" XslPath="" Flags="261120" />
   <BuildComparisonSetting ProjectMode="DontCompare" BuildMode="MostRecentAnalysisResultAvailable" ProjectFileToCompareWith="" BuildFileToCompareWith="" NDaysAgo="1" FocusOnRecentRulesViolations="False" />
-  <BaselineInUISetting ProjectMode="CurrentProject" BuildMode="MostRecentAnalysisResultAvailable" ProjectFileToCompareWith="C:\Users\Sully\Documents\GitHubVisualStudio\MudEngine\MudDesigner.MudEngine.ndproj" BuildFileToCompareWith="C:\Users\Sully\Documents\GitHubVisualStudio\MudEngine\NDependOut\NDependAnalysisResult_MudDesigner_MudEngine_2015Aug01_22h15.ndar" NDaysAgo="1" FocusOnRecentRulesViolations="False" />
+  <BaselineInUISetting ProjectMode="DontCompare" BuildMode="MostRecentAnalysisResultAvailable" ProjectFileToCompareWith="C:\Users\Sully\Documents\GitHubVisualStudio\MudEngine\MudDesigner.MudEngine.ndproj" BuildFileToCompareWith="C:\Users\Sully\Documents\GitHubVisualStudio\MudEngine\NDependOut\NDependAnalysisResult_MudDesigner_MudEngine_2015Aug01_22h15.ndar" NDaysAgo="1" FocusOnRecentRulesViolations="False" />
   <CoverageFiles CoverageDir="C:\Users\Sully\Documents\GitHubVisualStudio\MudEngine\TestResults" UncoverableAttribute="">
     <CoverageFile MergeMode="Or">C:\Users\Sully\Documents\GitHubVisualStudio\MudEngine\TestResults\cde6ecf3-d829-45bb-b395-026b3a7f085d\Sully_SULLYS-PC 2015-08-01 21_40_15.coverage</CoverageFile>
   </CoverageFiles>

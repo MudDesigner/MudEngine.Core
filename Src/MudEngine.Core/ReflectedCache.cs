@@ -1,8 +1,13 @@
-﻿using System;
-using System.Collections.Concurrent;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="ReflectedCache.cs" company="Sully">
+//     Copyright (c) Johnathon Sullinger. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine
 {
+    using System;
+    using System.Collections.Concurrent;
+
     /// <summary>
     /// A cached Type Pool used to fetch Types, PropertyInfo's and Attributes from a cache
     /// </summary>

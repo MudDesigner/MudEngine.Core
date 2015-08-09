@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="TimeOfDayState.cs" company="Sully">
+// <copyright file="TimePeriod.cs" company="Sully">
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -8,55 +8,72 @@ namespace MudDesigner.MudEngine.Environment
     using System;
 
     /// <summary>
-    /// ITimeOfDayState implementation that handles starting the state 
+    /// ITimePeriod implementation that handles starting the state
     /// clock and provides methods for resetting and disposing.
     /// </summary>
-    public sealed class TimeOfDayState : ITimeOfDayState, IDisposable
+    public sealed class TimePeriod : ITimePeriod, IDisposable
     {
         /// <summary>
         /// The clock used to track the time of day.
         /// </summary>
         private EngineTimer<ITimeOfDay> timeOfDayClock;
 
-        public TimeOfDayState()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimePeriod"/> class.
+        /// </summary>
+        public TimePeriod()
         {
             this.Id = Guid.NewGuid();
             this.CreationDate = DateTime.Now;
         }
 
         /// <summary>
-        /// Occurs when the state's time is changed.
+        /// Occurs everytime the TimeOfDay is changed.
         /// </summary>
         public event EventHandler<ITimeOfDay> TimeUpdated;
 
         /// <summary>
-        /// Gets the name of this state.
+        /// Gets or sets the name of this time period.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the time of day in the game that this state begins.
+        /// Gets the start time for this time period. This defines what time of day this period begins at.
         /// </summary>
         public ITimeOfDay StateStartTime { get; set; }
 
         /// <summary>
-        /// Gets the current time.
+        /// Gets the current time of day for this time period.
         /// </summary>
         public ITimeOfDay CurrentTime { get; private set; }
 
+        /// <summary>
+        /// Gets the unique identifier for this component.
+        /// </summary>
         public Guid Id { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is enabled.
+        /// </summary>
         public bool IsEnabled { get; private set; }
 
+        /// <summary>
+        /// Gets the date that this component was instanced.
+        /// </summary>
         public DateTime CreationDate { get; private set; }
 
+        /// <summary>
+        /// Gets the amount number of seconds that this component instance has been alive.
+        /// </summary>
         public double TimeAlive { get { return DateTime.Now.Subtract(this.CreationDate).TotalSeconds; } }
 
         /// <summary>
-        /// Initializes the time of day state with the supplied in-game to real-world hours factor.
+        /// Initializes the specified start time and starts ticking the time of day clock.
         /// </summary>
-        /// <param name="worldTimeFactor">The world time factor.</param>
-        /// <param name="hoursPerDay">The hours per day.</param>
+        /// <param name="startTime">The time of day this period begins at.</param>
+        /// <param name="worldTimeFactor">The world time factor. This value can be used to adjust the interval between time of day updates.</param>
+        /// <exception cref="System.ArgumentNullException">startTime can not be null.</exception>
+        /// <exception cref="MudDesigner.MudEngine.Environment.InvalidTimeOfDayException">HoursPerDay can not be zero.</exception>
         public void Initialize(ITimeOfDay startTime, double worldTimeFactor)
         {
             if (startTime == null)
@@ -92,7 +109,7 @@ namespace MudDesigner.MudEngine.Environment
         }
 
         /// <summary>
-        /// Resets this instance current time to that if its start time.
+        /// Resets this instance, zeroing out the current time back to the time periods start time.
         /// </summary>
         public void Reset()
         {
@@ -105,16 +122,25 @@ namespace MudDesigner.MudEngine.Environment
             this.Disable();
         }
 
+        /// <summary>
+        /// Disables this instance.
+        /// </summary>
         public void Disable()
         {
             this.IsEnabled = false;
         }
 
+        /// <summary>
+        /// Enables this instance.
+        /// </summary>
         public void Enable()
         {
             this.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             this.Reset();
@@ -158,7 +184,7 @@ namespace MudDesigner.MudEngine.Environment
         /// </returns>
         public override bool Equals(object obj)
         {
-            TimeOfDayState secondState = (TimeOfDayState)obj;
+            TimePeriod secondState = (TimePeriod)obj;
 
             return secondState.StateStartTime.Hour == this.StateStartTime.Hour && secondState.StateStartTime.Minute == this.StateStartTime.Minute;
         }

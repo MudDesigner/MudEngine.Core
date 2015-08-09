@@ -1,43 +1,57 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="TimeOfDayStateManager.cs" company="Sully">
+// <copyright file="TimePeriodManager.cs" company="Sully">
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine.Environment
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
-    /// Provides methods for fetching an ITimeOfDayState implementation based on a TimeOfDay instance.
+    /// Provides methods for fetching an ITimePeriod implementation based on a TimeOfDay instance.
     /// </summary>
-    public sealed class TimeOfDayStateManager
+    public sealed class TimePeriodManager
     {
+        /// <summary>
+        /// A factory delegate that can be used to create a new instance of an ITimeOfDay component
+        /// </summary>
         private static Func<double, double, int, ITimeOfDay> _factory;
 
+        /// <summary>
+        /// The number of hours per day that the manager will assign to all new ITimePeriod instances
+        /// </summary>
         private static int _hoursPerDay;
 
         /// <summary>
         /// The time of day states provided by an external source
         /// </summary>
-        private IEnumerable<ITimeOfDayState> timeOfDayStates;
+        private IEnumerable<ITimePeriod> timeOfDayStates;
 
+        /// <summary>
+        /// Sets a delegate to be used as a factory for creating new ITimeofDay instances.
+        /// </summary>
+        /// <param name="factory">The factory.</param>
         public static void SetFactory(Func<double, double, int, ITimeOfDay> factory)
         {
             _factory = factory;
         }
 
+        /// <summary>
+        /// Sets the default number of hours it takes to complete a full day.
+        /// </summary>
+        /// <param name="hours">The number of hours it takes to complete a full day.</param>
         public static void SetDefaultHoursPerDay(int hours)
         {
             _hoursPerDay = hours;
         }
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="TimeOfDayStateManager"/> class.
+        /// Initializes a new instance of the <see cref="TimePeriodManager"/> class.
         /// </summary>
         /// <param name="states">The states.</param>
-        public TimeOfDayStateManager(IEnumerable<ITimeOfDayState> states)
+        public TimePeriodManager(IEnumerable<ITimePeriod> states)
         {
             if (states == null)
             {
@@ -52,11 +66,11 @@ namespace MudDesigner.MudEngine.Environment
         /// </summary>
         /// <param name="currentTime">The current time.</param>
         /// <returns>
-        /// Returns an instance of ITimeOfDayState that represents the current time of day in the game.
+        /// Returns an instance of ITimePeriod that represents the current time of day in the game.
         /// </returns>
-        public ITimeOfDayState GetTimeOfDayState(DateTime? currentTime = null)
+        public ITimePeriod GetTimeOfDayState(DateTime? currentTime = null)
         {
-            ITimeOfDay time = TimeOfDayStateManager._factory(currentTime.Value.Hour, currentTime.Value.Minute, _hoursPerDay);
+            ITimeOfDay time = TimePeriodManager._factory(currentTime.Value.Hour, currentTime.Value.Minute, _hoursPerDay);
             
             return this.GetTimeOfDayState(time);
         }
@@ -66,12 +80,12 @@ namespace MudDesigner.MudEngine.Environment
         /// </summary>
         /// <param name="currentGameTime">The current time.</param>
         /// <returns>
-        /// Returns an instance of ITimeOfDayState that represents the current time of day in the game.
+        /// Returns an instance of ITimePeriod that represents the current time of day in the game.
         /// </returns>
-        public ITimeOfDayState GetTimeOfDayState(ITimeOfDay currentGameTime = null)
+        public ITimePeriod GetTimeOfDayState(ITimeOfDay currentGameTime = null)
         {
-            ITimeOfDayState inProgressState = null;
-            ITimeOfDayState nextState = null;
+            ITimePeriod inProgressState = null;
+            ITimePeriod nextState = null;
 
             inProgressState = this.GetInProgressState(currentGameTime);
             nextState = this.GetNextState(currentGameTime);
@@ -93,13 +107,13 @@ namespace MudDesigner.MudEngine.Environment
         /// </summary>
         /// <param name="currentTime">The current time.</param>
         /// <returns>
-        /// Returns an instance of ITimeOfDayState that represents the current time of day if an instance with a StartTime 
+        /// Returns an instance of ITimePeriod that represents the current time of day if an instance with a StartTime 
         /// before the current world-time can be found 
         /// </returns>
-        private ITimeOfDayState GetInProgressState(ITimeOfDay currentTime)
+        private ITimePeriod GetInProgressState(ITimeOfDay currentTime)
         {
-            ITimeOfDayState inProgressState = null;
-            foreach (ITimeOfDayState state in this.timeOfDayStates)
+            ITimePeriod inProgressState = null;
+            foreach (ITimePeriod state in this.timeOfDayStates)
             {
                 // If the state is already in progress, w
                 if (state.StateStartTime.Hour <= currentTime.Hour ||
@@ -131,13 +145,13 @@ namespace MudDesigner.MudEngine.Environment
         /// </summary>
         /// <param name="currentTime">The current time.</param>
         /// <returns>
-        /// Returns an instance of ITimeOfDayState that represents the up coming time of day if an instance with a StartTime 
+        /// Returns an instance of ITimePeriod that represents the up coming time of day if an instance with a StartTime 
         /// after the current world-time can be found 
         /// </returns>
-        private ITimeOfDayState GetNextState(ITimeOfDay currentTime)
+        private ITimePeriod GetNextState(ITimeOfDay currentTime)
         {
-            ITimeOfDayState nextState = null;
-            foreach (ITimeOfDayState state in this.timeOfDayStates)
+            ITimePeriod nextState = null;
+            foreach (ITimePeriod state in this.timeOfDayStates)
             {
                 // If this state is a future state, then preserve it as a possible next state.
                 if (state.StateStartTime.Hour > currentTime.Hour ||

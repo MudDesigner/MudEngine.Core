@@ -19,7 +19,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
         public void Ctor_sets_id_and_creation_date()
         {
             // Act
-            var state = new TimeOfDayState();
+            var state = new TimePeriod();
 
             // Act
             Assert.IsNotNull(state.Id, "No ID was generated.");
@@ -38,7 +38,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             string name = "Test";
 
             // Act
-            var state = new TimeOfDayState { Name = name };
+            var state = new TimePeriod { Name = name };
 
             // Act
             Assert.AreEqual(name, state.Name);
@@ -56,7 +56,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             var startTime = Mock.Of<ITimeOfDay>();
 
             // Act
-            var state = new TimeOfDayState { StateStartTime = startTime };
+            var state = new TimePeriod { StateStartTime = startTime };
 
             // Act
             Assert.AreEqual(startTime, state.StateStartTime);
@@ -71,7 +71,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
         public async Task Can_get_the_time_state_has_been_alive()
         {
             // Arrange
-            var state = new TimeOfDayState();
+            var state = new TimePeriod();
 
             // Act
             await Task.Delay(TimeSpan.FromSeconds(1));
@@ -91,7 +91,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
         public void Initialize_throws_exception_with_null_start_time()
         {
             // Arrange
-            var state = new TimeOfDayState();
+            var state = new TimePeriod();
 
             // Act
             state.Initialize(null, 2);
@@ -108,7 +108,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
         {
             // Arrange
             var day = Mock.Of<ITimeOfDay>();
-            var state = new TimeOfDayState();
+            var state = new TimePeriod();
 
             // Act
             state.Initialize(day, 2);
@@ -130,7 +130,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             Mock.Get(day).Setup(mock => mock.Clone()).Returns(day);
             Mock.Get(day.Clone()).Setup(mock => mock.Clone()).Returns(day);
 
-            var state = new TimeOfDayState();
+            var state = new TimePeriod();
 
             // Act
             state.Initialize(day, 0.05);
@@ -151,7 +151,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
         public async Task State_clock_increments_by_the_hour()
         {
             // Arrange
-            var state = new TimeOfDayState();
+            var state = new TimePeriod();
             var continueIncrementingHour = true;
 
             var day = Mock.Of<ITimeOfDay>(m => m.Hour == 5 && m.HoursPerDay == 24);
