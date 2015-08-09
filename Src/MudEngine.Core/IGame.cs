@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine
 {
+    using System;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -26,5 +27,23 @@ namespace MudDesigner.MudEngine
         /// <param name="config">The configuration the game should use.</param>
         /// <returns>Returns an awaitable Task</returns>
         Task Configure(IGameConfiguration config);
+
+        /// <summary>
+        /// Starts game asynchronously. This will start a game loop that can be awaited. The loop will run until stopped.
+        /// </summary>
+        /// <returns>Returns an awaitable Task</returns>
+        Task StartAsync();
+
+        /// <summary>
+        /// Stops the game from running.
+        /// </summary>
+        /// <returns>Returns an awaitable Task</returns>
+        Task Stop();
+
+        /// <summary>
+        /// Starts the game using the begin/end async pattern. This method requires the caller to handle the process life-cycle management as a loop is not generated internally.
+        /// </summary>
+        /// <param name="startCompletedCallback">The delegate to invoke when the game startup has completed.</param>
+        void BeginStart(Action<IGame> startCompletedCallback);
     }
 }

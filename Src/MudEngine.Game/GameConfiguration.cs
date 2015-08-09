@@ -36,5 +36,20 @@ namespace MudDesigner.MudEngine.Game
         /// Gets or sets the website that users can visit to get information on the game.
         /// </summary>
         public string Website { get; set; }
+
+        public IConfigurationComponent[] GetConfigurationComponents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UseGameComponent<T>() where T : IConfigurationComponent
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UseGameComponent<T>(T component) where T : IConfigurationComponent
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,23 +1,18 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="DefaultGame.cs" company="Sully">
+// <copyright file="MudGame.cs" company="Sully">
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine.Game
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
-    using Environment;
 
     /// <summary>
     /// The Default engine implementation of the IGame interface. This implementation provides validation support via ValidationBase.
     /// </summary>
     public class MudGame : GameComponent, IGame
     {
-        private List<IWorld> worlds = new List<IWorld>();
-
         /// <summary>
         /// Gets information pertaining to the game.
         /// </summary>
@@ -34,49 +29,85 @@ namespace MudDesigner.MudEngine.Game
         public DateTime LastSaved { get; private set; }
 
         /// <summary>
-        /// Gets the current World for the game. Contains all of the Realms, Zones and Rooms.
+        /// Configures the game using the provided game configuration.
         /// </summary>
-        public IWorld[] Worlds
+        /// <param name="config">The configuration the game should use.</param>
+        /// <returns>Returns an awaitable Task</returns>
+        public Task Configure(IGameConfiguration config)
         {
-            get
-            {
-                return this.worlds.ToArray();
-            }
-        }
+            this.Configuration = config;
 
-        public Task Configure(IGameConfiguration configuration)
-        {
-            this.Configuration = configuration;
             return Task.FromResult(0);
         }
 
-        public Task AddWorld(IWorld world)
+        /// <summary>
+        /// Starts the game using the begin/end async pattern. This method requires the caller to handle the process life-cycle management as a loop is not generated internally.
+        /// </summary>
+        /// <param name="startCompletedCallback">The delegate to invoke when the game startup has completed.</param>
+        public void BeginStart(Action<IGame> startCompletedCallback)
         {
-            if (this.worlds.Contains(world))
-            {
-                return Task.FromResult(0);
-            }
-
-            this.worlds.Add(world);
-            return world.Initialize();
+            Task.Run(this.StartAsync)
+            .ContinueWith(task => startCompletedCallback(this), TaskScheduler.FromCurrentSynchronizationContext());
         }
 
-        public async Task AddWorlds(IEnumerable<IWorld> worlds)
+        /// <summary>
+        /// Starts game asynchronously. This will start a game loop that can be awaited. The loop will run until stopped.
+        /// </summary>
+        /// <returns>Returns an awaitable Task</returns>
+        public async Task StartAsync()
         {
-            foreach(IWorld world in worlds)
+            if (!this.IsEnabled)
             {
-                await this.AddWorld(world);
+                await this.Initialize();
             }
+
+            IConfigurationComponent[] components = this.Configuration.GetConfigurationComponents();
+            foreach (IConfigurationComponent component in components)
+            {
+                await component.Initialize();
+            }
+
+            this.IsRunning = true;
         }
 
+        /// <summary>
+        /// Stops the game from running.
+        /// </summary>
+        /// <returns>Returns an awaitable Task</returns>
+        public Task Stop()
+        {
+            if (!this.IsEnabled && !this.IsRunning)
+            {
+                this.IsEnabled = false;
+                this.IsRunning = false;
+                foreach (IConfigurationComponent component in this.Configuration.GetConfigurationComponents())
+                {
+                    component.Disable();
+                }
+            }
+
+            return Task.FromResult(0);
+        }
+
+        /// <summary>
+        /// Loads the component and any resources or dependencies it might have.
+        /// Called during initialization of the component
+        /// </summary>
+        /// <returns></returns>
         protected override Task Load()
         {
+            this.IsEnabled = true;
             return Task.FromResult(0);
         }
 
+        /// <summary>
+        /// Unloads this instance and any resources or dependencies it might be using.
+        /// Called during deletion of the component.
+        /// </summary>
+        /// <returns></returns>
         protected override Task Unload()
         {
-            return Task.FromResult(0);
+            return this.Stop();
         }
     }
 }

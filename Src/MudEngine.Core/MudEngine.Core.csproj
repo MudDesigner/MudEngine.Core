@@ -68,6 +68,7 @@
     <Compile Include="Environment\WeatherStateChangedEventArgs.cs" />
     <Compile Include="Environment\WestDirection.cs" />
     <Compile Include="Environment\WorldManager.cs" />
+    <Compile Include="IConfigurationComponent.cs" />
     <Compile Include="IGameConfiguration.cs" />
     <Compile Include="MessageBrokering\StandardMessage.cs" />
     <Compile Include="PropertyCache.cs" />

@@ -31,5 +31,11 @@ namespace MudDesigner.MudEngine
         /// Gets or sets the website.
         /// </summary>
         string Website { get; set; }
+
+        IConfigurationComponent[] GetConfigurationComponents();
+
+        void UseGameComponent<T>() where T : IConfigurationComponent;
+
+        void UseGameComponent<T>(T component) where T : IConfigurationComponent;
     }
 }
