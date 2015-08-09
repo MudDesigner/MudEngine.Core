@@ -151,18 +151,37 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
         public async Task State_clock_increments_by_the_hour()
         {
             // Arrange
-            var day = Mock.Of<ITimeOfDay>(m => m.Hour == 5 && m.HoursPerDay == 24);
+            var state = new TimeOfDayState();
+            var continueIncrementingHour = true;
 
+            var day = Mock.Of<ITimeOfDay>(m => m.Hour == 5 && m.HoursPerDay == 24);
+            Mock.Get(day)
+                .Setup(m => m.IncrementByHour(It.IsAny<int>()))
+                .Callback((int time) =>
+                {
+                    // This prevents the timer from incrementing the hours past what our test is expecting.
+                    // We aren't testing the number of times that the timer increments the hours, 
+                    // we are just testing that the timer actually increments the hours.
+                    if (!continueIncrementingHour)
+                    {
+
+                        return;
+                    }
+
+                    day = Mock.Of<ITimeOfDay>(m => m.Hour == day.Hour + time && m.HoursPerDay == day.HoursPerDay);
+                    state.StateStartTime = day;
+
+                    continueIncrementingHour = false;
+                });
+             
             // Mock out the cloning of the ITimeOfDay instance.
             // The state initialization performs two clones at the moment.
             Mock.Get(day).Setup(mock => mock.Clone()).Returns(day);
             Mock.Get(day.Clone()).Setup(mock => mock.Clone()).Returns(day);
 
-            var state = new TimeOfDayState();
-
             // Act
             state.Initialize(day, 0.005);
-            await Task.Delay(TimeSpan.FromSeconds(10));
+            await Task.Delay(TimeSpan.FromSeconds(1));
 
             // Assert
             Assert.AreEqual(6, state.StateStartTime.Hour);
