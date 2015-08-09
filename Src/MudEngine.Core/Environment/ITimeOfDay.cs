@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine.Environment
 {
+    // TODO: All ITimeOfDay implementations should be converted from classes to structs
     /// <summary>
     /// Provides properties indicating the current time of day and methods to change the time.
     /// </summary>

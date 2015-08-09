@@ -7,7 +7,6 @@ namespace MudEngine.Game.Environment
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using MudDesigner.MudEngine.Environment;
     using MudDesigner.MudEngine.Game;

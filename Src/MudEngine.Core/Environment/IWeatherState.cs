@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine.Environment
 {
+    // TODO: All IWeatherState implementations should be converted from classes to structs
     /// <summary>
     /// Exposes properties that represent a state that the weather may be in.
     /// </summary>
