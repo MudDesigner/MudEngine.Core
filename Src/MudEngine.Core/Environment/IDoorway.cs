@@ -39,7 +39,7 @@ namespace MudDesigner.MudEngine.Environment
         Task ConnectRooms(IRoom departureRoom, IRoom arrivalRoom);
 
         /// <summary>
-        /// Connects the departing room to the arrival room.
+        /// Connects the departing room to the arrival room, allowing actors to travel between the two rooms.
         /// </summary>
         /// <para>
         /// This connection can be set to either one-way or two way, allowing or disallowing
@@ -71,8 +71,12 @@ namespace MudDesigner.MudEngine.Environment
         Task ConnectRooms(IRoom arrivalRoom, bool autoCreateReverseDoorway);
 
         /// <summary>
-        /// Disconnects the two linked rooms from each other.
+        /// Disconnects the two linked rooms from each other. 
         /// </summary>
+        /// <para>
+        /// If there are no other rooms connecting the arrival, or the departuring, room then actors can be orphaned
+        /// in the room, unable to escape.
+        /// </para>
         void DisconnectRooms();
     }
 }
