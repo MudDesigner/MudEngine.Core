@@ -18,12 +18,12 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Occurs when an occupant enters the room. The occupant must enter the room through via the AddActorToRoom or AddActorsToRoom methods
         /// </summary>
-        event EventHandler<OccupancyChangedEventArgs> OccupantEntered;
+        event EventHandler<RoomOccupancyChangedEventArgs> OccupantEntered;
 
         /// <summary>
         /// Occurs when an occupant leaves the room. The occupant must leave the room through via the RemoveActorFromRoom or RemoveActorsFromRoom methods
         /// </summary>
-        event EventHandler<OccupancyChangedEventArgs> OccupantLeft;
+        event EventHandler<RoomOccupancyChangedEventArgs> OccupantLeft;
 
         /// <summary>
         /// Gets Zone that owns this Room.

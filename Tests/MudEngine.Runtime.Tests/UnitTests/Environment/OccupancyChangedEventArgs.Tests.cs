@@ -24,7 +24,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             var travelDirection = Mock.Of<ITravelDirection>();
 
             // Act
-            var eventArgs = new OccupancyChangedEventArgs(
+            var eventArgs = new RoomOccupancyChangedEventArgs(
                 character,
                 travelDirection,
                 departure,
@@ -52,7 +52,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             var travelDirection = Mock.Of<ITravelDirection>();
 
             // Act
-            var eventArgs = new OccupancyChangedEventArgs(
+            var eventArgs = new RoomOccupancyChangedEventArgs(
                 null,
                 travelDirection,
                 departure,
@@ -74,7 +74,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             var character = Mock.Of<ICharacter>();
 
             // Act
-            var eventArgs = new OccupancyChangedEventArgs(
+            var eventArgs = new RoomOccupancyChangedEventArgs(
                 character,
                 null,
                 departure,
@@ -96,7 +96,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             var travelDirection = Mock.Of<ITravelDirection>();
 
             // Act
-            var eventArgs = new OccupancyChangedEventArgs(
+            var eventArgs = new RoomOccupancyChangedEventArgs(
                 character,
                 travelDirection,
                 null,
@@ -118,7 +118,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             var travelDirection = Mock.Of<ITravelDirection>();
 
             // Act
-            var eventArgs = new OccupancyChangedEventArgs(
+            var eventArgs = new RoomOccupancyChangedEventArgs(
                 character,
                 travelDirection,
                 departure,

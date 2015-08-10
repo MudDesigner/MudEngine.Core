@@ -53,6 +53,16 @@ namespace MudEngine.Game.Environment
         public event EventHandler<WeatherStateChangedEventArgs> WeatherChanged;
 
         /// <summary>
+        /// Occurs when a zone occupant has entered the zone.
+        /// </summary>
+        public event EventHandler<ZoneOccupancyChangedEventArgs> EnteredZone;
+
+        /// <summary>
+        /// Occurs when a zone occupant has left the zone.
+        /// </summary>
+        public event EventHandler<ZoneOccupancyChangedEventArgs> LeftZone;
+
+        /// <summary>
         /// Gets the current state of the weather in this zone.
         /// </summary>
         public IWeatherState CurrentWeather { get; protected set; }
@@ -134,6 +144,8 @@ namespace MudEngine.Game.Environment
             }
 
             await room.Initialize();
+            room.OccupantEntered += this.OccupantEnteredRoom;
+            room.OccupantLeft += this.OccupantLeftRoom;
             this.rooms.Add(room);
         }
 
@@ -151,6 +163,8 @@ namespace MudEngine.Game.Environment
             }
 
             this.rooms.Remove(room);
+            room.OccupantEntered -= this.OccupantEnteredRoom;
+            room.OccupantLeft -= this.OccupantLeftRoom;
             return room.Delete();
         }
 
@@ -262,6 +276,8 @@ namespace MudEngine.Game.Environment
             this.weatherClock.Dispose();
             foreach(IRoom room in this.rooms)
             {
+                room.OccupantEntered -= this.OccupantEnteredRoom;
+                room.OccupantLeft -= this.OccupantLeftRoom;
                 await room.Delete();
             }
         }
@@ -301,6 +317,84 @@ namespace MudEngine.Game.Environment
             }
 
             handler(this, new WeatherStateChangedEventArgs(initialState, nextState));
+        }
+
+        /// <summary>
+        /// Called when an occupant has entered one of the rooms that this zone owns.
+        /// </summary>
+        /// <para>
+        /// This method will check if the occupant entering the room is entering a room in this zone for the first time.
+        /// If so, then the EnteredZone event is raised.
+        /// </para>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="MudDesigner.MudEngine.Environment.RoomOccupancyChangedEventArgs" /> instance containing the event data.</param>
+        private void OccupantEnteredRoom(object sender, RoomOccupancyChangedEventArgs e)
+        {
+            // The occupant is entering our zone for the first time.
+            if (e.DepartureRoom == null)
+            {
+                this.OnEnteredZone(e);
+                return;
+            }
+
+            // The occupant is moving around within our zone already.
+            if (e.DepartureRoom.Owner == this)
+            {
+                return;
+            }
+
+            this.OnEnteredZone(e);
+        }
+
+        /// <summary>
+        /// Called when an occupant has left one of the rooms that this zone owns.
+        /// </summary>
+        /// <para>
+        /// This method will check if the occupant leaving the room is entering a room in a different zone other than this instance.
+        /// If so, then the LeftZone event is raised.
+        /// </para>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="MudDesigner.MudEngine.Environment.RoomOccupancyChangedEventArgs" /> instance containing the event data.</param>
+        private void OccupantLeftRoom(object sender, RoomOccupancyChangedEventArgs e)
+        {
+            // Not sure what happened during travel, but the occupant does not have an arrival room.
+            // So we don't do anything or the occupant is just traveling around within our zone, so we ignore it.
+            if (e.ArrivalRoom == null || e.ArrivalRoom.Owner == this)
+            {
+                return;
+            }
+
+            this.OnLeftZone(e);
+        }
+
+        /// <summary>
+        /// Called when an occupant enters a room within this zone for the first time.
+        /// </summary>
+        /// <param name="roomOccupancyChange">The <see cref="MudDesigner.MudEngine.Environment.RoomOccupancyChangedEventArgs" /> instance containing the event data.</param>
+        private void OnEnteredZone(RoomOccupancyChangedEventArgs roomOccupancyChange)
+        {
+            EventHandler<ZoneOccupancyChangedEventArgs> handler = this.EnteredZone;
+            if (handler == null)
+            {
+                return;
+            }
+
+            handler(this, new ZoneOccupancyChangedEventArgs(this, roomOccupancyChange));
+        }
+
+        /// <summary>
+        /// Called when an occupant is leaving a room owned by this zone, and entering a room owned by a different zone.
+        /// </summary>
+        /// <param name="roomOccupancyChange">The <see cref="MudDesigner.MudEngine.Environment.RoomOccupancyChangedEventArgs" /> instance containing the event data.</param>
+        private void OnLeftZone(RoomOccupancyChangedEventArgs roomOccupancyChange)
+        {
+            EventHandler<ZoneOccupancyChangedEventArgs> handler = this.LeftZone;
+            if (handler == null)
+            {
+                return;
+            }
+
+            handler(this, new ZoneOccupancyChangedEventArgs(this, roomOccupancyChange));
         }
     }
 }

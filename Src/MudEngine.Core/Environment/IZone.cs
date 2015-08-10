@@ -20,6 +20,16 @@ namespace MudDesigner.MudEngine.Environment
         event EventHandler<WeatherStateChangedEventArgs> WeatherChanged;
 
         /// <summary>
+        /// Occurs when a zone occupant has entered the zone.
+        /// </summary>
+        event EventHandler<ZoneOccupancyChangedEventArgs> EnteredZone;
+
+        /// <summary>
+        /// Occurs when a zone occupant has left the zone.
+        /// </summary>
+        event EventHandler<ZoneOccupancyChangedEventArgs> LeftZone;
+
+        /// <summary>
         /// Gets the number of rooms in this zone instance.
         /// </summary>
         int NumberOfRoomsInZone { get; }

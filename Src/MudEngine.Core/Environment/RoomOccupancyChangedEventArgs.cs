@@ -8,10 +8,10 @@ namespace MudDesigner.MudEngine.Environment
     using System;
     using MudDesigner.MudEngine.Actors;
 
-    public sealed class OccupancyChangedEventArgs : EventArgs
+    public class RoomOccupancyChangedEventArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="OccupancyChangedEventArgs" /> class.
+        /// Initializes a new instance of the <see cref="RoomOccupancyChangedEventArgs" /> class.
         /// </summary>
         /// <param name="occupant">The occupant responsible for the change.</param>
         /// <param name="travelDirection">The direction of travel the occupant is going.</param>
@@ -26,7 +26,7 @@ namespace MudDesigner.MudEngine.Environment
         /// or
         /// A valid arrivalRoom must be provided.
         /// </exception>
-        public OccupancyChangedEventArgs(ICharacter occupant, ITravelDirection travelDirection, IRoom departureRoom, IRoom arrivalRoom)
+        public RoomOccupancyChangedEventArgs(ICharacter occupant, ITravelDirection travelDirection, IRoom departureRoom, IRoom arrivalRoom)
         {
             if (occupant == null)
             {

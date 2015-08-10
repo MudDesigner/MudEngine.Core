@@ -63,7 +63,7 @@
     <Compile Include="Environment\IWorld.cs" />
     <Compile Include="Environment\IZone.cs" />
     <Compile Include="Environment\NorthDirection.cs" />
-    <Compile Include="Environment\OccupancyChangedEventArgs.cs" />
+    <Compile Include="Environment\RoomOccupancyChangedEventArgs.cs" />
     <Compile Include="Environment\RainyWeather.cs" />
     <Compile Include="Environment\SouthDirection.cs" />
     <Compile Include="Environment\ThunderstormWeather.cs" />
@@ -74,6 +74,7 @@
     <Compile Include="Environment\WeatherStateChangedEventArgs.cs" />
     <Compile Include="Environment\WestDirection.cs" />
     <Compile Include="Environment\WorldManager.cs" />
+    <Compile Include="Environment\ZoneOccupancyChangedEventArgs.cs" />
     <Compile Include="IAdapter.cs" />
     <Compile Include="InfoMessage.cs" />
     <Compile Include="GameMessage.cs" />
