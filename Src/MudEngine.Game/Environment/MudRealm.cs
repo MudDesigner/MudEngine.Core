@@ -186,7 +186,7 @@ namespace MudEngine.Game.Environment
         /// Loads the component and any resources or dependencies it might have. 
         /// Called during initialization of the component
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns an awaitable Task</returns>
         protected override Task Load()
         {
             // The ApplyTimeZoneOffset throws an exception if Owner is null, so we check for that first.
@@ -202,10 +202,13 @@ namespace MudEngine.Game.Environment
         /// Unloads this instance and any resources or dependencies it might be using.
         /// Called during deletion of the component.
         /// </summary>
-        /// <returns></returns>
-        protected override Task Unload()
+        /// <returns>Returns an awaitable Task</returns>
+        protected async override Task Unload()
         {
-            return Task.FromResult(0);
+            foreach(IZone zone in this.zones)
+            {
+                await zone.Delete();
+            }
         }
     }
 }

@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Environment\MudRealm.cs" />
     <Compile Include="Environment\MudWorld.cs" />
+    <Compile Include="Environment\MudZone.cs" />
     <Compile Include="MudGame.cs" />
     <Compile Include="GameComponent.cs" />
     <Compile Include="GameConfiguration.cs" />

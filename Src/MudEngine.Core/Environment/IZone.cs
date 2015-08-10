@@ -83,6 +83,21 @@ namespace MudDesigner.MudEngine.Environment
         Task RemoveRoomsFromZone(IEnumerable<IRoom> rooms);
 
         /// <summary>
+        /// Adds the given weather state to the zone, allowing it to have the weather defined applied to it.
+        /// </summary>
+        /// <param name="weatherState">State of the weather.</param>
+        /// <returns>Returns an awaitable Task</returns>
+        Task AddWeatherState(IWeatherState weatherState);
+
+        /// <summary>
+        /// Removes the given weather state from the zone, preventing the zone from applying it any further.
+        /// If the zone is currently using the state, it will be removed but the state will not change until the weather frequency is triggered again.
+        /// </summary>
+        /// <param name="weatherState">State of the weather.</param>
+        /// <returns>Returns an awaitable Task</returns>
+        Task RemoveWeatherState(IWeatherState weatherState);
+
+        /// <summary>
         /// Determines whether the given room exists within this zone.
         /// </summary>
         /// <param name="room">The room to look for.</param>

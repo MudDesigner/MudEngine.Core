@@ -48,6 +48,8 @@
     <Compile Include="Environment\ClearWeather.cs" />
     <Compile Include="Environment\EastDirection.cs" />
     <Compile Include="Environment\IDoorway.cs" />
+    <Compile Include="Environment\InvalidRoomException.cs" />
+    <Compile Include="Environment\InvalidWeatherStateException.cs" />
     <Compile Include="Environment\InvalidZoneException.cs" />
     <Compile Include="Environment\InvalidRealmException.cs" />
     <Compile Include="Environment\InvalidTimeOfDayException.cs" />

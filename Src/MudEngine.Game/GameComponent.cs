@@ -83,11 +83,10 @@ namespace MudDesigner.MudEngine
             MessageBrokerFactory.Instance.Publish(new InfoMessage($"Initializing {this.Name ?? "GameComponent"} ({this.GetType().Name})"));
             await this.LoadingBegan();
 
-            this.IsEnabled = true;
-
+            this.Enable();
             await this.Load();
-            this.LoadingCompleted();
 
+            this.LoadingCompleted();
             MessageBrokerFactory.Instance.Publish(new InfoMessage($"Initialization of {this.Name ?? "GameComponent"} ({this.GetType().Name}) completed."));
         }
 
@@ -103,7 +102,10 @@ namespace MudDesigner.MudEngine
         public async Task Delete()
         {
             await this.OnDeleteRequested();
+
+            this.Disable();
             await this.Unload();
+
             this.OnDeleted();
         }
 

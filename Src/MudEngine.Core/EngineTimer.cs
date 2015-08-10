@@ -147,6 +147,15 @@ namespace MudDesigner.MudEngine
         }
 
         /// <summary>
+        /// Sets the timers current state.
+        /// </summary>
+        /// <param name="state">The state.</param>
+        public void SetState(T state)
+        {
+            this.StateData = state;
+        }
+
+        /// <summary>
         /// Stops the timer and releases the unmanaged resources used by the <see cref="T:System.Threading.CancellationTokenSource" /> class and optionally releases the managed resources.
         /// </summary>
         /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
@@ -154,8 +163,7 @@ namespace MudDesigner.MudEngine
         {
             if (disposing)
             {
-                this.IsRunning = false;
-                this.Cancel();
+                this.Stop();
             }
 
             base.Dispose(disposing);
