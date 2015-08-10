@@ -35,6 +35,11 @@ namespace MudEngine.Game.Environment
         {
             get
             {
+                if (this.Owner == null)
+                {
+                    return null;
+                }
+
                 // Fetch the normalized world time and apply our new timezne offset to it.
                 ITimeOfDay adjustedTimeOfDay = this.Owner.CurrentTimeOfDay.CurrentTime;
                 adjustedTimeOfDay.IncrementByMinute(this.TimeZoneOffset.Minute);
@@ -112,6 +117,11 @@ namespace MudEngine.Game.Environment
         /// <param name="minute">The number of minutes to offset by.</param>
         public void ApplyTimeZoneOffset(int hour, int minute)
         {
+            if (this.Owner == null)
+            {
+                throw new InvalidTimeZoneException("The time zone offset can not be applied due to the realm not being owned by a world. Worlds manage the in-game time and time periods. A world must be assigned as owner on the realm in order for any time zone interactions to take place.");
+            }
+
             TimePeriodManager timeManager = this.Owner.TimePeriodManager;
             this.TimeZoneOffset = timeManager.CreateTimeOfDay(hour, minute, this.Owner.HoursPerDay);
         }
@@ -166,6 +176,12 @@ namespace MudEngine.Game.Environment
         /// <returns></returns>
         protected override Task Load()
         {
+            // The ApplyTimeZoneOffset throws an exception if Owner is null, so we check for that first.
+            if (this.Owner != null)
+            {
+                this.ApplyTimeZoneOffset(0, 0);
+            }
+
             return Task.FromResult(0);
         }
 
