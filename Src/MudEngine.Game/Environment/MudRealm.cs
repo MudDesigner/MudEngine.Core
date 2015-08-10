@@ -109,12 +109,13 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// Applies a time zone offset to the Realm.
         /// </summary>
+        /// <param name="hour">The number of hours to offset by.</param>
+        /// <param name="minute">The number of minutes to offset by.</param>
+        /// <exception cref="System.InvalidTimeZoneException">The time zone offset can not be applied due to the realm not being owned by a world. Worlds manage the in-game time and time periods. A world must be assigned as owner on the realm in order for any time zone interactions to take place.</exception>
         /// <para>
         /// The Hour and Minute provided will cause the Realm's timezone to be offset from
         /// the Worlds standard time-zone.
         /// </para>
-        /// <param name="hour">The number of hours to offset by.</param>
-        /// <param name="minute">The number of minutes to offset by.</param>
         public void ApplyTimeZoneOffset(int hour, int minute)
         {
             if (this.Owner == null)
@@ -153,9 +154,21 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// Gets the state of the current time of day.
         /// </summary>
-        /// <returns>Returns the current Time of Day State the Realm is in.</returns>
-        public ITimePeriod GetCurrentTimePeriodForZone() => this.Owner.TimePeriodManager.GetTimePeriodForDay(this.CurrentTime);
+        /// <returns>
+        /// Returns the current Time of Day State the Realm is in.
+        /// </returns>
+        /// <exception cref="System.InvalidOperationException">You can not get the current time period for the zone when the zone does not have a valid owner.</exception>
+        public ITimePeriod GetCurrentTimePeriodForZone()
+        {
+            if (this.Owner == null)
+            {
+                throw new InvalidOperationException("You can not get the current time period for the zone when the zone does not have a valid owner.");
+            }
 
+            ITimePeriod timePeriod = this.Owner.TimePeriodManager.GetTimePeriodForDay(this.CurrentTime);
+            return timePeriod ?? this.Owner.CurrentTimeOfDay;
+        }
+            
         /// <summary>
         /// Gets the all of the zones assigned to the realm.
         /// </summary>
