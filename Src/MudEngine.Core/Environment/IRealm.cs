@@ -40,6 +40,14 @@ namespace MudDesigner.MudEngine.Environment
         IZone[] GetZonesInRealm();
 
         /// <summary>
+        /// Creates a new uninitialized zone.
+        /// </summary>
+        /// <param name="name">The name of the zone.</param>
+        /// <param name="owner">The realm that owns this zone.</param>
+        /// <returns>Returns an uninitialized zone instance</returns>
+        Task<IZone> CreateZone(string name);
+
+        /// <summary>
         /// Adds a given zone to this Realm.
         /// </summary>
         /// <param name="zone">The zone to add to the realm.</param>

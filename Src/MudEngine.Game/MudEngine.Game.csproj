@@ -34,7 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Environment\MudDoor.cs" />
     <Compile Include="Environment\MudRealm.cs" />
+    <Compile Include="Environment\MudRoom.cs" />
     <Compile Include="Environment\MudWorld.cs" />
     <Compile Include="Environment\MudZone.cs" />
     <Compile Include="MudGame.cs" />

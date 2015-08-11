@@ -29,20 +29,27 @@ namespace MudEngine.Game.Environment
         private EngineTimer<IWeatherState> weatherClock;
 
         /// <summary>
+        /// The room factory used to create new rooms
+        /// </summary>
+        private IRoomFactory roomFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MudZone"/> class.
         /// </summary>
-        public MudZone()
+        public MudZone(IRoomFactory roomFactory)
         {
             this.WeatherUpdateFrequency = 15;
             this.rooms = new List<IRoom>();
             this.weatherStates = new List<IWeatherState>();
+
+            this.roomFactory = roomFactory;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MudZone"/> class.
         /// </summary>
         /// <param name="weatherStates">The weather states that can be applied to this zone.</param>
-        public MudZone(IEnumerable<IWeatherState> weatherStates) : this()
+        public MudZone(IRoomFactory roomFactory, IEnumerable<IWeatherState> weatherStates) : this(roomFactory)
         {
             this.weatherStates = new List<IWeatherState>(weatherStates);
         }
@@ -100,6 +107,21 @@ namespace MudEngine.Game.Environment
         /// <param name="room">The room to look for.</param>
         /// <returns>Returns true if the room exists within the zone</returns>
         public bool HasRoomInZone(IRoom room) => this.rooms.Contains(room);
+
+        /// <summary>
+        /// Creates an uninitialized room.
+        /// </summary>
+        /// <param name="name">The name of the room.</param>
+        /// <returns>Returns an uninitialized room instance</returns>
+        public Task<IRoom> CreateRoom(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentNullException(nameof(name), "You must provide a valid name when creating a room.");
+            }
+
+            return this.roomFactory.CreateRoom(name, this);
+        }
 
         /// <summary>
         /// Adds a collection of rooms to this zone.

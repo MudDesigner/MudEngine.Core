@@ -15,6 +15,11 @@ namespace MudDesigner.MudEngine.Game
     public class MudGame : GameComponent, IGame
     {
         /// <summary>
+        /// The adapters that have already been initialized and are ready to be started.
+        /// </summary>
+        private IAdapter[] initializedAdapters;
+
+        /// <summary>
         /// Gets information pertaining to the game.
         /// </summary>
         public IGameConfiguration Configuration { get; protected set; }
@@ -65,12 +70,11 @@ namespace MudDesigner.MudEngine.Game
             }
 
             MessageBrokerFactory.Instance.Publish(new GameMessage("Configuring game configuration components."));
-            IAdapter[] components = this.Configuration.GetConfigurationComponents();
-            foreach (AdapterBase component in components)
+            foreach (IAdapter adapter in this.initializedAdapters)
             {
-                MessageBrokerFactory.Instance.Publish(new GameMessage($"Initializing {component.Name} component."));
-                await component.Initialize();
-                MessageBrokerFactory.Instance.Publish(new GameMessage($"{component.Name} initialization completed."));
+                MessageBrokerFactory.Instance.Publish(new GameMessage($"Initializing {adapter.Name} component."));
+                await adapter.Start(this);
+                MessageBrokerFactory.Instance.Publish(new GameMessage($"{adapter.Name} initialization completed."));
             }
 
             this.IsRunning = true;
@@ -81,19 +85,17 @@ namespace MudDesigner.MudEngine.Game
         /// Stops the game from running.
         /// </summary>
         /// <returns>Returns an awaitable Task</returns>
-        public Task Stop()
+        public async Task Stop()
         {
             if (!this.IsEnabled && !this.IsRunning)
             {
                 this.IsEnabled = false;
                 this.IsRunning = false;
-                foreach (IAdapter component in this.Configuration.GetConfigurationComponents())
+                foreach (IAdapter adapter in this.initializedAdapters)
                 {
-                    component.Delete();
+                    await adapter.Delete();
                 }
             }
-
-            return Task.FromResult(0);
         }
 
         /// <summary>
@@ -101,10 +103,16 @@ namespace MudDesigner.MudEngine.Game
         /// Called during initialization of the component
         /// </summary>
         /// <returns></returns>
-        protected override Task Load()
+        protected override async Task Load()
         {
+            // Initialize all of our adapters
+            this.initializedAdapters = this.Configuration.GetAdapters();
+            foreach (IAdapter adapter in this.initializedAdapters)
+            {
+                await adapter.Initialize();
+            }
+
             this.IsEnabled = true;
-            return Task.FromResult(0);
         }
 
         /// <summary>
@@ -114,7 +122,12 @@ namespace MudDesigner.MudEngine.Game
         /// <returns></returns>
         protected override Task Unload()
         {
-            return this.Stop();
+            if (this.IsRunning)
+            {
+                return this.Stop();
+            }
+
+            return Task.FromResult(0);
         }
     }
 }

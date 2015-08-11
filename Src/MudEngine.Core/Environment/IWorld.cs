@@ -49,12 +49,30 @@ namespace MudDesigner.MudEngine.Environment
         /// </summary>
         /// <returns>Returns an array of time periods</returns>
         ITimePeriod[] GetTimePeriodsForWorld();
+        
+        /// <summary>
+        /// Adds a collection of realms to world, initializing them as they are added.
+        /// </summary>
+        /// <param name="realms">The realms.</param>
+        /// <returns>
+        /// Returns an awaitable Task
+        /// </returns>
+        IRealm[] GetRealmsInWorld();
 
         /// <summary>
-        /// Gets all of the realms that have been added to this world.
+        /// Creates an unintialized instance of a realm.
         /// </summary>
-        /// <returns>Returns an array of realms</returns>
-        IRealm[] GetRealmsInWorld();
+        /// <param name="name">The name of the realm.</param>
+        /// <param name="owner">The world that owns this realm.</param>
+        /// <returns>Returns an initialized instance of IRealm</returns>
+        Task<IRealm> CreateRealm(string name);
+
+        /// <summary>
+        /// Adds the realms to world.
+        /// </summary>
+        /// <param name="realms">The realms.</param>
+        /// <returns></returns>
+        Task AddRealmsToWorld(IEnumerable<IRealm> realms);
 
         /// <summary>
         /// Initializes and then adds the given realm to this world instance.
@@ -62,13 +80,6 @@ namespace MudDesigner.MudEngine.Environment
         /// <param name="realm">The realm to add.</param>
         /// <returns>Returns an awaitable Task</returns>
         Task AddRealmToWorld(IRealm realm);
-
-        /// <summary>
-        /// Adds a collection of realms to world, initializing them as they are added.
-        /// </summary>
-        /// <param name="realms">The realms.</param>
-        /// <returns>Returns an awaitable Task</returns>
-        Task AddRealmsToWorld(IEnumerable<IRealm> realms);
 
         /// <summary>
         /// Removes the given realm from this world instance, deleting the realm in the process.

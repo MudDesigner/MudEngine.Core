@@ -62,6 +62,13 @@ namespace MudDesigner.MudEngine.Environment
         IRoom[] GetRoomsForZone();
 
         /// <summary>
+        /// Creates an uninitialized room.
+        /// </summary>
+        /// <param name="name">The name of the room.</param>
+        /// <returns>Returns an uninitialized room instance</returns>
+        Task<IRoom> CreateRoom(string name);
+
+        /// <summary>
         /// Adds the given room to this zone.
         /// </summary>
         /// <param name="room">The room to add.</param>

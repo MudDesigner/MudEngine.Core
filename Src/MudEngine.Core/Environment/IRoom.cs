@@ -28,7 +28,7 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Gets Zone that owns this Room.
         /// </summary>
-        IZone Owner { get; }
+        IZone Owner { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is sealed. A sealed room will throw an exception if anything tries to add or remove an actor.
@@ -90,7 +90,7 @@ namespace MudDesigner.MudEngine.Environment
         /// </summary>
         /// <param name="travelDirectionToReachDoor">The travel direction an actor must travel in order to reach the door.</param>
         /// <returns>Returns a valid instance of an IDoorway implementation</returns>
-        IDoorway CreateDoorway(ITravelDirection travelDirectionToReachDoor);
+        Task<IDoorway> CreateDoorway(ITravelDirection travelDirectionToReachDoor);
 
         /// <summary>
         /// Adds a given doorway to this room instance.

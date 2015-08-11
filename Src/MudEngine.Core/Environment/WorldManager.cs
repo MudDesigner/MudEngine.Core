@@ -14,13 +14,39 @@ namespace MudDesigner.MudEngine.Environment
     /// </summary>
     public sealed class WorldManager : AdapterBase
     {
+        /// <summary>
+        /// A collection of worlds added to the manager
+        /// </summary>
         private List<IWorld> worlds;
+
+        /// <summary>
+        /// The world factory used to create new instances of IWorld
+        /// </summary>
+        private IWorldFactory worldFactory;
+
+        /// <summary>
+        /// The game that owns this adapter
+        /// </summary>
+        private IGame game;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorldManager"/> class.
+        /// </summary>
+        /// <param name="worldFactory">The factory responsible for creating new worlds.</param>
+        public WorldManager(IWorldFactory worldFactory)
+        {
+            this.worlds = new List<IWorld>();
+            this.worldFactory = worldFactory;
+        }
 
         /// <summary>
         /// Gets a collection of worlds associated with this game.
         /// </summary>
         public IWorld[] Worlds { get; }
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
         public override string Name { get { return "World Manager"; } }
 
         /// <summary>
@@ -51,17 +77,38 @@ namespace MudDesigner.MudEngine.Environment
 
             return Task.FromResult(0);
         }
-        
+
+        /// <summary>
+        /// Creates an initialized world ready for use.
+        /// </summary>
+        /// <param name="name">The name of the world.</param>
+        /// <param name="gameDayToRealWorldHoursRatio">The game day to real world hours ratio.</param>
+        /// <param name="hoursPerDay">The number of hours per day.</param>
+        /// <returns>Returns an IWorld instance</returns>
+        /// <exception cref="System.InvalidOperationException">$The {this.Name} was not provided an IWorldFactory to use.</exception>
+        public Task<IWorld> CreateWorld(string worldName, double gameDayToRealWorldHourRatio, int hoursPerDay)
+        {
+            if (this.worldFactory == null)
+            {
+                throw new InvalidOperationException($"The {this.Name} was not provided an IWorldFactory to use.");
+            }
+
+            return this.worldFactory.CreateWorld(
+                worldName,
+                gameDayToRealWorldHourRatio,
+                hoursPerDay);
+        }
+
         /// <summary>
         /// Adds a given world to the games available worlds.
         /// </summary>
         /// <param name="world">The world to give the game.</param>
         /// <returns>Returns an awaitable Task</returns>
-        public async Task AddWorld(IWorld world)
+        public Task AddWorld(IWorld world)
         {
             if (this.worlds.Contains(world))
             {
-                return;
+                return Task.FromResult(0);
             }
 
 
@@ -78,9 +125,9 @@ namespace MudDesigner.MudEngine.Environment
                 exception.Data.Add(this, world);
                 throw exception;
             }
-
-            await world.Initialize();
+            
             this.worlds.Add(world);
+            return Task.FromResult(0);
         }
 
         /// <summary>
@@ -96,6 +143,23 @@ namespace MudDesigner.MudEngine.Environment
             foreach(IWorld world in worlds)
             {
                 await this.AddWorld(world);
+            }
+        }
+
+        /// <summary>
+        /// Starts this adapter and allows it to run.
+        /// All of the worlds will be initialized and will start running.
+        /// </summary>
+        /// <param name="game">The an instance of an initialized game.</param>
+        /// <returns>
+        /// Returns an awaitable Task
+        /// </returns>
+        public override async Task Start(IGame game)
+        {
+            this.game = game;
+            foreach(IWorld world in this.worlds)
+            {
+                await world.Initialize();
             }
         }
     }

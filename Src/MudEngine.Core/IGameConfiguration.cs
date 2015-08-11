@@ -33,23 +33,23 @@ namespace MudDesigner.MudEngine
         string Website { get; set; }
 
         /// <summary>
-        /// Gets the game configuration components that have been registered.
+        /// Gets the game adapter components that have been registered.
         /// </summary>
-        /// <returns>Returns an array of configuration components</returns>
-        IAdapter[] GetConfigurationComponents();
+        /// <returns>Returns an array of adapter components</returns>
+        IAdapter[] GetAdapters();
 
         /// <summary>
-        /// Tells the game configuration that a specific component must be used by the game.
+        /// Tells the game configuration that a specific adapter component must be used by the game.
         /// A new instance of TConfigComponent will be created when the game starts.
         /// </summary>
-        /// <typeparam name="TConfigComponent">The type of the configuration component to use.</typeparam>
-        void UseGameComponent<TConfigComponent>() where TConfigComponent : class, IAdapter, new();
+        /// <typeparam name="TAdapter">The type of the adapter component to use.</typeparam>
+        void UseAdapter<TAdapter>() where TAdapter : class, IAdapter, new();
 
         /// <summary>
-        /// Tells the game configuration that a specific component must be used by the game.
+        /// Tells the game configuration that a specific adapter component must be used by the game.
         /// </summary>
-        /// <typeparam name="TConfigComponent">The type of the configuration component.</typeparam>
+        /// <typeparam name="TAdapter">The type of the adapter component.</typeparam>
         /// <param name="component">The component instance you want to use.</param>
-        void UseGameComponent<TConfigComponent>(TConfigComponent component) where TConfigComponent : class, IAdapter;
+        void UseAdapter<TAdapter>(TAdapter component) where TAdapter : class, IAdapter;
     }
 }

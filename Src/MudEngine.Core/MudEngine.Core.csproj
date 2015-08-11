@@ -40,6 +40,8 @@
   <ItemGroup>
     <Compile Include="Actors\IActor.cs" />
     <Compile Include="Actors\ICharacter.cs" />
+    <Compile Include="Actors\InvalidActorException.cs" />
+    <Compile Include="Actors\InvalidCharacterException.cs" />
     <Compile Include="AttributeCache.cs" />
     <Compile Include="Autosave.cs" />
     <Compile Include="CachedTypeData.cs" />
@@ -48,6 +50,7 @@
     <Compile Include="Environment\ClearWeather.cs" />
     <Compile Include="Environment\EastDirection.cs" />
     <Compile Include="Environment\IDoorway.cs" />
+    <Compile Include="Environment\IDoorwayFactory.cs" />
     <Compile Include="Environment\InvalidRoomException.cs" />
     <Compile Include="Environment\InvalidWeatherStateException.cs" />
     <Compile Include="Environment\InvalidZoneException.cs" />
@@ -55,13 +58,17 @@
     <Compile Include="Environment\InvalidTimeOfDayException.cs" />
     <Compile Include="Environment\InvalidTimePeriodException.cs" />
     <Compile Include="Environment\IRealm.cs" />
+    <Compile Include="Environment\IRealmFactory.cs" />
     <Compile Include="Environment\IRoom.cs" />
+    <Compile Include="Environment\IRoomFactory.cs" />
     <Compile Include="Environment\ITimeOfDay.cs" />
     <Compile Include="Environment\ITimePeriod.cs" />
     <Compile Include="Environment\ITravelDirection.cs" />
     <Compile Include="Environment\IWeatherState.cs" />
     <Compile Include="Environment\IWorld.cs" />
+    <Compile Include="Environment\IWorldFactory.cs" />
     <Compile Include="Environment\IZone.cs" />
+    <Compile Include="Environment\IZoneFactory.cs" />
     <Compile Include="Environment\NorthDirection.cs" />
     <Compile Include="Environment\RoomOccupancyChangedEventArgs.cs" />
     <Compile Include="Environment\RainyWeather.cs" />

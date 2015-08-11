@@ -42,35 +42,34 @@ namespace MudDesigner.MudEngine.Game
         public string Website { get; set; }
 
         /// <summary>
-        /// Gets the configuration components.
+        /// Gets the game adapter components that have been registered.
         /// </summary>
-        /// <returns></returns>
-        public IAdapter[] GetConfigurationComponents()
+        /// <returns>Returns an array of adapter components</returns>
+        public IAdapter[] GetAdapters()
         {
             return this.components.ToArray();
         }
 
         /// <summary>
-        /// Tells the game configuration that a specific component must be used by the game.
+        /// Tells the game configuration that a specific adapter component must be used by the game.
         /// A new instance of TConfigComponent will be created when the game starts.
         /// </summary>
-        /// <typeparam name="TConfigComponent">The type of the configuration component to use.</typeparam>
-        public void UseGameComponent<TConfigComponent>() where TConfigComponent : class, IAdapter, new()
+        /// <typeparam name="TAdapter">The type of the adapter component to use.</typeparam>
+        public void UseAdapter<TAdapter>() where TAdapter : class, IAdapter, new()
         {
-            this.components.Add(new TConfigComponent());
+            this.components.Add(new TAdapter());
         }
 
         /// <summary>
-        /// Tells the game configuration that a specific component must be used by the game.
+        /// Tells the game configuration that a specific adapter component must be used by the game.
         /// </summary>
-        /// <typeparam name="TConfigComponent">The type of the configuration component.</typeparam>
+        /// <typeparam name="TAdapter">The type of the adapter component.</typeparam>
         /// <param name="component">The component instance you want to use.</param>
-        /// <exception cref="System.ArgumentNullException">$The configuration component provided of Type {component.GetType().Name} was null.</exception>
-        public void UseGameComponent<TConfigComponent>(TConfigComponent component) where TConfigComponent : class, IAdapter
+        public void UseAdapter<TAdapter>(TAdapter component) where TAdapter : class, IAdapter
         {
             if (component == null)
             {
-                throw new ArgumentNullException(nameof(component), $"The configuration component provided of Type {component.GetType().Name} was null.");
+                throw new ArgumentNullException(nameof(component), $"The adapter component provided of Type {component.GetType().Name} was null.");
             }
 
             this.components.Add(component);

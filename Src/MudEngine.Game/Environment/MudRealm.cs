@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-//-----------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------
 // <copyright file="MudRealm.cs" company="Sully">
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace MudEngine.Game.Environment
 {
+    using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using MudDesigner.MudEngine;
     using MudDesigner.MudEngine.Environment;
@@ -16,14 +16,32 @@ namespace MudEngine.Game.Environment
     /// </summary>
     public class MudRealm : GameComponent, IRealm, ICloneableComponent<IRealm>
     {
+        /// <summary>
+        /// The zones owned by this realm
+        /// </summary>
         private List<IZone> zones;
 
-        public MudRealm()
+        /// <summary>
+        /// The zone factory used to create new zones
+        /// </summary>
+        private IZoneFactory zoneFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MudRealm"/> class.
+        /// </summary>
+        /// <param name="zoneFactory">The zone factory used to create new zones.</param>
+        public MudRealm(IZoneFactory zoneFactory)
         {
+            this.zoneFactory = zoneFactory;
             this.zones = new List<IZone>();
         }
 
-        public MudRealm(IWorld world) : this()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MudRealm"/> class.
+        /// </summary>
+        /// <param name="zoneFactory">The zone factory used to create new zones.</param>
+        /// <param name="world">The world that owns this realm</param>
+        public MudRealm(IZoneFactory zoneFactory, IWorld world) : this(zoneFactory)
         {
             this.Owner = world;
         }
@@ -63,6 +81,22 @@ namespace MudEngine.Game.Environment
         /// Gets or sets the offset from the World's current time for the Realm.
         /// </summary>
         public ITimeOfDay TimeZoneOffset { get; protected set; }
+
+        /// <summary>
+        /// Creates an unintialized instance of a realm.
+        /// </summary>
+        /// <param name="name">The name of the realm.</param>
+        /// <returns>Returns an unintialized instance of IRealm</returns>
+        /// <exception cref="InvalidZoneException">null;You can not create a new zone with an empty or null name.</exception>
+        public Task<IZone> CreateZone(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new InvalidZoneException(null, "You can not create a new zone with an empty or null name.");
+            }
+
+            return this.zoneFactory.CreateZone(name, this);
+        }
 
         /// <summary>
         /// Adds a collection of zones to the realm.
@@ -139,7 +173,7 @@ namespace MudEngine.Game.Environment
         /// </para>
         public IRealm Clone()
         {
-            var clone = new MudRealm(this.Owner)
+            var clone = new MudRealm(this.zoneFactory, this.Owner)
             {
                 Id = this.Id,
                 IsEnabled = this.IsEnabled,

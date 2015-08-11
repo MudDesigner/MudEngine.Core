@@ -28,12 +28,20 @@ namespace MudEngine.Game.Environment
         private List<IRealm> realms;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MudWorld"/> class.
+        /// The realm factory used to create new realms
         /// </summary>
-        public MudWorld()
+        private IRealmFactory realmFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MudWorld" /> class.
+        /// </summary>
+        /// <param name="realmFactory">The realm factory used to create new realms.</param>
+        public MudWorld(IRealmFactory realmFactory)
         {
             this.HoursPerDay = 24;
             this.GameDayToRealHourRatio = 0.75;
+
+            this.realmFactory = realmFactory;
 
             this.realms = new List<IRealm>();
             this.timePeriods = new List<ITimePeriod>();
@@ -45,7 +53,7 @@ namespace MudEngine.Game.Environment
         /// Initializes a new instance of the <see cref="MudWorld"/> class.
         /// </summary>
         /// <param name="timePeriodsForWorld">The time periods for world.</param>
-        public MudWorld(IEnumerable<ITimePeriod> timePeriodsForWorld) : this()
+        public MudWorld(IRealmFactory realmFactory, IEnumerable<ITimePeriod> timePeriodsForWorld) : this(realmFactory)
         {
             this.TimePeriodManager = new TimePeriodManager(timePeriodsForWorld);
         }
@@ -97,6 +105,16 @@ namespace MudEngine.Game.Environment
         /// </summary>
         /// <returns>Returns an array of realms</returns>
         public IRealm[] GetRealmsInWorld() => this.realms.ToArray();
+
+        /// <summary>
+        /// Creates an unintialized instance of a realm.
+        /// </summary>
+        /// <param name="name">The name of the realm.</param>
+        /// <returns>Returns an unintialized instance of IRealm</returns>
+        public Task<IRealm> CreateRealm(string name)
+        {
+            return this.realmFactory.CreateRealm(name, this);
+        }
 
         /// <summary>
         /// Adds a collection of realms to world, initializing them as they are added.
@@ -263,7 +281,7 @@ namespace MudEngine.Game.Environment
         /// </para>
         public IWorld Clone()
         {
-            var clone = new MudWorld()
+            var clone = new MudWorld(this.realmFactory)
             {
                 Id = this.Id,
                 CurrentTimeOfDay = this.CurrentTimeOfDay,
