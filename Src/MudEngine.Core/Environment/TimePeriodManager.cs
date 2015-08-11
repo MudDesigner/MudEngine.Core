@@ -87,7 +87,7 @@ namespace MudDesigner.MudEngine.Environment
         /// <returns>
         /// Returns an instance of ITimePeriod that represents the current time of day in the game.
         /// </returns>
-        public ITimePeriod GetTimePeriodForDay(ITimeOfDay currentGameTime = null)
+        public ITimePeriod GetTimePeriodForDay(ITimeOfDay currentGameTime)
         {
             ITimePeriod inProgressState = null;
             ITimePeriod nextState = null;

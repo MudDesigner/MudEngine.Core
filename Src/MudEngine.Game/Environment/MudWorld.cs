@@ -46,7 +46,6 @@ namespace MudEngine.Game.Environment
             this.realms = new List<IRealm>();
             this.timePeriods = new List<ITimePeriod>();
             this.TimePeriodManager = new TimePeriodManager(Enumerable.Empty<ITimePeriod>());
-            this.Name = "Mud World";
         }
 
         /// <summary>
@@ -55,6 +54,7 @@ namespace MudEngine.Game.Environment
         /// <param name="timePeriodsForWorld">The time periods for world.</param>
         public MudWorld(IRealmFactory realmFactory, IEnumerable<ITimePeriod> timePeriodsForWorld) : this(realmFactory)
         {
+            this.timePeriods = new List<ITimePeriod>(timePeriodsForWorld);
             this.TimePeriodManager = new TimePeriodManager(timePeriodsForWorld);
         }
 
@@ -315,7 +315,7 @@ namespace MudEngine.Game.Environment
         /// <returns></returns>
         protected override Task Load()
         {
-            this.CurrentTimeOfDay = this.TimePeriodManager.GetTimePeriodForDay();
+            this.CurrentTimeOfDay = this.TimePeriodManager.GetTimePeriodForDay(this.CurrentTimeOfDay.CurrentTime);
 
             return Task.FromResult(0);
         }

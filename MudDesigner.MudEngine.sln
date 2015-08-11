@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudEngine.Core", "Src\MudEn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudEngine.Game", "Src\MudEngine.Game\MudEngine.Game.csproj", "{35CDA4DB-3115-44AE-A97E-A8A9E1F020E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudEngine.Game.Tests", "Tests\MudEngine.Game.Tests\MudEngine.Game.Tests.csproj", "{92746066-7DF2-477E-9E60-C9F14023843A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{35CDA4DB-3115-44AE-A97E-A8A9E1F020E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35CDA4DB-3115-44AE-A97E-A8A9E1F020E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35CDA4DB-3115-44AE-A97E-A8A9E1F020E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92746066-7DF2-477E-9E60-C9F14023843A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92746066-7DF2-477E-9E60-C9F14023843A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92746066-7DF2-477E-9E60-C9F14023843A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92746066-7DF2-477E-9E60-C9F14023843A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,5 +45,6 @@ Global
 		{016D925F-C920-40F7-B5DA-F96A13C97918} = {F24B4635-D87F-422A-B658-41E30EDAAB67}
 		{3C8D5969-8510-4122-A91A-584507D1C9B6} = {4D375D49-2250-484E-AF15-B7F34421EF6D}
 		{35CDA4DB-3115-44AE-A97E-A8A9E1F020E7} = {4D375D49-2250-484E-AF15-B7F34421EF6D}
+		{92746066-7DF2-477E-9E60-C9F14023843A} = {F24B4635-D87F-422A-B658-41E30EDAAB67}
 	EndGlobalSection
 EndGlobal

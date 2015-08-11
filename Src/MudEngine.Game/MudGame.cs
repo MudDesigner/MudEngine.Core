@@ -62,6 +62,11 @@ namespace MudDesigner.MudEngine.Game
         /// <returns>Returns an awaitable Task</returns>
         public async Task StartAsync()
         {
+            await this.Start();
+        }
+        
+        private async Task Start(Action<IGame> endStartCallback = null)
+        {
             MessageBrokerFactory.Instance.Publish(new GameMessage("Starting game."));
 
             if (!this.IsEnabled)
@@ -79,6 +84,21 @@ namespace MudDesigner.MudEngine.Game
 
             this.IsRunning = true;
             MessageBrokerFactory.Instance.Publish(new GameMessage("Game started."));
+
+            if (endStartCallback != null)
+            {
+                endStartCallback(this);
+                return;
+            }
+
+            // Start the game loop.
+            await Task.Run(() =>
+            {
+                while (this.IsRunning)
+                {
+                    Task.Delay(1).Wait();
+                }
+            });
         }
 
         /// <summary>
@@ -87,14 +107,12 @@ namespace MudDesigner.MudEngine.Game
         /// <returns>Returns an awaitable Task</returns>
         public async Task Stop()
         {
-            if (!this.IsEnabled && !this.IsRunning)
+            this.IsEnabled = false;
+            this.IsRunning = false;
+
+            foreach (IAdapter adapter in this.initializedAdapters)
             {
-                this.IsEnabled = false;
-                this.IsRunning = false;
-                foreach (IAdapter adapter in this.initializedAdapters)
-                {
-                    await adapter.Delete();
-                }
+                await adapter.Delete();
             }
         }
 
