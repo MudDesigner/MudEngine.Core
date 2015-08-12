@@ -180,20 +180,6 @@ namespace MudEngine.Game.Tests.UnitTests
             IGame game = new MudGame();
             await game.Configure(configuration);
             await game.StartAsync();
-
-            // Another example of starting a game.
-            game.BeginStart(runningGame =>
-                {
-                    Task.Run(() =>
-                    {
-                        while (runningGame.IsRunning)
-                        {
-                    // Thread.Sleep(1) is not available on Portable Libraries.
-                    Task.Delay(1).Wait();
-                        }
-                    });
-                });
-            
             await game.Delete();
         }
     }

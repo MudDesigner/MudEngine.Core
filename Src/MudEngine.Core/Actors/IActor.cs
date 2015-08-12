@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace MudDesigner.MudEngine.Actors
 {
-    public interface IActor : IGameComponent
+    public interface IActor : IDescriptor, IGameComponent
     {
+        IRace Race { get; }
+
+        IGender Gender { get; }
+
+        void SetGender(IGender gender);
+
+        void SetRace(IRace race);
     }
 }

@@ -3,11 +3,13 @@
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudDesigner.MudEngine.Environment
+namespace MudEngine.Game.Environment
 {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using MudDesigner.MudEngine;
+    using MudDesigner.MudEngine.Environment;
 
     /// <summary>
     /// Provides methods for creating and maintaining the worlds in the game.
@@ -58,10 +60,12 @@ namespace MudDesigner.MudEngine.Environment
         /// Objects registered to one of the two delete events will be notified of the delete request.
         /// </para>
         /// <returns>Returns an awaitable Task</returns>
-        public override Task Delete()
+        public override async Task Delete()
         {
-            this.Dispose();
-            return Task.FromResult(0);
+            foreach(IWorld world in this.worlds)
+            {
+                await world.Delete();
+            }
         }
 
         /// <summary>

@@ -38,10 +38,16 @@
     <None Include="Diagrams\Components.cd" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\IAbility.cs" />
     <Compile Include="Actors\IActor.cs" />
+    <Compile Include="Actors\IAttachment.cs" />
     <Compile Include="Actors\ICharacter.cs" />
+    <Compile Include="Actors\ICharacterClass.cs" />
+    <Compile Include="Actors\IGender.cs" />
+    <Compile Include="Actors\IMountPoint.cs" />
     <Compile Include="Actors\InvalidActorException.cs" />
     <Compile Include="Actors\InvalidCharacterException.cs" />
+    <Compile Include="Actors\IRace.cs" />
     <Compile Include="AttributeCache.cs" />
     <Compile Include="Autosave.cs" />
     <Compile Include="CachedTypeData.cs" />
@@ -80,9 +86,9 @@
     <Compile Include="Environment\TimePeriodManager.cs" />
     <Compile Include="Environment\WeatherStateChangedEventArgs.cs" />
     <Compile Include="Environment\WestDirection.cs" />
-    <Compile Include="Environment\WorldManager.cs" />
     <Compile Include="Environment\ZoneOccupancyChangedEventArgs.cs" />
     <Compile Include="IAdapter.cs" />
+    <Compile Include="IDescriptor.cs" />
     <Compile Include="InfoMessage.cs" />
     <Compile Include="GameMessage.cs" />
     <Compile Include="IMessagingComponent.cs" />

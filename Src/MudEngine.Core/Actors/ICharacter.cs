@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace MudDesigner.MudEngine.Actors
 {
     public interface ICharacter : IActor
     {
+        ICharacterClass CharacterClass { get; }
+
+        void AddMountPoint(IMountPoint mountPoint);
+
+        IMountPoint[] GetMountPoints();
+
+        IMountPoint FindMountPoint(string pointName);
+
+        void AssignAbility(IAbility ability);
+
+        IAbility[] GetAbilities();
     }
 }
