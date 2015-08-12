@@ -47,6 +47,8 @@
     <Compile Include="Actors\IMountPoint.cs" />
     <Compile Include="Actors\InvalidActorException.cs" />
     <Compile Include="Actors\InvalidCharacterException.cs" />
+    <Compile Include="Actors\IPlayer.cs" />
+    <Compile Include="Actors\IPlayerFactory.cs" />
     <Compile Include="Actors\IRace.cs" />
     <Compile Include="AttributeCache.cs" />
     <Compile Include="Autosave.cs" />
@@ -88,11 +90,13 @@
     <Compile Include="Environment\WestDirection.cs" />
     <Compile Include="Environment\ZoneOccupancyChangedEventArgs.cs" />
     <Compile Include="IAdapter.cs" />
+    <Compile Include="IConfiguration.cs" />
     <Compile Include="IDescriptor.cs" />
     <Compile Include="InfoMessage.cs" />
     <Compile Include="GameMessage.cs" />
     <Compile Include="IMessagingComponent.cs" />
     <Compile Include="IGameConfiguration.cs" />
+    <Compile Include="InvalidAdapterStateException.cs" />
     <Compile Include="MessageBrokering\MessageBroker.cs" />
     <Compile Include="MessageScopeAttribute.cs" />
     <Compile Include="MessageBrokering\Notification.cs" />

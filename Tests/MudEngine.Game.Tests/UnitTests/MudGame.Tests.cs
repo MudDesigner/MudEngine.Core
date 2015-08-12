@@ -169,18 +169,18 @@ namespace MudEngine.Game.Tests.UnitTests
             // Mocks & Adapters
             IWorldFactory worldFactory = Mock.Of<IWorldFactory>();
             IAdapter server = Mock.Of<AdapterBase>();
-            IAdapter worldManager = new WorldManager(worldFactory);
+            //IAdapter worldManager = new WorldManager(worldFactory);
 
-            // Create our game configuration
-            IGameConfiguration configuration = new GameConfiguration { Name = "Sample Mud Game", };
-            configuration.UseAdapter(server);
-            configuration.UseAdapter(worldManager);
+            //// Create our game configuration
+            //IGameConfiguration configuration = new GameConfiguration { Name = "Sample Mud Game", };
+            //configuration.UseAdapter(server);
+            //configuration.UseAdapter(worldManager);
 
-            // Setup and run the game.
-            IGame game = new MudGame();
-            await game.Configure(configuration);
-            await game.StartAsync();
-            await game.Delete();
+            //// Setup and run the game.
+            //IGame game = new MudGame();
+            //await game.Configure(configuration);
+            //await game.StartAsync();
+            //await game.Delete();
         }
     }
 }
