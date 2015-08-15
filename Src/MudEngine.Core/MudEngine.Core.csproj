@@ -50,10 +50,14 @@
     <Compile Include="Actors\IPlayer.cs" />
     <Compile Include="Actors\IPlayerFactory.cs" />
     <Compile Include="Actors\IRace.cs" />
+    <Compile Include="Actors\PlayerCreatedMessage.cs" />
+    <Compile Include="Actors\PlayerDeletionMessage.cs" />
+    <Compile Include="AdapterDeletedMessage.cs" />
     <Compile Include="AttributeCache.cs" />
     <Compile Include="Autosave.cs" />
     <Compile Include="CachedTypeData.cs" />
     <Compile Include="AdapterBase.cs" />
+    <Compile Include="CommandProcessedMessage.cs" />
     <Compile Include="EngineTimer.cs" />
     <Compile Include="Environment\ClearWeather.cs" />
     <Compile Include="Environment\EastDirection.cs" />
