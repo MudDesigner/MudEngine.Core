@@ -8,7 +8,7 @@ namespace MudDesigner.MudEngine.Environment
     /// <summary>
     /// Represents Thunderstorms
     /// </summary>
-    public sealed class ThunderstormWeather : IWeatherState
+    public struct ThunderstormWeather : IWeatherState
     {
         /// <summary>
         /// Gets the occurrence probability of this weather state occurring in an environment.

@@ -18,15 +18,7 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// The subscriptions for this adapter
         /// </summary>
-        private Dictionary<Type, ISubscription> subscriptions;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AdapterBase"/> class.
-        /// </summary>
-        public AdapterBase()
-        {
-            this.subscriptions = new Dictionary<Type, ISubscription>();
-        }
+        private Dictionary<Type, ISubscription> subscriptions = new Dictionary<Type, ISubscription>();
 
         /// <summary>
         /// Gets the name.
@@ -48,7 +40,7 @@ namespace MudDesigner.MudEngine
         {
             if (this.MessageBroker == null)
             {
-                throw new NullReferenceException($"{this.GetType().Name} has a null INotificationCenter reference and can not use it to publish messages.");
+                throw new InvalidOperationException($"{this.GetType().Name} does not have an assigned INotificationCenter reference and can not use it to subscribe to publications.");
             }
 
             this.MessageBroker.Publish(message);
@@ -65,7 +57,7 @@ namespace MudDesigner.MudEngine
         {
             if (this.MessageBroker == null)
             {
-                throw new NullReferenceException($"{this.GetType().Name} has a null INotificationCenter reference and can not use it to subscribe to publications.");
+                throw new InvalidOperationException($"{this.GetType().Name} does not have an assigned INotificationCenter reference and can not use it to subscribe to publications.");
             }
 
             ISubscription subscription = null;

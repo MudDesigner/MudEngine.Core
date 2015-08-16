@@ -106,6 +106,7 @@
     <Compile Include="MessageBrokering\Notification.cs" />
     <Compile Include="DebugMessage.cs" />
     <Compile Include="PropertyCache.cs" />
+    <Compile Include="ThreadContext.cs" />
     <Compile Include="TypeCache.cs" />
     <Compile Include="WorldLoadedArgs.cs" />
     <Compile Include="Extensions\ICollectionExtensions.cs" />

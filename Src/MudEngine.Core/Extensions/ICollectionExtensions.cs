@@ -56,16 +56,16 @@ namespace MudDesigner.MudEngine
             for (int i = 0; i < weights.Length; i++)
             {
                 // Normalize weight
-                var w = sum == 0.0
+                var weight = sum == 0.0
                     ? 1 / (double)originalCollection.Count
                     : weights.ElementAtOrDefault(i) / sum;
 
-                if (randomValue < w)
+                if (randomValue < weight)
                 {
                     return originalCollection.ElementAtOrDefault(i);
                 }
 
-                randomValue -= w;
+                randomValue -= weight;
             }
 
             throw new InvalidOperationException("Unable to produce a result from the given collection using the supplied selector.");

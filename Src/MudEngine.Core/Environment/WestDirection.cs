@@ -6,9 +6,9 @@
 namespace MudDesigner.MudEngine.Environment
 {
     /// <summary>
-    /// A direction that represents East.
+    /// A direction that represents West.
     /// </summary>
-    public sealed class WestDirection : ITravelDirection
+    public struct WestDirection : ITravelDirection
     {
         /// <summary>
         /// Gets the direction that can be traveled.

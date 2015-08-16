@@ -8,6 +8,7 @@ namespace MudDesigner.MudEngine.Game
     using System;
     using System.Threading.Tasks;
     using MessageBrokering;
+    using System.Threading;
 
     /// <summary>
     /// The Default engine implementation of the IGame interface. This implementation provides validation support via ValidationBase.
@@ -52,8 +53,8 @@ namespace MudDesigner.MudEngine.Game
         /// <param name="startCompletedCallback">The delegate to invoke when the game startup has completed.</param>
         public void BeginStart(Action<IGame> startCompletedCallback)
         {
-            Task.Run(this.StartAsync)
-            .ContinueWith(task => startCompletedCallback(this), TaskScheduler.FromCurrentSynchronizationContext());
+            var threadContext = new ThreadContext<IGame>(SynchronizationContext.Current, startCompletedCallback);
+            Task.Run(() => this.Start(threadContext));
         }
 
         /// <summary>
@@ -65,7 +66,7 @@ namespace MudDesigner.MudEngine.Game
             await this.Start();
         }
         
-        private async Task Start(Action<IGame> endStartCallback = null)
+        private async Task Start(ThreadContext<IGame> startupContext = null)
         {
             MessageBrokerFactory.Instance.Publish(new GameMessage("Starting game."));
 
@@ -85,9 +86,9 @@ namespace MudDesigner.MudEngine.Game
             this.IsRunning = true;
             MessageBrokerFactory.Instance.Publish(new GameMessage("Game started."));
 
-            if (endStartCallback != null)
+            if (startupContext != null)
             {
-                endStartCallback(this);
+                startupContext.Invoke(this);
                 return;
             }
 
@@ -99,6 +100,12 @@ namespace MudDesigner.MudEngine.Game
                     Task.Delay(1).Wait();
                 }
             });
+        }
+
+        private void notifyStartCompleted(object state)
+        {
+            var callback = (Action<IGame>)state;
+            callback(this);
         }
 
         /// <summary>

@@ -14,6 +14,7 @@ namespace MudDesigner.MudEngine.Environment
     /// </summary>
     public sealed class TimePeriodManager
     {
+        // TODO: Replace with a real ITimeOfDayFactory
         /// <summary>
         /// A factory delegate that can be used to create a new instance of an ITimeOfDay component
         /// </summary>
