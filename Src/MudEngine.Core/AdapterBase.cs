@@ -10,6 +10,32 @@ namespace MudDesigner.MudEngine
     using System.Threading.Tasks;
     using MudDesigner.MudEngine.MessageBrokering;
 
+    public abstract class AdapterBase<TConfiguration> : AdapterBase, IAdapter<TConfiguration>, IDisposable where TConfiguration : IConfiguration
+    {
+        public AdapterBase(TConfiguration configuration) : base(configuration)
+        {
+            this.AdapterConfiguration = configuration;
+        }
+
+        public AdapterBase() : base()
+        {
+        }
+
+        public TConfiguration AdapterConfiguration { get; protected set; }
+
+        public abstract void Configure(TConfiguration configuration);
+
+        public override void Configure()
+        {
+            if (this.Configuration == null)
+            {
+                return;
+            }
+
+            this.Configure(this.AdapterConfiguration);
+        }
+    }
+
     /// <summary>
     /// Provides an interface for creating adapters that the game can start and run
     /// </summary>
@@ -18,7 +44,17 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// The subscriptions for this adapter
         /// </summary>
-        private Dictionary<Type, ISubscription> subscriptions = new Dictionary<Type, ISubscription>();
+        private Dictionary<Type, ISubscription> subscriptions;
+
+        public AdapterBase()
+        {
+            this.subscriptions = new Dictionary<Type, ISubscription>();
+        }
+
+        public AdapterBase(IConfiguration configuration) : this()
+        {
+            this.Configuration = configuration;
+        }
 
         /// <summary>
         /// Gets the name.
@@ -29,6 +65,8 @@ namespace MudDesigner.MudEngine
         /// Gets the message broker that will be used for publishing messages from this component.
         /// </summary>
         public IMessageBroker MessageBroker { get; set; }
+
+        public IConfiguration Configuration { get; protected set; }
 
         /// <summary>
         /// Publishes a given message to any subscriber.
@@ -111,6 +149,8 @@ namespace MudDesigner.MudEngine
             this.MessageBroker = broker;
         }
 
+        public abstract void Configure();
+
         /// <summary>
         /// Initializes the component.
         /// </summary>
@@ -118,6 +158,15 @@ namespace MudDesigner.MudEngine
         /// Returns an awaitable Task
         /// </returns>
         public abstract Task Initialize();
+
+        /// <summary>
+        /// Starts this adapter and allows it to run.
+        /// </summary>
+        /// <param name="game">The an instance of an initialized game.</param>
+        /// <returns>
+        /// Returns an awaitable Task
+        /// </returns>
+        public abstract Task Start(IGame game);
 
         /// <summary>
         /// Lets this instance know that it is about to go out of scope and disposed.
@@ -131,15 +180,6 @@ namespace MudDesigner.MudEngine
         /// Objects registered to one of the two delete events will be notified of the delete request.
         /// </para>
         public abstract Task Delete();
-
-        /// <summary>
-        /// Starts this adapter and allows it to run.
-        /// </summary>
-        /// <param name="game">The an instance of an initialized game.</param>
-        /// <returns>
-        /// Returns an awaitable Task
-        /// </returns>
-        public abstract Task Start(IGame game);
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

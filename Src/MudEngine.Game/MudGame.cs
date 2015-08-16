@@ -6,6 +6,7 @@
 namespace MudDesigner.MudEngine.Game
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
     using MessageBrokering;
     using System.Threading;
@@ -18,7 +19,7 @@ namespace MudDesigner.MudEngine.Game
         /// <summary>
         /// The adapters that have already been initialized and are ready to be started.
         /// </summary>
-        private IAdapter[] initializedAdapters;
+        private IAdapter[] configuredAdapters;
 
         /// <summary>
         /// Gets information pertaining to the game.
@@ -38,11 +39,16 @@ namespace MudDesigner.MudEngine.Game
         /// <summary>
         /// Configures the game using the provided game configuration.
         /// </summary>
-        /// <param name="config">The configuration the game should use.</param>
+        /// <param name="configuration">The configuration the game should use.</param>
         /// <returns>Returns an awaitable Task</returns>
-        public Task Configure(IGameConfiguration config)
+        public Task Configure(IGameConfiguration configuration)
         {
-            this.Configuration = config;
+            this.Configuration = configuration;
+            this.configuredAdapters = configuration.GetAdapters();
+            foreach(IAdapter adapter in this.configuredAdapters)
+            {
+                adapter.Configure();
+            }
 
             return Task.FromResult(0);
         }
@@ -76,7 +82,7 @@ namespace MudDesigner.MudEngine.Game
             }
 
             MessageBrokerFactory.Instance.Publish(new GameMessage("Configuring game configuration components."));
-            foreach (IAdapter adapter in this.initializedAdapters)
+            foreach (IAdapter adapter in this.configuredAdapters)
             {
                 MessageBrokerFactory.Instance.Publish(new GameMessage($"Initializing {adapter.Name} component."));
                 await adapter.Start(this);
@@ -117,7 +123,7 @@ namespace MudDesigner.MudEngine.Game
             this.IsEnabled = false;
             this.IsRunning = false;
 
-            foreach (IAdapter adapter in this.initializedAdapters)
+            foreach (IAdapter adapter in this.configuredAdapters)
             {
                 await adapter.Delete();
             }
@@ -131,8 +137,8 @@ namespace MudDesigner.MudEngine.Game
         protected override async Task Load()
         {
             // Initialize all of our adapters
-            this.initializedAdapters = this.Configuration.GetAdapters();
-            foreach (IAdapter adapter in this.initializedAdapters)
+            this.configuredAdapters = this.Configuration.GetAdapters();
+            foreach (IAdapter adapter in this.configuredAdapters)
             {
                 await adapter.Initialize();
             }

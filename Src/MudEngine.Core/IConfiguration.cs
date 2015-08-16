@@ -1,8 +1,9 @@
-﻿namespace MudDesigner.MudEngine
+﻿using System.Collections.Generic;
+
+namespace MudDesigner.MudEngine
 {
     public interface IConfiguration
     {
-
         /// <summary>
         /// Gets the game adapter components that have been registered.
         /// </summary>
@@ -22,5 +23,11 @@
         /// <typeparam name="TAdapter">The type of the adapter component.</typeparam>
         /// <param name="component">The component instance you want to use.</param>
         void UseAdapter<TAdapter>(TAdapter component) where TAdapter : class, IAdapter;
+
+        /// <summary>
+        /// Tells the game configuration that specific adapter components must be used by the game.
+        /// </summary>
+        /// <param name="adapters">The adapters.</param>
+        void UseAdapters(IEnumerable<IAdapter> adapters);
     }
 }

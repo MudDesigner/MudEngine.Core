@@ -51,35 +51,9 @@ namespace MudEngine.Game.Environment
         /// </summary>
         public override string Name { get { return "World Manager"; } }
 
-        /// <summary>
-        /// Lets this instance know that it is about to go out of scope and disposed.
-        /// The instance will perform clean-up of its resources in preperation for deletion.
-        /// </summary>
-        /// <para>
-        /// Informs the component that it is no longer needed, allowing it to perform clean up.
-        /// Objects registered to one of the two delete events will be notified of the delete request.
-        /// </para>
-        /// <returns>Returns an awaitable Task</returns>
-        public override async Task Delete()
+        public override void Configure()
         {
-            foreach(IWorld world in this.worlds)
-            {
-                await world.Delete();
-            }
-        }
-
-        /// <summary>
-        /// Initializes the component.
-        /// </summary>
-        /// <returns>Returns an awaitable Task</returns>
-        public override Task Initialize()
-        {
-            if (this.worlds == null)
-            {
-                this.worlds = new List<IWorld>();
-            }
-
-            return Task.FromResult(0);
+            // Stubbed.
         }
 
         /// <summary>
@@ -151,6 +125,20 @@ namespace MudEngine.Game.Environment
         }
 
         /// <summary>
+        /// Initializes the component.
+        /// </summary>
+        /// <returns>Returns an awaitable Task</returns>
+        public override Task Initialize()
+        {
+            if (this.worlds == null)
+            {
+                this.worlds = new List<IWorld>();
+            }
+
+            return Task.FromResult(0);
+        }
+
+        /// <summary>
         /// Starts this adapter and allows it to run.
         /// All of the worlds will be initialized and will start running.
         /// </summary>
@@ -164,6 +152,23 @@ namespace MudEngine.Game.Environment
             foreach(IWorld world in this.worlds)
             {
                 await world.Initialize();
+            }
+        }
+
+        /// <summary>
+        /// Lets this instance know that it is about to go out of scope and disposed.
+        /// The instance will perform clean-up of its resources in preperation for deletion.
+        /// </summary>
+        /// <para>
+        /// Informs the component that it is no longer needed, allowing it to perform clean up.
+        /// Objects registered to one of the two delete events will be notified of the delete request.
+        /// </para>
+        /// <returns>Returns an awaitable Task</returns>
+        public override async Task Delete()
+        {
+            foreach (IWorld world in this.worlds)
+            {
+                await world.Delete();
             }
         }
     }

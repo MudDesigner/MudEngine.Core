@@ -34,5 +34,10 @@ namespace MudEngine.Game.Tests.Fixtures
             this.IsStarted = true;
             return Task.FromResult(0);
         }
+
+        public override void Configure()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

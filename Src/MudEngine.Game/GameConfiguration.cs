@@ -74,5 +74,13 @@ namespace MudDesigner.MudEngine.Game
 
             this.components.Add(component);
         }
+
+        public void UseAdapters(IEnumerable<IAdapter> adapters)
+        {
+            foreach(IAdapter adapter in adapters)
+            {
+                this.UseAdapter(adapter);
+            }
+        }
     }
 }

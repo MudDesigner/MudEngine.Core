@@ -10,12 +10,14 @@ namespace MudDesigner.MudEngine
     /// <summary>
     /// Provides an interface for creating adapters that the game can start and run
     /// </summary>
-    public interface IAdapter : IMessagingComponent, IInitializableComponent
+    public interface IAdapter : IConfigurable, IMessagingComponent, IInitializableComponent
     {
         /// <summary>
         /// Gets the name.
         /// </summary>
         string Name { get; }
+
+        IConfiguration Configuration { get; }
 
         /// <summary>
         /// Starts this adapter and allows it to run.
@@ -25,5 +27,10 @@ namespace MudDesigner.MudEngine
         /// Returns an awaitable Task
         /// </returns>
         Task Start(IGame game);
+    }
+
+    public interface IAdapter<TConfiguration> : IAdapter, IConfigurable<TConfiguration> where TConfiguration : IConfiguration
+    {
+        TConfiguration AdapterConfiguration { get; }
     }
 }

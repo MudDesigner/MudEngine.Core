@@ -1,10 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace MudDesigner.MudEngine.Tests.Fixtures
 {
     public class AdapterFixture : AdapterBase
     {
         public override string Name => "Adapter fixture";
+
+        public override void Configure()
+        {
+            throw new NotImplementedException();
+        }
 
         public override Task Delete()
         {
