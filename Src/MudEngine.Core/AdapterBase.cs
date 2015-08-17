@@ -73,12 +73,11 @@ namespace MudDesigner.MudEngine
         /// </summary>
         /// <typeparam name="TMessage">The type of the message.</typeparam>
         /// <param name="message">The message payload.</param>
-        /// <exception cref="System.NullReferenceException">${this.GetType().Name} has a null INotificationCenter reference and can not use it to publish messages.</exception>
         public void PublishMessage<TMessage>(TMessage message) where TMessage : class, IMessage
         {
             if (this.MessageBroker == null)
             {
-                throw new InvalidOperationException($"{this.GetType().Name} does not have an assigned INotificationCenter reference and can not use it to subscribe to publications.");
+                this.MessageBroker = MessageBrokerFactory.Instance;
             }
 
             this.MessageBroker.Publish(message);
@@ -90,12 +89,11 @@ namespace MudDesigner.MudEngine
         /// <typeparam name="TMessage">The type of the message.</typeparam>
         /// <param name="callback">The callback delegate that can handle the payload provided.</param>
         /// <param name="predicate">The predicate that governs whether or not the callback is invoked..</param>
-        /// <exception cref="System.NullReferenceException">${this.GetType().Name} has a null INotificationCenter reference and can not use it to subscribe to publications.</exception>
         public void SubscribeToMessage<TMessage>(Action<TMessage, ISubscription> callback, Func<TMessage, bool> predicate = null) where TMessage : class, IMessage
         {
             if (this.MessageBroker == null)
             {
-                throw new InvalidOperationException($"{this.GetType().Name} does not have an assigned INotificationCenter reference and can not use it to subscribe to publications.");
+                this.MessageBroker = MessageBrokerFactory.Instance;
             }
 
             ISubscription subscription = null;
