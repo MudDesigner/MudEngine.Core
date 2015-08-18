@@ -10,21 +10,42 @@ namespace MudDesigner.MudEngine
     using System.Threading.Tasks;
     using MudDesigner.MudEngine.MessageBrokering;
 
+    /// <summary>
+    /// Provodes methods for creating and using a configurable adapter
+    /// </summary>
+    /// <typeparam name="TConfiguration">The type of the configuration that this adapter supports.</typeparam>
     public abstract class AdapterBase<TConfiguration> : AdapterBase, IAdapter<TConfiguration>, IDisposable where TConfiguration : IConfiguration
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AdapterBase{TConfiguration}"/> class.
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
         public AdapterBase(TConfiguration configuration) : base(configuration)
         {
             this.AdapterConfiguration = configuration;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AdapterBase{TConfiguration}"/> class.
+        /// </summary>
         public AdapterBase() : base()
         {
         }
 
+        /// <summary>
+        /// Gets or sets the adapter configuration that will be used to configure this adapter.
+        /// </summary>
         public TConfiguration AdapterConfiguration { get; protected set; }
 
+        /// <summary>
+        /// Configures this adapter using the given configuration.
+        /// </summary>
+        /// <param name="configuration">The configuration class used by this adapter.</param>
         public abstract void Configure(TConfiguration configuration);
 
+        /// <summary>
+        /// Configures this adapter for use within a game.
+        /// </summary>
         public override void Configure()
         {
             if (this.Configuration == null)
@@ -42,15 +63,22 @@ namespace MudDesigner.MudEngine
     public abstract class AdapterBase : IAdapter, IDisposable
     {
         /// <summary>
-        /// The subscriptions for this adapter
+        /// The publication subscriptions for this adapter
         /// </summary>
         private Dictionary<Type, ISubscription> subscriptions;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AdapterBase"/> class.
+        /// </summary>
         public AdapterBase()
         {
             this.subscriptions = new Dictionary<Type, ISubscription>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AdapterBase"/> class.
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
         public AdapterBase(IConfiguration configuration) : this()
         {
             this.Configuration = configuration;
@@ -66,6 +94,9 @@ namespace MudDesigner.MudEngine
         /// </summary>
         public IMessageBroker MessageBroker { get; set; }
 
+        /// <summary>
+        /// Gets or sets the adapter configuration that will be used to configure this adapter.
+        /// </summary>
         public IConfiguration Configuration { get; protected set; }
 
         /// <summary>
@@ -147,6 +178,9 @@ namespace MudDesigner.MudEngine
             this.MessageBroker = broker;
         }
 
+        /// <summary>
+        /// Configures this adapter for use within a game.
+        /// </summary>
         public abstract void Configure();
 
         /// <summary>

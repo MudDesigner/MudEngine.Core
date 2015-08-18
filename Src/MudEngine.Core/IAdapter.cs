@@ -17,6 +17,9 @@ namespace MudDesigner.MudEngine
         /// </summary>
         string Name { get; }
 
+        /// <summary>
+        /// Gets the configuration used to configure the adapter.
+        /// </summary>
         IConfiguration Configuration { get; }
 
         /// <summary>
@@ -29,8 +32,15 @@ namespace MudDesigner.MudEngine
         Task Start(IGame game);
     }
 
+    /// <summary>
+    /// Provides a strongly typed configuration class for adapters to request
+    /// </summary>
+    /// <typeparam name="TConfiguration">The type of the configuration.</typeparam>
     public interface IAdapter<TConfiguration> : IAdapter, IConfigurable<TConfiguration> where TConfiguration : IConfiguration
     {
+        /// <summary>
+        /// Gets the configuration used to configure the adapter.
+        /// </summary>
         TConfiguration AdapterConfiguration { get; }
     }
 }

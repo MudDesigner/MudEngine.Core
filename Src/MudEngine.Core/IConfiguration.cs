@@ -1,7 +1,15 @@
-﻿using System.Collections.Generic;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="IConfiguration.cs" company="Sully">
+//     Copyright (c) Johnathon Sullinger. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine
 {
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// Provides methods for components to use when they want to be used to configure another object.
+    /// </summary>
     public interface IConfiguration
     {
         /// <summary>
