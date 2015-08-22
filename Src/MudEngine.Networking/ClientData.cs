@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MudDesigner.MudEngine.Adapter
+namespace MudDesigner.MudEngine.Networking
 {
     public sealed class ClientData
     {

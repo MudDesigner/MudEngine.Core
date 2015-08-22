@@ -6,10 +6,10 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MudDesigner.MudEngine.Adapter
+namespace MudDesigner.MudEngine.Networking
 {
-    public interface IConnectionFactory
+	public interface IConnectionFactory<TServer> where TServer : class, IServer
     {
-        IConnection CreateConnection(IPlayer player, Socket socketConnection, IServerConfiguration configuration);
+        IConnection CreateConnection(IPlayer player, TServer server);
     }
 }

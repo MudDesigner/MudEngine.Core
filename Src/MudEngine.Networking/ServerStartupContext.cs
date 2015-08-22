@@ -5,31 +5,16 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MudDesigner.MudEngine.Adapter
+namespace MudDesigner.MudEngine.Networking
 {
-    public class ServerContext
+    public interface IServerContext
     {
-        private WindowsServer windowsServer;
+        bool IsHandled { get; set; }
 
-        internal ServerContext(WindowsServer server, IServerConfiguration configuration, Socket serverSocket)
-        {
-            this.ListeningSocket = serverSocket;
-            this.Server = server;
-            this.windowsServer = server;
-            this.Configuration = configuration;
-        }
+        IServer Server { get; }
 
-        public Socket ListeningSocket { get; set; }
+        IServerConfiguration Configuration { get; }
 
-        public bool IsHandled { get; set; }
-
-        public IServer Server { get; private set; }
-
-        public IServerConfiguration Configuration { get; private set; }
-
-        public void SetServerState(ServerStatus status)
-        {
-            this.windowsServer.Status = status;
-        }
+		void SetServerState(ServerStatus status);
     }
 }

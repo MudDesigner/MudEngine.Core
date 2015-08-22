@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MudDesigner.MudEngine.Adapter
+namespace MudDesigner.MudEngine.Networking
 {
     public interface IConnection : IInitializableComponent
     {

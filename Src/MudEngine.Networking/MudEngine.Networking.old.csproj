@@ -8,8 +8,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>MudEngine.Networking</RootNamespace>
     <AssemblyName>MudEngine.Networking</AssemblyName>
-    <TargetFrameworkProfile>Profile24</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile24</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,14 +39,13 @@
     <Compile Include="IServerConfiguration.cs" />
     <Compile Include="ClientMessageReceived.cs" />
     <Compile Include="ConnectionClosedArgs.cs" />
-    <Compile Include="ClientData.cs" />
     <Compile Include="ServerStatus.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\MudEngine.Core\MudEngine.Core.csproj">
       <Project>{3C8D5969-8510-4122-A91A-584507D1C9B6}</Project>
       <Name>MudEngine.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

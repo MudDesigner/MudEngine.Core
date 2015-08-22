@@ -31,8 +31,22 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ClientData.cs" />
+    <Compile Include="ClientMessageReceived.cs" />
+    <Compile Include="ConnectionClosedArgs.cs" />
+    <Compile Include="IConnection.cs" />
+    <Compile Include="IConnectionFactory.cs" />
+    <Compile Include="IServer.cs" />
+    <Compile Include="IServerConfiguration.cs" />
+    <Compile Include="ServerStatus.cs" />
+    <Compile Include="ServerStartupContext.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\MudEngine.Core\MudEngine.Core.csproj">
+      <Project>{3C8D5969-8510-4122-A91A-584507D1C9B6}</Project>
+      <Name>MudEngine.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

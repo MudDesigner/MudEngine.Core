@@ -1,4 +1,4 @@
-﻿namespace MudDesigner.MudEngine.Adapter
+﻿namespace MudDesigner.MudEngine.Networking
 {
     public interface IServer : IAdapter
     {

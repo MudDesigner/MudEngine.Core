@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MudDesigner.MudEngine.Adapter
+namespace MudDesigner.MudEngine.Networking
 {
     /// <summary>
     /// Provides status values for the server to use, indicating its current state.

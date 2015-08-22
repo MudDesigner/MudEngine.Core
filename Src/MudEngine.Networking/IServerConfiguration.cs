@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MudDesigner.MudEngine.Adapter
+namespace MudDesigner.MudEngine.Networking
 {
     public interface IServerConfiguration : IConfiguration
     {
-        Action<ServerContext> OnServerStartup { get; set; }
+        Action<IServerContext> OnServerStartup { get; set; }
 
-        Action<ServerContext> OnServerShutdown { get; set; }
+        Action<IServerContext> OnServerShutdown { get; set; }
 
         int Port { get; set; }
 
