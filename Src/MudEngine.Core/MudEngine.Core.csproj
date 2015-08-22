@@ -38,7 +38,8 @@
     <None Include="Diagrams\Components.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\IAbility.cs" />
+    <Compile Include="Actors\IModifier.cs" />
+    <Compile Include="Actors\IStat.cs" />
     <Compile Include="Actors\IActor.cs" />
     <Compile Include="Actors\IAttachment.cs" />
     <Compile Include="Actors\ICharacter.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Autosave.cs" />
     <Compile Include="CachedTypeData.cs" />
     <Compile Include="AdapterBase.cs" />
+    <Compile Include="Commanding\IActorCommand.cs" />
     <Compile Include="CommandProcessedMessage.cs" />
     <Compile Include="EngineTimer.cs" />
     <Compile Include="Environment\ClearWeather.cs" />
@@ -128,9 +130,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectedCache.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commanding\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
