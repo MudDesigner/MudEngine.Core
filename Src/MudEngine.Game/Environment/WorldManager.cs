@@ -27,11 +27,6 @@ namespace MudEngine.Game.Environment
         private IWorldFactory worldFactory;
 
         /// <summary>
-        /// The game that owns this adapter
-        /// </summary>
-        private IGame game;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="WorldManager"/> class.
         /// </summary>
         /// <param name="worldFactory">The factory responsible for creating new worlds.</param>
@@ -59,8 +54,8 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// Creates an initialized world ready for use.
         /// </summary>
-        /// <param name="name">The name of the world.</param>
-        /// <param name="gameDayToRealWorldHoursRatio">The game day to real world hours ratio.</param>
+		/// <param name="worldName">The name of the world.</param>
+		/// <param name="gameDayToRealWorldHourRatio">The game day to real world hours ratio.</param>
         /// <param name="hoursPerDay">The number of hours per day.</param>
         /// <returns>Returns an IWorld instance</returns>
         /// <exception cref="System.InvalidOperationException">$The {this.Name} was not provided an IWorldFactory to use.</exception>
@@ -148,7 +143,6 @@ namespace MudEngine.Game.Environment
         /// </returns>
         public override async Task Start(IGame game)
         {
-            this.game = game;
             foreach(IWorld world in this.worlds)
             {
                 await world.Initialize();

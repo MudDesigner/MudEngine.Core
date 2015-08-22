@@ -86,9 +86,6 @@ namespace MudDesigner.MudEngine.Environment
                 throw new InvalidTimeOfDayException("HoursPerDay can not be zero.", startTime);
             }
 
-            // Calculate how many minutes in real-world it takes to pass 1 in-game hour.
-            double hourInterval = 60 * worldTimeFactor;
-
             // Calculate how many seconds in real-world it takes to pass 1 minute in-game.
             double minuteInterval = 60 * worldTimeFactor;
 
