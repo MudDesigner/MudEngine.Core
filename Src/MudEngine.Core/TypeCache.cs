@@ -21,7 +21,6 @@ namespace MudDesigner.MudEngine
         /// <returns>Returns a collection of Types</returns>
         public static IEnumerable<Type> GetTypes(Func<Type, bool> predicate)
         {
-            var types = new List<Type>();
             return ReflectedCache.TypePropertyCache.Select(pair => pair.Key).Where(predicate);
         }
 

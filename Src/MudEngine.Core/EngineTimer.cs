@@ -42,11 +42,6 @@ namespace MudDesigner.MudEngine
     public sealed class EngineTimer<T> : CancellationTokenSource, IDisposable
     {
         /// <summary>
-        /// The timer task
-        /// </summary>
-        private Task timerTask;
-
-        /// <summary>
         /// How many times we have fired the timer thus far.
         /// </summary>
         private long fireCount = 0;
@@ -58,7 +53,7 @@ namespace MudDesigner.MudEngine
         /// <param name="state">The state.</param>
         public EngineTimer(T state)
         {
-            if (state == null)
+			if (state.Equals(default(T)))
             {
                 throw new ArgumentNullException(nameof(state), "EngineTimer constructor requires a non-null argument.");
             }
@@ -143,6 +138,7 @@ namespace MudDesigner.MudEngine
             {
                 this.Cancel();
             } 
+
             this.IsRunning = false;
         }
 
@@ -174,7 +170,7 @@ namespace MudDesigner.MudEngine
             this.IsRunning = true;
             MessageBrokerFactory.Instance.Publish(new DebugMessage($"Starting timer for an instance of {this.StateData.GetType().Name}"));
 
-            this.timerTask = Task
+            Task
                 .Delay(TimeSpan.FromMilliseconds(startDelay), this.Token)
                 .ContinueWith(
                     timerDelegate,
