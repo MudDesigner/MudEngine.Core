@@ -109,7 +109,7 @@ namespace MudDesigner.MudEngine.Tests
 
             // Act
             engineTimer.Start(0, 1, 2, (component, timer) => { callbackCount += 1; });
-            await Task.Delay(20);
+            await Task.Delay(TimeSpan.FromSeconds(2));
 
             // Assert
             Assert.IsFalse(engineTimer.IsRunning, "Timer was not stopped.");

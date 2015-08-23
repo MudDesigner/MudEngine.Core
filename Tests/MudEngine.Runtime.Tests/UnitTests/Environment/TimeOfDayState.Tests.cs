@@ -78,7 +78,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             int aliveTime = (int)state.TimeAlive;
 
             // Act
-            Assert.IsTrue(aliveTime == 1);
+            Assert.IsTrue(aliveTime >= 1);
         }
 
         [TestMethod]

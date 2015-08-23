@@ -229,6 +229,8 @@ namespace MudEngine.Game.Environment
                 this.ApplyTimeZoneOffset(0, 0);
             }
 
+            this.IsEnabled = true;
+
             return Task.FromResult(0);
         }
 

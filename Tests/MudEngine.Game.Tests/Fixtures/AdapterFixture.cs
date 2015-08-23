@@ -37,7 +37,6 @@ namespace MudEngine.Game.Tests.Fixtures
 
         public override void Configure()
         {
-            throw new NotImplementedException();
         }
     }
 }

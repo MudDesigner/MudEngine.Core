@@ -36,7 +36,6 @@ namespace MudDesigner.MudEngine.Tests.UnitTests
         [TestCategory("Engine")]
         [TestCategory("Engine Core")]
         [Owner("Johnathon Sullinger")]
-        [ExpectedException(typeof(NullReferenceException))]
         public void Publishing_throws_exception_when_no_broker_has_been_set()
         {
             // Arrange
@@ -47,7 +46,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests
             fixture.PublishMessage(new MessageFixture<string>(content));
 
             // Assert
-            Assert.Fail();
+            Assert.AreEqual(fixture.MessageBroker, MessageBrokerFactory.Instance, "Fixture was not assigned the default broker.");
         }
 
         [TestMethod]
@@ -55,7 +54,6 @@ namespace MudDesigner.MudEngine.Tests.UnitTests
         [TestCategory("Engine")]
         [TestCategory("Engine Core")]
         [Owner("Johnathon Sullinger")]
-        [ExpectedException(typeof(NullReferenceException))]
         public void subscribing_throws_exception_when_broker_is_null()
         {
             // Arrange
@@ -63,9 +61,9 @@ namespace MudDesigner.MudEngine.Tests.UnitTests
 
             // Act
             fixture.SubscribeToMessage<MessageFixture<string>>((message, subscription) => subscription.Unsubscribe());
-
+            
             // Assert
-            Assert.Fail();
+            Assert.AreEqual(fixture.MessageBroker, MessageBrokerFactory.Instance, "Fixture was not assigned the default broker.");
         }
 
         [TestMethod]

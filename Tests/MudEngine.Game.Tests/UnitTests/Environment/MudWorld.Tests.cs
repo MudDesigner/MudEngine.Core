@@ -158,9 +158,9 @@ namespace MudEngine.Game.Tests.UnitTests.Environment
         public async Task Adding_realm_sets_its_enabled_flag()
         {
             // Arrange
-            IRealmFactory factory = Mock.Of<IRealmFactory>(
-                mock => mock.CreateRealm(It.IsAny<string>(), It.IsAny<IWorld>()) == Task.FromResult(
-                    Mock.Of<IRealm>(r => r.Name == "Unit Test")));
+            IRealmFactory factory = Mock.Of<IRealmFactory>(mock => 
+            mock.CreateRealm(It.IsAny<string>(), It.IsAny<IWorld>()) == Task.FromResult(
+                    Mock.Of<IRealm>(r => r.Name == "Unit Test" && r.IsEnabled == true)));
 
             var world = new MudWorld(factory);
             var realmName = "Test Realm";

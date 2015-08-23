@@ -72,7 +72,8 @@ namespace MudEngine.Game.Tests.UnitTests
             await game.Configure(configuration);
 
             // Act
-            await game.StartAsync();
+            Task.Run(async () => await game.StartAsync());
+            await Task.Delay(TimeSpan.FromSeconds(2));
 
             // Assert
             Assert.IsTrue(game.IsRunning);
@@ -106,14 +107,22 @@ namespace MudEngine.Game.Tests.UnitTests
         public async Task Start_game_will_start_adapter()
         {
             // Arrange
-            var configuration = Mock.Of<IGameConfiguration>(mock => mock.GetAdapters() == new IAdapter[1] { new AdapterFixture() });
+            var configuration = Mock.Of<IGameConfiguration>(mock => mock.GetAdapters() == new IAdapter[1] 
+            {
+                new AdapterFixture()
+            });
             var game = new MudGame();
             await game.Configure(configuration);
 
             IAdapter[] adapter = game.Configuration.GetAdapters();
 
             // Act
-            await game.StartAsync();
+            game.BeginStart(runningGame => { });
+            
+            while (!game.IsRunning)
+            {
+                await Task.Delay(1);
+            }
 
             // Assert
             Assert.IsTrue(((AdapterFixture)adapter[0]).IsInitialized);
@@ -130,16 +139,30 @@ namespace MudEngine.Game.Tests.UnitTests
             // Arrange
             var configuration = Mock.Of<IGameConfiguration>(mock => mock.GetAdapters() == new IAdapter[1] { new AdapterFixture() });
             var game = new MudGame();
+            SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
             await game.Configure(configuration);
 
-            IAdapter[] adapter = game.Configuration.GetAdapters();
+            IAdapter[] adapters = game.Configuration.GetAdapters();
 
             // Act
-            await game.StartAsync();
-            await game.Stop();
+            game.BeginStart(async (runningGame) => await game.Stop());
+            var timer = new EngineTimer<AdapterFixture>((AdapterFixture)adapters[0]);
+            timer.Start(TimeSpan.FromSeconds(20).TotalMilliseconds, 0, 1, (fixture, runningTimer) =>
+            {
+                runningTimer.Stop();
+            });
+
+            while(!((AdapterFixture)adapters[0]).IsDeleted)
+            {
+                await Task.Delay(1);
+                if (!timer.IsRunning)
+                {
+                    break;
+                }
+            }
 
             // Assert
-            Assert.IsTrue(((AdapterFixture)adapter[0]).IsDeleted);
+            Assert.IsTrue(((AdapterFixture)adapters[0]).IsDeleted);
         }
 
         [TestMethod]
@@ -152,16 +175,30 @@ namespace MudEngine.Game.Tests.UnitTests
             // Arrange
             var configuration = Mock.Of<IGameConfiguration>(mock => mock.GetAdapters() == new IAdapter[1] { new AdapterFixture() });
             var game = new MudGame();
+            SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
             await game.Configure(configuration);
 
-            IAdapter[] adapter = game.Configuration.GetAdapters();
+            IAdapter[] adapters = game.Configuration.GetAdapters();
 
             // Act
-            await game.StartAsync();
-            await game.Delete();
+            game.BeginStart(async (runningGame) => await game.Delete());
+            var timer = new EngineTimer<AdapterFixture>((AdapterFixture)adapters[0]);
+            timer.Start(TimeSpan.FromSeconds(20).TotalMilliseconds, 0, 1, (fixture, runningTimer) =>
+            {
+                runningTimer.Stop();
+            });
+
+            while (!((AdapterFixture)adapters[0]).IsDeleted)
+            {
+                await Task.Delay(1);
+                if (!timer.IsRunning)
+                {
+                    break;
+                }
+            }
 
             // Assert
-            Assert.IsTrue(((AdapterFixture)adapter[0]).IsDeleted);
+            Assert.IsTrue(((AdapterFixture)adapters[0]).IsDeleted);
         }
 
         private async Task TestGameStartup()

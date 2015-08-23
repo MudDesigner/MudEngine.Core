@@ -53,7 +53,7 @@ namespace MudDesigner.MudEngine
         /// <param name="state">The state.</param>
         public EngineTimer(T state)
         {
-			if (state.Equals(default(T)))
+			if (state == null || state.Equals(default(T)))
             {
                 throw new ArgumentNullException(nameof(state), "EngineTimer constructor requires a non-null argument.");
             }
