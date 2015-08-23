@@ -20,17 +20,17 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// The time periods assigned to this world
         /// </summary>
-        private List<ITimePeriod> timePeriods;
+        List<ITimePeriod> timePeriods;
 
         /// <summary>
         /// The realms assigned to this world
         /// </summary>
-        private List<IRealm> realms;
+        List<IRealm> realms;
 
         /// <summary>
         /// The realm factory used to create new realms
         /// </summary>
-        private IRealmFactory realmFactory;
+        IRealmFactory realmFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MudWorld" /> class.
@@ -81,13 +81,7 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// Gets the adjustment factor used to convert real-world time to in-game time
         /// </summary>
-        public double GameTimeAdjustmentFactor
-        {
-            get
-            {
-                return this.GameDayToRealHourRatio / this.HoursPerDay;
-            }
-        }
+        public double GameTimeAdjustmentFactor => this.GameDayToRealHourRatio / this.HoursPerDay;
 
         /// <summary>
         /// Gets how many hours it takes to complete one full day in this world.
@@ -111,10 +105,7 @@ namespace MudEngine.Game.Environment
         /// </summary>
         /// <param name="name">The name of the realm.</param>
         /// <returns>Returns an unintialized instance of IRealm</returns>
-        public Task<IRealm> CreateRealm(string name)
-        {
-            return this.realmFactory.CreateRealm(name, this);
-        }
+        public Task<IRealm> CreateRealm(string name) => this.realmFactory.CreateRealm(name, this);
 
         /// <summary>
         /// Adds a collection of realms to world, initializing them as they are added.
@@ -270,6 +261,20 @@ namespace MudEngine.Game.Environment
         }
 
         /// <summary>
+        /// Sets the name for this world.
+        /// </summary>
+        /// <param name="worldName">The name of the world.</param>
+        public void SetName(string worldName)
+        {
+            if (string.IsNullOrEmpty(worldName))
+            {
+                throw new ArgumentNullException(nameof(worldName));
+            }
+
+            this.Name = worldName;
+        }
+
+        /// <summary>
         /// Clones the properties of this instance to a new instance.
         /// </summary>
         /// <returns>
@@ -303,10 +308,7 @@ namespace MudEngine.Game.Environment
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString()
-        {
-            return string.Format("{0} in the {1} in {2}.", this.CurrentTimeOfDay.CurrentTime.ToString(), this.CurrentTimeOfDay.Name, this.Name);
-        }
+        public override string ToString() => string.Format("{0} in the {1} in {2}.", this.CurrentTimeOfDay.CurrentTime.ToString(), this.CurrentTimeOfDay.Name, this.Name);
 
         /// <summary>
         /// Loads the component and any resources or dependencies it might have.
@@ -325,9 +327,6 @@ namespace MudEngine.Game.Environment
         /// Called during deletion of the component.
         /// </summary>
         /// <returns></returns>
-        protected override Task Unload()
-        {
-            return Task.FromResult(0);
-        }
+        protected override Task Unload() => Task.FromResult(0);
     }
 }

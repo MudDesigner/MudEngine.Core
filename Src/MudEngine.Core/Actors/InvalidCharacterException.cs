@@ -21,6 +21,6 @@ namespace MudDesigner.MudEngine.Actors
         /// <summary>
         /// Gets the character that is in an invalid state.
         /// </summary>
-        public ICharacter Character { get; private set; }
+        public ICharacter Character { get; }
     }
 }

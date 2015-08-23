@@ -35,11 +35,11 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Gets the state that is being transitioned away from.
         /// </summary>
-        public ITimePeriod TransitioningFrom { get; private set; }
+        public ITimePeriod TransitioningFrom { get; }
 
         /// <summary>
         /// Gets the state that is being transitioned to.
         /// </summary>
-        public ITimePeriod TransitioningTo { get; private set; }
+        public ITimePeriod TransitioningTo { get; }
     }
 }

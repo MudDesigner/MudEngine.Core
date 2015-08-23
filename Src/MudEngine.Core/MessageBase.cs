@@ -19,10 +19,7 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Gets the content of the message.
         /// </summar>y
-        public TContentType GetContent()
-        {
-            return this.Content;
-        }
+        public TContentType GetContent() => this.Content;
 
         /// <summary>
         /// Gets the content.
@@ -30,9 +27,6 @@ namespace MudDesigner.MudEngine
         /// <returns>
         /// Returns the content of the message
         /// </returns>
-        object IMessage.GetContent()
-        {
-            return this.GetContent();
-        }
+        object IMessage.GetContent() => this.GetContent();
     }
 }

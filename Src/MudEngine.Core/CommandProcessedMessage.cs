@@ -24,6 +24,6 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Gets the target of the command.
         /// </summary>
-        public IComponent Target { get; private set; }
+        public IComponent Target { get; }
     }
 }

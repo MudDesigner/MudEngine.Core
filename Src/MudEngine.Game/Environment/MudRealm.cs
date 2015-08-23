@@ -19,12 +19,12 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// The zones owned by this realm
         /// </summary>
-        private List<IZone> zones;
+        List<IZone> zones;
 
         /// <summary>
         /// The zone factory used to create new zones
         /// </summary>
-        private IZoneFactory zoneFactory;
+        IZoneFactory zoneFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MudRealm"/> class.
@@ -70,7 +70,7 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// Gets the number of zones in realm.
         /// </summary>]
-        public int NumberOfZonesInRealm { get { return this.zones.Count; } }
+        public int NumberOfZonesInRealm => this.zones.Count;
 
         /// <summary>
         /// Gets the World that owns this Realm.

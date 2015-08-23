@@ -16,22 +16,22 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// The rooms that this zone holds
         /// </summary>
-        private List<IRoom> rooms;
+        List<IRoom> rooms;
 
         /// <summary>
         /// The weather states that can be applied to this zone
         /// </summary>
-        private List<IWeatherState> weatherStates;
+        List<IWeatherState> weatherStates;
 
         /// <summary>
         /// The weather clock
         /// </summary>
-        private EngineTimer<IWeatherState> weatherClock;
+        EngineTimer<IWeatherState> weatherClock;
 
         /// <summary>
         /// The room factory used to create new rooms
         /// </summary>
-        private IRoomFactory roomFactory;
+        IRoomFactory roomFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MudZone"/> class.
@@ -77,7 +77,7 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// Gets the number of rooms in this zone instance.
         /// </summary>
-        public int NumberOfRoomsInZone { get { return this.rooms.Count; } }
+        public int NumberOfRoomsInZone => this.rooms.Count;
 
         /// <summary>
         /// Gets the realm that owns this zone.
@@ -310,7 +310,7 @@ namespace MudEngine.Game.Environment
         /// </summary>
         /// <param name="state">The current weather state.</param>
         /// <param name="timer">The zone timer that is responsible for updating the weather state.</param>
-        private void SetupWeather(IWeatherState state, EngineTimer<IWeatherState> timer)
+        void SetupWeather(IWeatherState state, EngineTimer<IWeatherState> timer)
         {
             IWeatherState nextState = this.weatherStates.AnyOrDefaultFromWeight(weather => weather.OccurrenceProbability);
             if (nextState == null)
@@ -330,7 +330,7 @@ namespace MudEngine.Game.Environment
         /// </summary>
         /// <param name="initialState">The state of the weather prior to the change occuring.</param>
         /// <param name="nextState">State of the zones weather now.</param>
-        private void OnWeatherChanged(IWeatherState initialState, IWeatherState nextState)
+        void OnWeatherChanged(IWeatherState initialState, IWeatherState nextState)
         {
             EventHandler<WeatherStateChangedEventArgs> handler = this.WeatherChanged;
             if (handler == null)
@@ -350,7 +350,7 @@ namespace MudEngine.Game.Environment
         /// </para>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="MudDesigner.MudEngine.Environment.RoomOccupancyChangedEventArgs" /> instance containing the event data.</param>
-        private void OccupantEnteredRoom(object sender, RoomOccupancyChangedEventArgs e)
+        void OccupantEnteredRoom(object sender, RoomOccupancyChangedEventArgs e)
         {
             // The occupant is entering our zone for the first time.
             if (e.DepartureRoom == null)
@@ -377,7 +377,7 @@ namespace MudEngine.Game.Environment
         /// </para>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="MudDesigner.MudEngine.Environment.RoomOccupancyChangedEventArgs" /> instance containing the event data.</param>
-        private void OccupantLeftRoom(object sender, RoomOccupancyChangedEventArgs e)
+        void OccupantLeftRoom(object sender, RoomOccupancyChangedEventArgs e)
         {
             // Not sure what happened during travel, but the occupant does not have an arrival room.
             // So we don't do anything or the occupant is just traveling around within our zone, so we ignore it.
@@ -393,7 +393,7 @@ namespace MudEngine.Game.Environment
         /// Called when an occupant enters a room within this zone for the first time.
         /// </summary>
         /// <param name="roomOccupancyChange">The <see cref="MudDesigner.MudEngine.Environment.RoomOccupancyChangedEventArgs" /> instance containing the event data.</param>
-        private void OnEnteredZone(RoomOccupancyChangedEventArgs roomOccupancyChange)
+        void OnEnteredZone(RoomOccupancyChangedEventArgs roomOccupancyChange)
         {
             EventHandler<ZoneOccupancyChangedEventArgs> handler = this.EnteredZone;
             if (handler == null)
@@ -408,7 +408,7 @@ namespace MudEngine.Game.Environment
         /// Called when an occupant is leaving a room owned by this zone, and entering a room owned by a different zone.
         /// </summary>
         /// <param name="roomOccupancyChange">The <see cref="MudDesigner.MudEngine.Environment.RoomOccupancyChangedEventArgs" /> instance containing the event data.</param>
-        private void OnLeftZone(RoomOccupancyChangedEventArgs roomOccupancyChange)
+        void OnLeftZone(RoomOccupancyChangedEventArgs roomOccupancyChange)
         {
             EventHandler<ZoneOccupancyChangedEventArgs> handler = this.LeftZone;
             if (handler == null)

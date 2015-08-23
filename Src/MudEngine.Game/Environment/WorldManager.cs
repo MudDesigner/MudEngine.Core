@@ -19,12 +19,12 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// A collection of worlds added to the manager
         /// </summary>
-        private List<IWorld> worlds;
+        List<IWorld> worlds;
 
         /// <summary>
         /// The world factory used to create new instances of IWorld
         /// </summary>
-        private IWorldFactory worldFactory;
+        IWorldFactory worldFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WorldManager"/> class.
@@ -44,7 +44,7 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// Gets the name.
         /// </summary>
-        public override string Name { get { return "World Manager"; } }
+        public override string Name => "World Manager";
 
         public override void Configure()
         {

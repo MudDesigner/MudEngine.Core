@@ -182,28 +182,22 @@ namespace MudEngine.Game.Environment
         /// Cloning does not guarantee that the internal state of an object will be cloned nor
         /// does it guarantee that the clone will be a deep clone or a shallow.
         /// </para>
-        public IDoorway Clone()
+        public IDoorway Clone() => new MudDoor
         {
-            return new MudDoor
-            {
-                ArrivalRoom = this.ArrivalRoom,
-                DepartureDirection = this.DepartureDirection,
-                DepartureRoom = this.DepartureRoom,
-                Id = this.Id,
-                IsEnabled = this.IsEnabled,
-                Name = this.Name,
-            };
-        }
+            ArrivalRoom = this.ArrivalRoom,
+            DepartureDirection = this.DepartureDirection,
+            DepartureRoom = this.DepartureRoom,
+            Id = this.Id,
+            IsEnabled = this.IsEnabled,
+            Name = this.Name,
+        };
 
         /// <summary>
         /// Loads the component and any resources or dependencies it might have.
         /// Called during initialization of the component
         /// </summary>
         /// <returns></returns>
-        protected override Task Load()
-        {
-            return Task.FromResult(0);
-        }
+        protected override Task Load() => Task.FromResult(0);
 
         /// <summary>
         /// Unloads this instance and any resources or dependencies it might be using.

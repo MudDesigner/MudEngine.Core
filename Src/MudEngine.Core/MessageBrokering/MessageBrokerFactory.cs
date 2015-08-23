@@ -12,9 +12,9 @@ namespace MudDesigner.MudEngine.MessageBrokering
     /// </summary>
     public static class MessageBrokerFactory
     {
-        private static Func<IMessageBroker> _factory;
+        static Func<IMessageBroker> _factory;
 
-        private static IMessageBroker instance;
+        static IMessageBroker instance;
 
         public static IMessageBroker Instance
         {

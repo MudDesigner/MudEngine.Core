@@ -29,7 +29,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.ExtensionsTests
 
             // Assert
             Assert.AreNotEqual(0, result.DoubleNumber);
-            Assert.IsTrue(collection.Any(item => item.DoubleNumber == result.DoubleNumber));
+            Assert.IsTrue(collection.Any(item => Math.Round(item.DoubleNumber,2).Equals(Math.Round(result.DoubleNumber, 2))));
         }
 
         [TestMethod]

@@ -9,15 +9,15 @@ namespace MudDesigner.MudEngine.MessageBrokering
     using System.Collections.Concurrent;
     using System.Collections.Generic;
 
-    internal class MessageBroker : IMessageBroker
+    class MessageBroker : IMessageBroker
     {
         /// <summary>
         /// Collection of subscribed listeners
         /// </summary>
-        private ConcurrentDictionary<Type, List<ISubscription>> listeners =
+        readonly ConcurrentDictionary<Type, List<ISubscription>> listeners =
             new ConcurrentDictionary<Type, List<ISubscription>>();
 
-        private MessageScope scope;
+        MessageScope scope;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageBroker"/> class.
@@ -121,7 +121,7 @@ namespace MudDesigner.MudEngine.MessageBrokering
         /// </summary>
         /// <typeparam name="T">The message Type you want to unsubscribe from</typeparam>
         /// <param name="subscription">The subscription to unsubscribe.</param>
-        private void Unsubscribe(NotificationArgs args)
+        void Unsubscribe(NotificationArgs args)
         {
             // If the key doesn't exist or has an empty collection we just return.
             // We will leave the key in there for future subscriptions to use.

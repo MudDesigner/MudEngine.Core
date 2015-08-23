@@ -17,7 +17,7 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Initializes a new instance of the <see cref="GameComponent"/> class.
         /// </summary>
-        public GameComponent()
+        protected GameComponent()
         {
             this.Id = Guid.NewGuid();
             this.CreationDate = DateTime.Now;
@@ -61,18 +61,12 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Gets the date that this component was instanced.
         /// </summary>
-        public DateTime CreationDate { get; private set; }
+        public DateTime CreationDate { get; }
 
         /// <summary>
         /// Gets the amount number of seconds that this component instance has been alive.
         /// </summary>
-        public double TimeAlive
-        {
-            get
-            {
-                return DateTime.Now.Subtract(this.CreationDate).TotalSeconds;
-            }
-        }
+        public double TimeAlive => DateTime.Now.Subtract(this.CreationDate).TotalSeconds;
 
         /// <summary>
         /// Initializes the game component.
@@ -131,12 +125,9 @@ namespace MudDesigner.MudEngine
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString()
-        {
-            return string.IsNullOrEmpty(this.Name)
+        public override string ToString() => string.IsNullOrEmpty(this.Name)
                 ? $"{this.GetType().Name}"
                 : $"{this.Name} ({this.GetType().Name})";
-        }
 
         /// <summary>
         /// Loads the component and any resources or dependencies it might have. 

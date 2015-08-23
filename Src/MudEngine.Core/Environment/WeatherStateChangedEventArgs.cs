@@ -26,11 +26,11 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Gets the previous weather state.
         /// </summary>
-        public IWeatherState PreviousState { get; private set; }
+        public IWeatherState PreviousState { get; }
 
         /// <summary>
         /// Gets the weather state being transitioned to.
         /// </summary>
-        public IWeatherState CurrentState { get; private set; }
+        public IWeatherState CurrentState { get; }
     }
 }

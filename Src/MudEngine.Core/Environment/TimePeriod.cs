@@ -16,7 +16,7 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// The clock used to track the time of day.
         /// </summary>
-        private EngineTimer<ITimeOfDay> timeOfDayClock;
+        EngineTimer<ITimeOfDay> timeOfDayClock;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TimePeriod"/> class.
@@ -50,7 +50,7 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Gets the unique identifier for this component.
         /// </summary>
-        public Guid Id { get; private set; }
+        public Guid Id { get; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is enabled.
@@ -60,12 +60,12 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Gets the date that this component was instanced.
         /// </summary>
-        public DateTime CreationDate { get; private set; }
+        public DateTime CreationDate { get; }
 
         /// <summary>
         /// Gets the amount number of seconds that this component instance has been alive.
         /// </summary>
-        public double TimeAlive { get { return DateTime.Now.Subtract(this.CreationDate).TotalSeconds; } }
+        public double TimeAlive => DateTime.Now.Subtract(this.CreationDate).TotalSeconds;
 
         /// <summary>
         /// Starts the time period, ticking the time of day clock.
@@ -181,7 +181,7 @@ namespace MudDesigner.MudEngine.Environment
         /// </returns>
         public override bool Equals(object obj)
         {
-            TimePeriod secondState = (TimePeriod)obj;
+            var secondState = (TimePeriod)obj;
 
             return secondState.StateStartTime.Hour == this.StateStartTime.Hour && secondState.StateStartTime.Minute == this.StateStartTime.Minute;
         }
@@ -192,17 +192,14 @@ namespace MudDesigner.MudEngine.Environment
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            return this.StateStartTime.Hour.GetHashCode() * this.StateStartTime.Minute.GetHashCode() * this.Name.GetHashCode();
-        }
+        public override int GetHashCode() => this.StateStartTime.Hour.GetHashCode() * this.StateStartTime.Minute.GetHashCode() * this.Name.GetHashCode();
 
         /// <summary>
         /// Starts the state clock at the specified interval, firing the callback provided.
         /// </summary>
         /// <param name="interval">The interval.</param>
         /// <param name="callback">The callback.</param>
-        private void StartStateClock(double interval, Action<ITimeOfDay> callback)
+        void StartStateClock(double interval, Action<ITimeOfDay> callback)
         {
             // If the minute interval is less than 1 second,
             // then we increment by the hour to reduce excess update calls.
@@ -217,7 +214,7 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Called when the states time is updated.
         /// </summary>
-        private void OnTimeUpdated()
+        void OnTimeUpdated()
         {
             EventHandler<ITimeOfDay> handler = this.TimeUpdated;
             if (handler == null)

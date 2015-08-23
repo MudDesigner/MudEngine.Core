@@ -21,6 +21,6 @@ namespace MudDesigner.MudEngine.Actors
         /// <summary>
         /// Gets the actor that is invalid.
         /// </summary>
-        public IActor Actor { get; private set; }
+        public IActor Actor { get; }
     }
 }

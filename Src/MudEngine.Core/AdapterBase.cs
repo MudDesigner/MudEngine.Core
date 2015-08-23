@@ -20,7 +20,7 @@ namespace MudDesigner.MudEngine
         /// Initializes a new instance of the <see cref="AdapterBase{TConfiguration}"/> class.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
-        public AdapterBase(TConfiguration configuration) : base(configuration)
+        protected AdapterBase(TConfiguration configuration) : base(configuration)
         {
             this.AdapterConfiguration = configuration;
         }
@@ -28,7 +28,7 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Initializes a new instance of the <see cref="AdapterBase{TConfiguration}"/> class.
         /// </summary>
-        public AdapterBase() : base()
+        protected AdapterBase() : base()
         {
         }
 
@@ -65,12 +65,12 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// The publication subscriptions for this adapter
         /// </summary>
-        private Dictionary<Type, ISubscription> subscriptions;
+        Dictionary<Type, ISubscription> subscriptions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AdapterBase"/> class.
         /// </summary>
-        public AdapterBase()
+        protected AdapterBase()
         {
             this.subscriptions = new Dictionary<Type, ISubscription>();
         }
@@ -79,7 +79,7 @@ namespace MudDesigner.MudEngine
         /// Initializes a new instance of the <see cref="AdapterBase"/> class.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
-        public AdapterBase(IConfiguration configuration) : this()
+        protected AdapterBase(IConfiguration configuration) : this()
         {
             this.Configuration = configuration;
         }

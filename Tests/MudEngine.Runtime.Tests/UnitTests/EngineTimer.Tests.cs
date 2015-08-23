@@ -14,6 +14,7 @@ namespace MudDesigner.MudEngine.Tests
         [TestCategory("Engine Core")]
         [Owner("Johnathon Sullinger")]
         [ExpectedException(typeof(ArgumentNullException))]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Potential Code Quality Issues", "RECS0026:Possible unassigned object created by 'new'", Justification = "<Pending>")]
         public void Exception_thrown_with_null_ctor_argument()
         {
             // Act

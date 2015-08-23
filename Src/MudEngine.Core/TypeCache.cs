@@ -19,10 +19,7 @@ namespace MudDesigner.MudEngine
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>Returns a collection of Types</returns>
-        public static IEnumerable<Type> GetTypes(Func<Type, bool> predicate)
-        {
-            return ReflectedCache.TypePropertyCache.Select(pair => pair.Key).Where(predicate);
-        }
+        public static IEnumerable<Type> GetTypes(Func<Type, bool> predicate) => ReflectedCache.TypePropertyCache.Select(pair => pair.Key).Where(predicate);
 
         /// <summary>
         /// Gets the type.
@@ -132,10 +129,7 @@ namespace MudDesigner.MudEngine
         /// </summary>
         /// <typeparam name="T">The Type you want to check if it has been cached.</typeparam>
         /// <returns>Returns true if the Type exists within the Pool</returns>
-        public static bool HasTypeInCache<T>()
-        {
-            return HasTypeInCache(typeof(T));
-        }
+        public static bool HasTypeInCache<T>() => HasTypeInCache(typeof(T));
 
         /// <summary>
         /// Determines whether the given item has its Type in the pool.
@@ -143,19 +137,13 @@ namespace MudDesigner.MudEngine
         /// <typeparam name="T">The Type to perform the check against</typeparam>
         /// <param name="item">The item.</param>
         /// <returns>Returns True if the type exists in the cache</returns>
-        public static bool HasTypeInCache<T>(T item)
-        {
-            return HasTypeInCache(item.GetType());
-        }
+        public static bool HasTypeInCache<T>(T item) => HasTypeInCache(item.GetType());
 
         /// <summary>
         /// Determines whether the given Type is already cached.
         /// </summary>
         /// <param name="typeInCache">The Type you want to check if it has been cached.</param>
         /// <returns>Returns true if the Type exists within the Pool</returns>
-        public static bool HasTypeInCache(Type typeInCache)
-        {
-            return ReflectedCache.TypePropertyCache.ContainsKey(typeInCache);
-        }
+        public static bool HasTypeInCache(Type typeInCache) => ReflectedCache.TypePropertyCache.ContainsKey(typeInCache);
     }
 }

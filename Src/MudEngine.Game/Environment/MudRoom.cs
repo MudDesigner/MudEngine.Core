@@ -18,17 +18,17 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// The actors currently in the room.
         /// </summary>
-        private List<IActor> actors;
+        List<IActor> actors;
 
         /// <summary>
         /// Collection of doors that are connected to this room.
         /// </summary>
-        private List<IDoorway> doorways;
+        List<IDoorway> doorways;
 
         /// <summary>
         /// The door factory used to create new doorway instances.
         /// </summary>
-        private IDoorwayFactory doorFactory;
+        IDoorwayFactory doorFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MudRoom"/> class.
@@ -153,10 +153,7 @@ namespace MudEngine.Game.Environment
         /// </summary>
         /// <param name="travelDirectionToReachDoor">The travel direction an actor must travel in order to reach the door.</param>
         /// <returns>Returns a valid instance of an IDoorway implementation</returns>
-        public Task<IDoorway> CreateDoorway(ITravelDirection travelDirectionToReachDoor)
-        {
-            return this.doorFactory.CreateDoor(this, travelDirectionToReachDoor);
-        }
+        public Task<IDoorway> CreateDoorway(ITravelDirection travelDirectionToReachDoor) => this.doorFactory.CreateDoor(this, travelDirectionToReachDoor);
 
         /// <summary>
         /// Removes the given actor from this room instance.
@@ -262,19 +259,13 @@ namespace MudEngine.Game.Environment
         /// Called during initialization of the component
         /// </summary>
         /// <returns></returns>
-        protected override Task Load()
-        {
-            return Task.FromResult(0);
-        }
+        protected override Task Load() => Task.FromResult(0);
 
         /// <summary>
         /// Unloads this instance and any resources or dependencies it might be using.
         /// Called during deletion of the component.
         /// </summary>
         /// <returns></returns>
-        protected override Task Unload()
-        {
-            return Task.FromResult(0);
-        }
+        protected override Task Unload() => Task.FromResult(0);
     }
 }

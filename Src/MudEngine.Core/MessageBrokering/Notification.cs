@@ -7,17 +7,17 @@ namespace MudDesigner.MudEngine.MessageBrokering
 {
     using System;
 
-    internal class Notification<TMessage> : INotification<TMessage> where TMessage : class, IMessage
+    class Notification<TMessage> : INotification<TMessage> where TMessage : class, IMessage
     {
         /// <summary>
         /// The callbacks invoked when the handler processes the messages.
         /// </summary>
-        private Action<TMessage, ISubscription> callback;
+        Action<TMessage, ISubscription> callback;
 
         /// <summary>
         /// The conditions that must be met in order to fire the callbacks.
         /// </summary>
-        private Func<TMessage, bool> condition;
+        Func<TMessage, bool> condition;
 
         /// <summary>
         /// Occurs when the subscription is being unsubscribed.

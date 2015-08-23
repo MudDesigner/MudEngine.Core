@@ -19,6 +19,6 @@ namespace MudDesigner.MudEngine.Tests.Fixture
             this.IsEnabled = enabled;
         }
 
-        public bool IsEnabled { get; private set; }
+        public bool IsEnabled { get; }
     }
 }

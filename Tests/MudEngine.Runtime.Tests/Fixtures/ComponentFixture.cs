@@ -5,9 +5,9 @@ namespace MudDesigner.MudEngine.Tests.Fixture
 {
     public class ComponentFixture : IComponent
     {
-        public DateTime CreationDate { get; private set; } = DateTime.Now;
+        public DateTime CreationDate { get; } = DateTime.Now;
 
-        public Guid Id { get; private set; } = Guid.NewGuid();
+        public Guid Id { get; } = Guid.NewGuid();
 
         public bool IsEnabled { get; set; }
 

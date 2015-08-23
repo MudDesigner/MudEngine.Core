@@ -54,21 +54,21 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Gets the occupant that triggered this event.
         /// </summary>
-        public ICharacter Occupant { get; private set; }
+        public ICharacter Occupant { get; }
 
         /// <summary>
         /// Gets the direction that the occupant traveled when leaving the departure room.
         /// </summary>
-        public ITravelDirection TravelDirection { get; private set; }
+        public ITravelDirection TravelDirection { get; }
 
         /// <summary>
         /// Gets the room the occupant is departing from.
         /// </summary>
-        public IRoom DepartureRoom { get; private set; }
+        public IRoom DepartureRoom { get; }
 
         /// <summary>
         /// Gets the room the occupant is arriving in.
         /// </summary>
-        public IRoom ArrivalRoom { get; private set; }
+        public IRoom ArrivalRoom { get; }
     }
 }

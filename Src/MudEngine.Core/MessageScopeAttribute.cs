@@ -26,7 +26,7 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Gets the scope that a message is intended for.
         /// </summary>
-        public MessageScope Scope { get; private set; }
+        public MessageScope Scope { get; }
     }
 
     /// <summary>

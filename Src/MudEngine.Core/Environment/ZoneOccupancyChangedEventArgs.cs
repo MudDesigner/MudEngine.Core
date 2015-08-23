@@ -21,6 +21,6 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// Gets the affected zone.
         /// </summary>
-        public IZone AffectedZone { get; private set; }
+        public IZone AffectedZone { get; }
     }
 }

@@ -16,12 +16,12 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// The context to invoke the callback on to
         /// </summary>
-        private SynchronizationContext context;
+        readonly SynchronizationContext context;
 
         /// <summary>
         /// The callback to invoke
         /// </summary>
-        private Action callback;
+        readonly Action callback;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ThreadContext"/> class.
@@ -46,7 +46,7 @@ namespace MudDesigner.MudEngine
         /// Handles the SynchronizationContext posting.
         /// </summary>
         /// <param name="item">Parameter required by the synchronization context posting. It should always be null.</param>
-        private void ContextHandler(object item)
+        void ContextHandler(object item)
         {
             this.callback();
         }
@@ -61,12 +61,12 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// The context to invoke the callback on to
         /// </summary>
-        private SynchronizationContext context;
+        readonly SynchronizationContext context;
 
         /// <summary>
         /// The callback to invoke
         /// </summary>
-        private Action<T> callback;
+        readonly Action<T> callback;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ThreadContext{T}"/> class.
@@ -92,7 +92,7 @@ namespace MudDesigner.MudEngine
         /// Handles the SynchronizationContext posting.
         /// </summary>
         /// <param name="item">The parameter to pass into the callback.</param>
-        private void ContextHandler(object item)
+        void ContextHandler(object item)
         {
             this.callback((T)item);
         }

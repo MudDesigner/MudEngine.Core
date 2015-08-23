@@ -25,6 +25,6 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Gets the adapter in an invalid state.
         /// </summary>
-        public IAdapter Adapter { get; private set; }
+        public IAdapter Adapter { get; }
     }
 }

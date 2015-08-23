@@ -25,6 +25,6 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Gets the world.
         /// </summary>
-        public IWorld World { get; private set; }
+        public IWorld World { get; }
     }
 }

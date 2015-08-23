@@ -19,7 +19,7 @@ namespace MudDesigner.MudEngine.Game
         /// <summary>
         /// The adapters that have already been initialized and are ready to be started.
         /// </summary>
-        private IAdapter[] configuredAdapters;
+        IAdapter[] configuredAdapters;
 
         /// <summary>
         /// Gets information pertaining to the game.
@@ -34,7 +34,7 @@ namespace MudDesigner.MudEngine.Game
         /// <summary>
         /// Gets or sets the last saved.
         /// </summary>
-        public DateTime LastSaved { get; private set; }
+        public DateTime LastSaved { get; }
 
         /// <summary>
         /// Configures the game using the provided game configuration.
@@ -71,8 +71,8 @@ namespace MudDesigner.MudEngine.Game
         {
             await this.Start();
         }
-        
-        private async Task Start(ThreadContext<IGame> startupContext = null)
+
+        async Task Start(ThreadContext<IGame> startupContext = null)
         {
             MessageBrokerFactory.Instance.Publish(new GameMessage("Starting game."));
 
@@ -108,7 +108,7 @@ namespace MudDesigner.MudEngine.Game
             });
         }
 
-        private void notifyStartCompleted(object state)
+        void notifyStartCompleted(object state)
         {
             var callback = (Action<IGame>)state;
             callback(this);

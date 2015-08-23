@@ -14,6 +14,7 @@ namespace MudDesigner.MudEngine.Tests
         [TestCategory("Engine Core")]
         [Owner("Johnathon Sullinger")]
         [ExpectedException(typeof(ArgumentNullException))]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Potential Code Quality Issues", "RECS0026:Possible unassigned object created by 'new'", Justification = "<Pending>")]
         public void Constructor_throws_exception_with_null_item()
         {
             // Act
@@ -26,6 +27,7 @@ namespace MudDesigner.MudEngine.Tests
         [TestCategory("Engine Core")]
         [Owner("Johnathon Sullinger")]
         [ExpectedException(typeof(ArgumentNullException))]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Potential Code Quality Issues", "RECS0026:Possible unassigned object created by 'new'", Justification = "<Pending>")]
         public void Constructor_throws_exception_with_null_delegate()
         {
             // Act
@@ -38,6 +40,7 @@ namespace MudDesigner.MudEngine.Tests
         [TestCategory("Engine Core")]
         [Owner("Johnathon Sullinger")]
         [ExpectedException(typeof(ArgumentNullException))]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Potential Code Quality Issues", "RECS0026:Possible unassigned object created by 'new'", Justification = "<Pending>")]
         public void Constructor_throws_exception_with_null_ctor_arguments()
         {
             // Act

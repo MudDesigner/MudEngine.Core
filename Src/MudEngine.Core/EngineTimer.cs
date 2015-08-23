@@ -44,7 +44,7 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// How many times we have fired the timer thus far.
         /// </summary>
-        private long fireCount = 0;
+        long fireCount = 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EngineTimer{T}"/> class.
@@ -53,7 +53,7 @@ namespace MudDesigner.MudEngine
         /// <param name="state">The state.</param>
         public EngineTimer(T state)
         {
-			if (state == null || state.Equals(default(T)))
+			if (state == null)
             {
                 throw new ArgumentNullException(nameof(state), "EngineTimer constructor requires a non-null argument.");
             }
@@ -165,7 +165,7 @@ namespace MudDesigner.MudEngine
             base.Dispose(disposing);
         }
 
-        private void StartTimer(Func<Task, object, Task> timerDelegate, object data, bool isAsync, double startDelay)
+        void StartTimer(Func<Task, object, Task> timerDelegate, object data, bool isAsync, double startDelay)
         {
             this.IsRunning = true;
             MessageBrokerFactory.Instance.Publish(new DebugMessage($"Starting timer for an instance of {this.StateData.GetType().Name}"));
@@ -180,9 +180,7 @@ namespace MudDesigner.MudEngine
                     TaskScheduler.Default);
         }
 
-        private Task RunTimer(Task task, Tuple<Action<T, EngineTimer<T>>, T> state, double interval, int numberOfFires)
-        {
-            return this.Run(
+        Task RunTimer(Task task, Tuple<Action<T, EngineTimer<T>>, T> state, double interval, int numberOfFires) => this.Run(
                 task,
                 () =>
                 {
@@ -191,17 +189,13 @@ namespace MudDesigner.MudEngine
                 },
                 interval,
                 numberOfFires);
-        }
 
-        private Task RunTimerAsync(Task task, Tuple<Func<T, EngineTimer<T>, Task>, T> state, double interval, int numberOfFires)
-        {
-            return this.Run(
+        Task RunTimerAsync(Task task, Tuple<Func<T, EngineTimer<T>, Task>, T> state, double interval, int numberOfFires) => this.Run(
                 task,
                 () => state.Item1(state.Item2, this),
                 interval, numberOfFires);
-        }
 
-        private async Task Run(Task task, Func<Task> callback, double interval, int numberOfFires)
+        async Task Run(Task task, Func<Task> callback, double interval, int numberOfFires)
         {
             while (!this.IsCancellationRequested)
             {
@@ -216,7 +210,7 @@ namespace MudDesigner.MudEngine
             }
         }
 
-        private async Task PerformTimerCancellationCheck(double interval, int numberOfFires)
+        async Task PerformTimerCancellationCheck(double interval, int numberOfFires)
         {
             // If we have reached our fire count, stop. If set to 0 then we fire until manually stopped.
             if (numberOfFires > 0 && this.fireCount >= numberOfFires)

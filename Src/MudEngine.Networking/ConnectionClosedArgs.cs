@@ -15,8 +15,8 @@ namespace MudDesigner.MudEngine.Networking
             this.Connection = connection;
         }
 
-        public IPlayer Player { get; private set; }
+        public IPlayer Player { get; }
 
-        public IConnection Connection { get; private set; }
+        public IConnection Connection { get; }
     }
 }

@@ -13,7 +13,7 @@ namespace MudDesigner.MudEngine.Game
     /// </summary>
     public class GameConfiguration : IGameConfiguration
     {
-        private List<IAdapter> components;
+        List<IAdapter> components;
 
         public GameConfiguration()
         {
@@ -45,10 +45,7 @@ namespace MudDesigner.MudEngine.Game
         /// Gets the game adapter components that have been registered.
         /// </summary>
         /// <returns>Returns an array of adapter components</returns>
-        public IAdapter[] GetAdapters()
-        {
-            return this.components.ToArray();
-        }
+        public IAdapter[] GetAdapters() => this.components.ToArray();
 
         /// <summary>
         /// Tells the game configuration that a specific adapter component must be used by the game.

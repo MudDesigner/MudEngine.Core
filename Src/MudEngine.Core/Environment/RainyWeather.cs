@@ -14,23 +14,11 @@ namespace MudDesigner.MudEngine.Environment
         /// Gets the occurrence probability of this weather state occurring in an environment.
         /// The higher the probability relative to other weather states, the more likely it is going to occur.
         /// </summary>
-        public double OccurrenceProbability
-        {
-            get
-            {
-                return 30;
-            }
-        }
+        public double OccurrenceProbability => 30;
 
         /// <summary>
         /// Gets the name of the weather state.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return "Rainy";
-            }
-        }
+        public string Name => "Rainy";
     }
 }

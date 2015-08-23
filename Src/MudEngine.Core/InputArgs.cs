@@ -24,6 +24,6 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Gets the message.
         /// </summary>
-        public string Message { get; private set; }
+        public string Message { get; }
     }
 }

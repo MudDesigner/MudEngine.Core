@@ -10,6 +10,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
     public class TimeOfDayStateManagerTests
     {
         [TestInitialize]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Potential Code Quality Issues", "RECS0018:Comparison of floating point numbers with equality operator", Justification = "<Pending>")]
         public void Setup()
         {
             TimePeriodManager.SetDefaultHoursPerDay(24);
@@ -114,7 +115,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
             Assert.AreEqual(0, state.StateStartTime.Minute);
         }
 
-        private IEnumerable<ITimePeriod> CreateStates()
+        IEnumerable<ITimePeriod> CreateStates()
         {
             var timeOfDayStates = new List<ITimePeriod>();
             var morning = Mock.Of<ITimePeriod>(mock =>

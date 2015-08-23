@@ -38,6 +38,7 @@
     <Compile Include="Environment\MudRealm.cs" />
     <Compile Include="Environment\MudRoom.cs" />
     <Compile Include="Environment\MudWorld.cs" />
+    <Compile Include="Environment\MudWorldFactory.cs" />
     <Compile Include="Environment\MudZone.cs" />
     <Compile Include="Environment\WorldManager.cs" />
     <Compile Include="MudGame.cs" />

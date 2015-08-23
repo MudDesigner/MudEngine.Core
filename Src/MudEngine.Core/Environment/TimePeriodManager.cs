@@ -18,17 +18,17 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// A factory delegate that can be used to create a new instance of an ITimeOfDay component
         /// </summary>
-        private static Func<double, double, int, ITimeOfDay> _factory;
+        static Func<double, double, int, ITimeOfDay> _factory;
 
         /// <summary>
         /// The number of hours per day that the manager will assign to all new ITimePeriod instances
         /// </summary>
-        private static int _hoursPerDay;
+        static int _hoursPerDay;
 
         /// <summary>
         /// The time of day states provided by an external source
         /// </summary>
-        private IEnumerable<ITimePeriod> timeOfDayStates;
+        IEnumerable<ITimePeriod> timeOfDayStates;
 
         /// <summary>
         /// Sets a delegate to be used as a factory for creating new ITimeofDay instances.
@@ -62,10 +62,7 @@ namespace MudDesigner.MudEngine.Environment
             this.timeOfDayStates = states.OrderBy(item => item.StateStartTime.Hour).ThenBy(item => item.StateStartTime.Minute);
         }
 
-        public ITimeOfDay CreateTimeOfDay(int hour, int minute, int hoursPerDay)
-        {
-            return _factory(hour, minute, hoursPerDay);
-        }
+        public ITimeOfDay CreateTimeOfDay(int hour, int minute, int hoursPerDay) => _factory(hour, minute, hoursPerDay);
 
         /// <summary>
         /// Looks at a supplied time of day and figures out what TimeOfDayState needs to be returned that matches the time of day.
@@ -116,14 +113,14 @@ namespace MudDesigner.MudEngine.Environment
         /// Returns an instance of ITimePeriod that represents the current time of day if an instance with a StartTime 
         /// before the current world-time can be found 
         /// </returns>
-        private ITimePeriod GetInProgressState(ITimeOfDay currentTime)
+        ITimePeriod GetInProgressState(ITimeOfDay currentTime)
         {
             ITimePeriod inProgressState = null;
             foreach (ITimePeriod state in this.timeOfDayStates)
             {
                 // If the state is already in progress, w
                 if (state.StateStartTime.Hour <= currentTime.Hour ||
-                    (state.StateStartTime.Hour <= currentTime.Hour && 
+                    (state.StateStartTime.Hour <= currentTime.Hour &&
                     state.StateStartTime.Minute <= currentTime.Minute))
                 {
                     if (inProgressState == null)
@@ -154,14 +151,14 @@ namespace MudDesigner.MudEngine.Environment
         /// Returns an instance of ITimePeriod that represents the up coming time of day if an instance with a StartTime 
         /// after the current world-time can be found 
         /// </returns>
-        private ITimePeriod GetNextState(ITimeOfDay currentTime)
+        ITimePeriod GetNextState(ITimeOfDay currentTime)
         {
             ITimePeriod nextState = null;
             foreach (ITimePeriod state in this.timeOfDayStates)
             {
                 // If this state is a future state, then preserve it as a possible next state.
                 if (state.StateStartTime.Hour > currentTime.Hour ||
-                    (state.StateStartTime.Hour >= currentTime.Hour && 
+                    (state.StateStartTime.Hour >= currentTime.Hour &&
                     state.StateStartTime.Minute > currentTime.Minute))
                 {
                     // If we do not have a next state, set it.

@@ -75,7 +75,7 @@ namespace MudDesigner.MudEngine.Tests.UnitTests.Environment
 
             // Act
             await Task.Delay(TimeSpan.FromSeconds(1));
-            int aliveTime = (int)state.TimeAlive;
+            var aliveTime = (int)state.TimeAlive;
 
             // Act
             Assert.IsTrue(aliveTime >= 1);

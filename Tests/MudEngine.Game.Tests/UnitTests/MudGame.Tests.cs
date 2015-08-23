@@ -71,8 +71,10 @@ namespace MudEngine.Game.Tests.UnitTests
             var game = new MudGame();
             await game.Configure(configuration);
 
-            // Act
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                              // Act
             Task.Run(async () => await game.StartAsync());
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // Assert
@@ -199,25 +201,6 @@ namespace MudEngine.Game.Tests.UnitTests
 
             // Assert
             Assert.IsTrue(((AdapterFixture)adapters[0]).IsDeleted);
-        }
-
-        private async Task TestGameStartup()
-        {
-            // Mocks & Adapters
-            IWorldFactory worldFactory = Mock.Of<IWorldFactory>();
-            IAdapter server = Mock.Of<AdapterBase>();
-            //IAdapter worldManager = new WorldManager(worldFactory);
-
-            //// Create our game configuration
-            //IGameConfiguration configuration = new GameConfiguration { Name = "Sample Mud Game", };
-            //configuration.UseAdapter(server);
-            //configuration.UseAdapter(worldManager);
-
-            //// Setup and run the game.
-            //IGame game = new MudGame();
-            //await game.Configure(configuration);
-            //await game.StartAsync();
-            //await game.Delete();
         }
     }
 }

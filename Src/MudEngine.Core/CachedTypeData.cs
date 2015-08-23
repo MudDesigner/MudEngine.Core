@@ -15,23 +15,23 @@ namespace MudDesigner.MudEngine
     /// Represents a Type, its properties and attributes. This class holds cached reflection meta-data. 
     /// This lets objects ask for reflected meta-data without having to use reflection each time it needs to access the data.
     /// </summary>
-    internal sealed class CachedTypeData
+    sealed class CachedTypeData
     {
         /// <summary>
         /// The attributes bag holds a cached collection of attributse for each property for the Type associated with an instance of CachedTypeData.
         /// </summary>
-        private readonly ConcurrentDictionary<PropertyInfo, IEnumerable<Attribute>> propertyAttributesBag;
+        readonly ConcurrentDictionary<PropertyInfo, IEnumerable<Attribute>> propertyAttributesBag;
 
         /// <summary>
         /// The properties bag holds a cached collection of properties for the Type associated with an instance of CachedTypeData.
         /// </summary>
-        private ConcurrentBag<PropertyInfo> propertiesBag;
+        ConcurrentBag<PropertyInfo> propertiesBag;
 
         /// <summary>
         /// A thread-safe collection of every attribute associated with the Type associated with an instance of CachedTypeData.
         /// This collection includes all attributes for the Type including those that are stored in the propertyAttributesBag collection.
         /// </summary>
-        private ConcurrentBag<Attribute> typeAttributes;
+        ConcurrentBag<Attribute> typeAttributes;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CachedTypeData"/> class for caching reflected meta-data for a given Type.
@@ -53,7 +53,7 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Gets the type that has its reflected PropertyInfo and Attributes cached.
         /// </summary>
-        internal Type Type { get; private set; }
+        internal Type Type { get; }
 
         /// <summary>
         /// <para>
@@ -136,10 +136,8 @@ namespace MudDesigner.MudEngine
         /// </param>
         /// <param name="predicate">The predicate used to filter the results returned from the method.</param>
         /// <returns>Returns the first Attribute found matching the parameters provided. If no parameters are given, the first Attribute on the Type is returned.</returns>
-        internal Attribute GetAttribute(PropertyInfo property = null, Func<Attribute, bool> predicate = null)
-        {
-            return this.GetAttributes(property, predicate).FirstOrDefault();
-        }
+        internal Attribute GetAttribute(PropertyInfo property = null, Func<Attribute, bool> predicate = null) 
+            => this.GetAttributes(property, predicate).FirstOrDefault();
 
         /// <summary>
         /// Gets the attributes.
@@ -191,9 +189,7 @@ namespace MudDesigner.MudEngine
         /// <param name="predicate">The predicate.</param>
         /// <returns>Returns an Attribute matching T</returns>
         internal TAttribute GetAttribute<TAttribute>(PropertyInfo property = null, Func<TAttribute, bool> predicate = null) where TAttribute : Attribute
-        {
-            return this.GetAttributes<TAttribute>(property, predicate).FirstOrDefault();
-        }
+            => this.GetAttributes<TAttribute>(property, predicate).FirstOrDefault();
 
         /// <summary>
         /// Gets all of the properties.
@@ -230,7 +226,7 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Setups the attributes bag.
         /// </summary>
-        private void SetupAttributesBag()
+        void SetupAttributesBag()
         {
             if (this.propertyAttributesBag.IsEmpty)
             {
@@ -251,7 +247,7 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Setups the properties bag.
         /// </summary>
-        private void SetupPropertiesBag()
+        void SetupPropertiesBag()
         {
             if (this.propertiesBag.IsEmpty)
             {

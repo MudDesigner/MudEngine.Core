@@ -13,22 +13,22 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// The autosave timer
         /// </summary>
-        private EngineTimer<TComponent> autosaveTimer;
+        EngineTimer<TComponent> autosaveTimer;
 
         /// <summary>
         /// The item to save when the timer fires
         /// </summary>
-        private TComponent ItemToSave;
+        TComponent ItemToSave;
 
         /// <summary>
         /// The delegate to call when the timer fires
         /// </summary>
-        private Func<Task> saveDelegate;
+        Func<Task> saveDelegate;
 
         /// <summary>
         /// Determines if the autosave instance is disposed of.
         /// </summary>
-        private bool isDisposed;
+        bool isDisposed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Autosave{T}"/> class.
@@ -60,13 +60,7 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Gets a value indicating whether the autosave timer is running.
         /// </summary>
-        public bool IsAutosaveRunning
-        {
-            get
-            {
-                return this.autosaveTimer == null ? false : this.autosaveTimer.IsRunning;
-            }
-        }
+        public bool IsAutosaveRunning => this.autosaveTimer != null && this.autosaveTimer.IsRunning;
 
         /// <summary>
         /// Initializes this instance.

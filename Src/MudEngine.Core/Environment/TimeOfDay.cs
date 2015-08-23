@@ -16,7 +16,7 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// A default constant value for the number of hours in a given day
         /// </summary>
-        private const int _defaultHoursPerDay = 24;
+        const int _defaultHoursPerDay = 24;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TimeOfDay"/> class.
@@ -184,25 +184,10 @@ namespace MudDesigner.MudEngine.Environment
             string hour = string.Empty;
             string minute = string.Empty;
 
-            if (this.Hour < 10)
-            {
-                hour = string.Format("0{0}", this.Hour);
-            }
-            else
-            {
-                hour = this.Hour.ToString();
-            }
+            hour = this.Hour < 10 ? $"0{this.Hour}" : this.Hour.ToString();
+            minute = this.Minute < 10 ? $"0{this.Minute}" : this.Minute.ToString();
 
-            if (this.Minute < 10)
-            {
-                minute = string.Format("0{0}", this.Minute);
-            }
-            else
-            {
-                minute = this.Minute.ToString();
-            }
-
-            return string.Format("{0}:{1}", hour, minute);
+            return $"{hour}:{minute}";
         }
 
         /// <summary>
@@ -215,14 +200,11 @@ namespace MudDesigner.MudEngine.Environment
         /// Cloning does not guarantee that the internal state of an object will be cloned nor
         /// does it guarantee that the clone will be a deep clone or a shallow.
         /// </para>
-        public ITimeOfDay Clone()
+        public ITimeOfDay Clone() => new TimeOfDay
         {
-            return new TimeOfDay
-            {
-                Hour = this.Hour,
-                Minute = this.Minute,
-                HoursPerDay = this.HoursPerDay
-            };
-        }
+            Hour = this.Hour,
+            Minute = this.Minute,
+            HoursPerDay = this.HoursPerDay
+        };
     }
 }

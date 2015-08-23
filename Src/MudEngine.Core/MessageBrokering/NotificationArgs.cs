@@ -26,11 +26,11 @@ namespace MudDesigner.MudEngine.MessageBrokering
         /// <summary>
         /// Gets the subscription, allowing for delegates to unsubscribe from future publications if needed.
         /// </summary>
-        public ISubscription Subscription { get; private set; }
+        public ISubscription Subscription { get; }
 
         /// <summary>
         /// Gets the message payload.
         /// </summary>
-        public Type MessageType { get; private set; }
+        public Type MessageType { get; }
     }
 }

@@ -51,12 +51,12 @@ namespace MudDesigner.MudEngine
         /// <param name="randomValue">The random value.</param>
         /// <returns></returns>
         /// <exception cref="System.InvalidOperationException">Unable to produce a result from the given collection using the supplied selector.</exception>
-        private static T FindWeight<T>(ICollection<T> originalCollection, double[] weights, double sum, double randomValue)
+        static T FindWeight<T>(ICollection<T> originalCollection, double[] weights, double sum, double randomValue)
         {
             for (int i = 0; i < weights.Length; i++)
             {
                 // Normalize weight
-                var weight = sum == 0.0
+                double weight = Math.Round(sum, 2).Equals(0.00)
                     ? 1 / (double)originalCollection.Count
                     : weights.ElementAtOrDefault(i) / sum;
 
