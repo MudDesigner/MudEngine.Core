@@ -34,12 +34,13 @@ namespace MudEngine.Game.Environment
         /// Initializes a new instance of the <see cref="MudRoom"/> class.
         /// </summary>
         /// <param name="doorFactory">The door factory used to create new doorway instances.</param>
-        public MudRoom(IDoorwayFactory doorFactory)
+        public MudRoom(IDoorwayFactory doorFactory, IZone owner)
         {
             this.actors = new List<IActor>();
             this.doorways = new List<IDoorway>();
             this.doorFactory = doorFactory;
             this.IsSealed = true;
+            this.Owner = owner;
         }
 
         /// <summary>
@@ -153,7 +154,8 @@ namespace MudEngine.Game.Environment
         /// </summary>
         /// <param name="travelDirectionToReachDoor">The travel direction an actor must travel in order to reach the door.</param>
         /// <returns>Returns a valid instance of an IDoorway implementation</returns>
-        public Task<IDoorway> CreateDoorway(ITravelDirection travelDirectionToReachDoor) => this.doorFactory.CreateDoor(this, travelDirectionToReachDoor);
+        public Task<IDoorway> CreateDoorway(ITravelDirection travelDirectionToReachDoor) 
+            => this.doorFactory.CreateDoor($"{this.Name} doorway for the {travelDirectionToReachDoor.ToString()} direction", this, travelDirectionToReachDoor);
 
         /// <summary>
         /// Removes the given actor from this room instance.

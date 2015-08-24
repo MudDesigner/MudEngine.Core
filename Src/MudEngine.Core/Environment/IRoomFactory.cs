@@ -13,7 +13,7 @@ namespace MudDesigner.MudEngine.Environment
     public interface IRoomFactory
     {
         /// <summary>
-        /// Creates an uninitialized room.
+        /// Creates an uninitialized, sealed room.
         /// </summary>
         /// <param name="name">The name of the room.</param>
         /// <param name="owner">The zone that owns this room.</param>

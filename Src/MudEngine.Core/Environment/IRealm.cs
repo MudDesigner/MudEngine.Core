@@ -84,5 +84,11 @@ namespace MudDesigner.MudEngine.Environment
         /// <param name="zone">The zone to lookup.</param>
         /// <returns>Returns true if the Zone exists in the Realm.</returns>
         bool HasZoneInRealm(IZone zone);
+
+        /// <summary>
+        /// Sets the name of this realm.
+        /// </summary>
+        /// <param name="realmName">Name of the realm.</param>
+        void SetName(string realmName);
     }
 }

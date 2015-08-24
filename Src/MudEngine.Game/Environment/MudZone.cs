@@ -36,12 +36,13 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// Initializes a new instance of the <see cref="MudZone"/> class.
         /// </summary>
-        public MudZone(IRoomFactory roomFactory)
+        public MudZone(IRoomFactory roomFactory, IRealm owner)
         {
             this.WeatherUpdateFrequency = 15;
             this.rooms = new List<IRoom>();
             this.weatherStates = new List<IWeatherState>();
 
+            this.Owner = owner;
             this.roomFactory = roomFactory;
         }
 
@@ -49,7 +50,7 @@ namespace MudEngine.Game.Environment
         /// Initializes a new instance of the <see cref="MudZone"/> class.
         /// </summary>
         /// <param name="weatherStates">The weather states that can be applied to this zone.</param>
-        public MudZone(IRoomFactory roomFactory, IEnumerable<IWeatherState> weatherStates) : this(roomFactory)
+        public MudZone(IRoomFactory roomFactory, IRealm owner, IEnumerable<IWeatherState> weatherStates) : this(roomFactory, owner)
         {
             this.weatherStates = new List<IWeatherState>(weatherStates);
         }
@@ -87,7 +88,7 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// Gets the frequency for how often the weather in the zone could change.
         /// </summary>
-        public int WeatherUpdateFrequency { get; protected set; }
+        public int WeatherUpdateFrequency { get; internal set; }
 
         /// <summary>
         /// Gets all of the rooms for this zone.
