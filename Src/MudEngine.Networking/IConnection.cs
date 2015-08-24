@@ -1,14 +1,26 @@
-﻿using MudDesigner.MudEngine.Actors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="IConnection.cs" company="Sully">
+//     Copyright (c) Johnathon Sullinger. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine.Networking
 {
+    using System;
+
+    /// <summary>
+    /// Represents a connection to the server
+    /// </summary>
     public interface IConnection : IInitializableComponent
     {
+        /// <summary>
+        /// Occurs when a client is disconnected.
+        /// </summary>
         event EventHandler<ConnectionClosedArgs> Disconnected;
 
+        /// <summary>
+        /// Determines whether this connection is still valid.
+        /// </summary>
+        /// <returns>Returns true if the connection can continue to be used</returns>
         bool IsConnectionValid();
     }
 }
