@@ -8,5 +8,10 @@ namespace MudDesigner.MudEngine.Actors
 {
     public interface ICharacterClass : IDescriptor, IComponent
     {
+        void AddModifer(IModifier modifier);
+
+        void RemoveModifier(IModifier modifier);
+
+        IModifier[] GetModifiers();
     }
 }

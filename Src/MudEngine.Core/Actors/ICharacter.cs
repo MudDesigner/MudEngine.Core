@@ -11,7 +11,7 @@ namespace MudDesigner.MudEngine.Actors
 
         IMountPoint FindMountPoint(string pointName);
 
-        void AssignAbility(IStat ability);
+        void AddAbility(IStat ability);
 
         IStat[] GetAbilities();
     }

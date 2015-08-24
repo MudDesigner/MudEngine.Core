@@ -16,6 +16,8 @@
         /// </summary>
         IActor Source { get; }
 
+        IStat AffectedStat { get; }
+
         /// <summary>
         /// Gets how much of the stat this modifier will change.
         /// </summary>

@@ -39,7 +39,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\IColor.cs" />
     <Compile Include="Actors\IModifier.cs" />
+    <Compile Include="Actors\IModifierFactory.cs" />
     <Compile Include="Actors\IStat.cs" />
     <Compile Include="Actors\IActor.cs" />
     <Compile Include="Actors\IAttachment.cs" />
@@ -52,6 +54,7 @@
     <Compile Include="Actors\IPlayer.cs" />
     <Compile Include="Actors\IPlayerFactory.cs" />
     <Compile Include="Actors\IRace.cs" />
+    <Compile Include="Actors\IStatFactory.cs" />
     <Compile Include="Actors\PlayerCreatedMessage.cs" />
     <Compile Include="Actors\PlayerDeletionMessage.cs" />
     <Compile Include="AdapterDeletedMessage.cs" />
