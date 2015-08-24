@@ -62,8 +62,6 @@
     <Compile Include="Commanding\IActorCommand.cs" />
     <Compile Include="CommandProcessedMessage.cs" />
     <Compile Include="EngineTimer.cs" />
-    <Compile Include="Environment\ClearWeather.cs" />
-    <Compile Include="Environment\EastDirection.cs" />
     <Compile Include="Environment\IDoorway.cs" />
     <Compile Include="Environment\IDoorwayFactory.cs" />
     <Compile Include="Environment\InvalidRoomException.cs" />
@@ -84,17 +82,12 @@
     <Compile Include="Environment\IWorldFactory.cs" />
     <Compile Include="Environment\IZone.cs" />
     <Compile Include="Environment\IZoneFactory.cs" />
-    <Compile Include="Environment\NorthDirection.cs" />
     <Compile Include="Environment\RoomOccupancyChangedEventArgs.cs" />
-    <Compile Include="Environment\RainyWeather.cs" />
-    <Compile Include="Environment\SouthDirection.cs" />
-    <Compile Include="Environment\ThunderstormWeather.cs" />
     <Compile Include="Environment\TimeOfDay.cs" />
     <Compile Include="Environment\TimeOfDayChangedEventArgs.cs" />
     <Compile Include="Environment\TimePeriod.cs" />
     <Compile Include="Environment\TimePeriodManager.cs" />
     <Compile Include="Environment\WeatherStateChangedEventArgs.cs" />
-    <Compile Include="Environment\WestDirection.cs" />
     <Compile Include="Environment\ZoneOccupancyChangedEventArgs.cs" />
     <Compile Include="IAdapter.cs" />
     <Compile Include="IConfigurable.cs" />

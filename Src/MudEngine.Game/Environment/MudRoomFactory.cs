@@ -20,7 +20,7 @@ namespace MudEngine.Game.Environment
         /// <summary>
         /// The doorway factory
         /// </summary>
-        private IDoorwayFactory doorwayFactory;
+        readonly IDoorwayFactory doorwayFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MudRoomFactory"/> class.
@@ -39,10 +39,10 @@ namespace MudEngine.Game.Environment
         /// <returns>Returns an uninitialized room instance</returns>
         public Task<IRoom> CreateRoom(string name, IZone owner)
         {
-            IRoom room = new MudRoom(this.doorwayFactory, owner);
+            var room = new MudRoom(this.doorwayFactory, owner);
             room.SealRoom();
 
-            return Task.FromResult(room);
+            return Task.FromResult((IRoom)room);
         }
     }
 }

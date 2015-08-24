@@ -52,10 +52,7 @@ namespace MudDesigner.MudEngine.Game
         /// A new instance of TConfigComponent will be created when the game starts.
         /// </summary>
         /// <typeparam name="TAdapter">The type of the adapter component to use.</typeparam>
-        public void UseAdapter<TAdapter>() where TAdapter : class, IAdapter, new()
-        {
-            this.components.Add(new TAdapter());
-        }
+        public void UseAdapter<TAdapter>() where TAdapter : class, IAdapter, new() => this.components.Add(new TAdapter());
 
         /// <summary>
         /// Tells the game configuration that a specific adapter component must be used by the game.

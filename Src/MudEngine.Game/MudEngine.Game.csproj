@@ -34,6 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Environment\ClearWeather.cs" />
+    <Compile Include="Environment\EastDirection.cs" />
     <Compile Include="Environment\MudDoorFactory.cs" />
     <Compile Include="Environment\MudRoomFactory.cs" />
     <Compile Include="Environment\MudZoneFactory.cs" />
@@ -44,6 +46,11 @@
     <Compile Include="Environment\MudWorld.cs" />
     <Compile Include="Environment\MudWorldFactory.cs" />
     <Compile Include="Environment\MudZone.cs" />
+    <Compile Include="Environment\NorthDirection.cs" />
+    <Compile Include="Environment\RainyWeather.cs" />
+    <Compile Include="Environment\SouthDirection.cs" />
+    <Compile Include="Environment\ThunderstormWeather.cs" />
+    <Compile Include="Environment\WestDirection.cs" />
     <Compile Include="Environment\WorldManager.cs" />
     <Compile Include="MudGame.cs" />
     <Compile Include="GameComponent.cs" />

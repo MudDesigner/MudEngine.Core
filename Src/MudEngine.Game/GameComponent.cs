@@ -106,18 +106,12 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Disables this instance.
         /// </summary>
-        public void Disable()
-        {
-            this.IsEnabled = false;
-        }
+        public void Disable() => this.IsEnabled = false;
 
         /// <summary>
         /// Enables this instance.
         /// </summary>
-        public void Enable()
-        {
-            this.IsEnabled = true;
-        }
+        public void Enable() => this.IsEnabled = true;
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.

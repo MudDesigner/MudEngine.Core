@@ -67,10 +67,7 @@ namespace MudDesigner.MudEngine.Game
         /// Starts game asynchronously. This will start a game loop that can be awaited. The loop will run until stopped.
         /// </summary>
         /// <returns>Returns an awaitable Task</returns>
-        public async Task StartAsync()
-        {
-            await this.Start();
-        }
+        public async Task StartAsync() => await this.Start();
 
         async Task Start(ThreadContext<IGame> startupContext = null)
         {

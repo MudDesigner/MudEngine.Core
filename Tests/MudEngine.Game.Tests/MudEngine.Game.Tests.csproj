@@ -59,6 +59,8 @@
     <Compile Include="Fixtures\AdapterFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTests\Environment\MudWorld.Tests.cs" />
+    <Compile Include="UnitTests\Environment\TravelDirection.Tests.cs" />
+    <Compile Include="UnitTests\Environment\Weather.Tests.cs" />
     <Compile Include="UnitTests\MudGame.Tests.cs" />
   </ItemGroup>
   <ItemGroup>

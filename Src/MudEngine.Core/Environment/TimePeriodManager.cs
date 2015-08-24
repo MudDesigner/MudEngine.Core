@@ -28,7 +28,7 @@ namespace MudDesigner.MudEngine.Environment
         /// <summary>
         /// The time of day states provided by an external source
         /// </summary>
-        IEnumerable<ITimePeriod> timeOfDayStates;
+        readonly List<ITimePeriod> timeOfDayStates;
 
         /// <summary>
         /// Sets a delegate to be used as a factory for creating new ITimeofDay instances.
@@ -59,7 +59,10 @@ namespace MudDesigner.MudEngine.Environment
                 throw new ArgumentNullException(nameof(states), "You must provide the TimeOfDayStateManager a collection of states that is not null.");
             }
 
-            this.timeOfDayStates = states.OrderBy(item => item.StateStartTime.Hour).ThenBy(item => item.StateStartTime.Minute);
+            this.timeOfDayStates = states
+                .OrderBy(item => item.StateStartTime.Hour)
+                .ThenBy(item => item.StateStartTime.Minute)
+                .ToList();
         }
 
         public ITimeOfDay CreateTimeOfDay(int hour, int minute, int hoursPerDay) => _factory(hour, minute, hoursPerDay);

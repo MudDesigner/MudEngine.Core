@@ -173,6 +173,12 @@ namespace MudEngine.Game.Environment
         }
 
         /// <summary>
+        /// Sets the name of this doorway.
+        /// </summary>
+        /// <param name="doorwayName">Name of the doorway.</param>
+        public void SetName(string doorwayName) => this.Name = doorwayName;
+
+        /// <summary>
         /// Clones the properties of this instance to a new instance.
         /// </summary>
         /// <returns>
