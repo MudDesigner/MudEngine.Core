@@ -12,17 +12,8 @@ namespace MudDesigner.MudEngine
     /// <summary>
     /// The root class for all game Types.
     /// </summary>
-    public abstract class GameComponent : IGameComponent
+    public abstract class GameComponent : MudComponent, IGameComponent
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GameComponent"/> class.
-        /// </summary>
-        protected GameComponent()
-        {
-            this.Id = Guid.NewGuid();
-            this.CreationDate = DateTime.Now;
-        }
-
         /// <summary>
         /// The Loading event is fired during initialization of the component prior to being loaded.
         /// </summary>
@@ -49,30 +40,10 @@ namespace MudDesigner.MudEngine
         public string Name { get; protected set; }
 
         /// <summary>
-        /// Gets the unique identifier for this component.
-        /// </summary>
-        public Guid Id { get; protected set; }
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is enabled.
-        /// </summary>
-        public bool IsEnabled { get; protected set; }
-
-        /// <summary>
-        /// Gets the date that this component was instanced.
-        /// </summary>
-        public DateTime CreationDate { get; }
-
-        /// <summary>
-        /// Gets the amount number of seconds that this component instance has been alive.
-        /// </summary>
-        public double TimeAlive => DateTime.Now.Subtract(this.CreationDate).TotalSeconds;
-
-        /// <summary>
         /// Initializes the game component.
         /// </summary>
         /// <returns>Returns an awaitable Task</returns>
-        public async Task Initialize()
+        public async virtual Task Initialize()
         {
             MessageBrokerFactory.Instance.Publish(new InfoMessage($"Initializing {this.Name ?? "GameComponent"} ({this.GetType().Name})"));
             await this.LoadingBegan();
@@ -93,7 +64,7 @@ namespace MudDesigner.MudEngine
         /// Objects registered to one of the two delete events will be notified of the delete request.
         /// </para>
         /// <returns>Returns an awaitable Task</returns>
-        public async Task Delete()
+        public async virtual Task Delete()
         {
             await this.OnDeleteRequested();
 
@@ -102,16 +73,6 @@ namespace MudDesigner.MudEngine
 
             this.OnDeleted();
         }
-
-        /// <summary>
-        /// Disables this instance.
-        /// </summary>
-        public void Disable() => this.IsEnabled = false;
-
-        /// <summary>
-        /// Enables this instance.
-        /// </summary>
-        public void Enable() => this.IsEnabled = true;
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.

@@ -9,5 +9,9 @@ namespace MudDesigner.MudEngine.Actors
     public interface IColor : IDescriptor
     {
         string Color { get; }
+
+        void SetFromString(string color);
+
+        void SetFromColor(IColor color);
     }
 }

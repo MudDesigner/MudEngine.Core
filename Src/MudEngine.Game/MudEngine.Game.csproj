@@ -34,6 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Actors\MudActor.cs" />
+    <Compile Include="Actors\MudCharacter.cs" />
+    <Compile Include="Actors\MudCharacterClass.cs" />
+    <Compile Include="Actors\MudColor.cs" />
+    <Compile Include="Actors\MudRace.cs" />
     <Compile Include="Environment\ClearWeather.cs" />
     <Compile Include="Environment\EastDirection.cs" />
     <Compile Include="Environment\MudDoorFactory.cs" />
@@ -52,6 +57,7 @@
     <Compile Include="Environment\ThunderstormWeather.cs" />
     <Compile Include="Environment\WestDirection.cs" />
     <Compile Include="Environment\WorldManager.cs" />
+    <Compile Include="MudComponent.cs" />
     <Compile Include="MudGame.cs" />
     <Compile Include="GameComponent.cs" />
     <Compile Include="GameConfiguration.cs" />
@@ -63,9 +69,7 @@
       <Name>MudEngine.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Actors\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
