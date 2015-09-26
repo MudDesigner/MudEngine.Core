@@ -22,5 +22,11 @@ namespace MudDesigner.MudEngine.Networking
         /// </summary>
         /// <returns>Returns true if the connection can continue to be used</returns>
         bool IsConnectionValid();
+
+        /// <summary>
+        /// Sends a message to the client
+        /// </summary>
+        /// <param name="message">The message content</param>
+        void SendMessage(string message);
     }
 }
