@@ -12,7 +12,7 @@ namespace MudDesigner.MudEngine
     /// <summary>
     /// Provides methods, events and properties for interacting with a component during it's life-cycle.
     /// </summary>
-    public interface IGameComponent : IComponent, IInitializableComponent
+    public interface IGameComponent : IComponent, IInitializableComponent, IDescriptor
     {
         /// <summary>
         /// The Loading event is fired during initialization of the component prior to being loaded.
@@ -33,10 +33,5 @@ namespace MudDesigner.MudEngine
         /// The Deleted event is fired once the object has finished processing it's unloading and clean up.
         /// </summary>
         event EventHandler<EventArgs> Deleted;
-
-        /// <summary>
-        /// Gets the name of this component.
-        /// </summary>
-        string Name { get; }
     }
 }
