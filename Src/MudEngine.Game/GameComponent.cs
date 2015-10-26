@@ -39,6 +39,8 @@ namespace MudDesigner.MudEngine
         /// </summary>
         public string Name { get; protected set; }
 
+        public string Description { get; set; }
+
         /// <summary>
         /// Initializes the game component.
         /// </summary>
@@ -158,6 +160,16 @@ namespace MudDesigner.MudEngine
             }
 
             handler(this, new EventArgs());
+        }
+
+        public void SetName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentNullException(nameof(name), "Component name can not be null or blank.");
+            }
+
+            this.Name = name;
         }
     }
 }

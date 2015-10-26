@@ -28,7 +28,7 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Initializes a new instance of the <see cref="AdapterBase{TConfiguration}"/> class.
         /// </summary>
-        protected AdapterBase() : base()
+        protected AdapterBase()
         {
         }
 
