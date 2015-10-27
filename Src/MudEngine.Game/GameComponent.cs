@@ -39,6 +39,9 @@ namespace MudDesigner.MudEngine
         /// </summary>
         public string Name { get; protected set; }
 
+        /// <summary>
+        /// Gets or sets the description for this component.
+        /// </summary>
         public string Description { get; set; }
 
         /// <summary>

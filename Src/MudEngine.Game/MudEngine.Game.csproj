@@ -38,6 +38,8 @@
     <Compile Include="Actors\MudCharacter.cs" />
     <Compile Include="Actors\MudCharacterClass.cs" />
     <Compile Include="Actors\MudColor.cs" />
+    <Compile Include="Actors\MudGender.cs" />
+    <Compile Include="Actors\MudModifier.cs" />
     <Compile Include="Actors\MudRace.cs" />
     <Compile Include="Environment\ClearWeather.cs" />
     <Compile Include="Environment\EastDirection.cs" />
