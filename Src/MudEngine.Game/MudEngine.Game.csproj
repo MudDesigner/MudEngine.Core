@@ -34,13 +34,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Actors\ModifierFactory.cs" />
     <Compile Include="Actors\MudActor.cs" />
     <Compile Include="Actors\MudCharacter.cs" />
     <Compile Include="Actors\MudCharacterClass.cs" />
     <Compile Include="Actors\MudColor.cs" />
     <Compile Include="Actors\MudGender.cs" />
     <Compile Include="Actors\MudModifier.cs" />
+    <Compile Include="Actors\MudMountPoint.cs" />
+    <Compile Include="Actors\MudPlayer.cs" />
     <Compile Include="Actors\MudRace.cs" />
+    <Compile Include="Actors\PlayerFactory.cs" />
     <Compile Include="Environment\ClearWeather.cs" />
     <Compile Include="Environment\EastDirection.cs" />
     <Compile Include="Environment\MudDoorFactory.cs" />
