@@ -64,6 +64,32 @@ namespace MudEngine.Game.Tests.UnitTests
         [TestCategory("Engine")]
         [TestCategory("Engine Game")]
         [Owner("Johnathon Sullinger")]
+        public async Task BeginStart_with_null_synchronizationcontext_does_not_throw_exception()
+        {
+            // Arrange
+            var configuration = Mock.Of<IGameConfiguration>();
+            var game = new MudGame();
+            await game.Configure(configuration);
+
+            // We must create a synchronization context as the BeginStart needs one to exist.
+            SynchronizationContext.SetSynchronizationContext(null);
+
+            // Act
+            var taskCompletionSource = new TaskCompletionSource<bool>();
+            game.BeginStart(g => taskCompletionSource.TrySetResult(true));
+
+            bool callbackHit = await taskCompletionSource.Task;
+
+            // Assert
+            Assert.IsTrue(callbackHit, "Callback was not hit.");
+            Assert.IsTrue(game.IsRunning);
+        }
+
+        [TestMethod]
+        [TestCategory("MudDesigner")]
+        [TestCategory("Engine")]
+        [TestCategory("Engine Game")]
+        [Owner("Johnathon Sullinger")]
         public async Task Start_runs_the_game()
         {
             // Arrange

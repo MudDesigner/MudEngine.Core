@@ -59,9 +59,8 @@ namespace MudDesigner.MudEngine.Game
         /// <param name="startCompletedCallback">The delegate to invoke when the game startup has completed.</param>
         public void BeginStart(Action<IGame> startCompletedCallback)
         {
-            var threadContext = SynchronizationContext.Current == null
-                ? Task.Run(() => this.Start())
-                : Task.Run(() => this.Start(new ThreadContext<IGame>(SynchronizationContext.Current, startCompletedCallback)));
+            var threadContext = new ThreadContext<IGame>(SynchronizationContext.Current ?? new SynchronizationContext(), startCompletedCallback);
+            Task.Run(() => this.Start(threadContext));
         }
 
         /// <summary>
