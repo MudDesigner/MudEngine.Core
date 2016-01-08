@@ -151,7 +151,7 @@ namespace MudEngine.Game.Environment
 
         /// <summary>
         /// Lets this instance know that it is about to go out of scope and disposed.
-        /// The instance will perform clean-up of its resources in preperation for deletion.
+        /// The instance will perform clean-up of its resources in preparation for deletion.
         /// </summary>
         /// <para>
         /// Informs the component that it is no longer needed, allowing it to perform clean up.

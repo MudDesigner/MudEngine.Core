@@ -49,6 +49,43 @@ namespace MudEngine.Game.Tests.UnitTests.Environment
                 Mock.Of<ITimeOfDay>(mock => mock.Hour == 0 && mock.Minute == 0)));
         }
 
+        /// <summary>
+        /// Tests that a Current Time of Day value can be assigned to a world during initialization
+        /// </summary>
+        /// <remarks>
+        /// Resolution for <see href="https://github.com/MudDesigner/MudEngine/issues/3">issue #1</see>
+        /// </remarks>
+        [TestMethod]
+        public async Task Loading_assigns_a_real_world_current_time()
+        {
+            // Arrange
+            int currentRealWorldHour = DateTime.Now.Hour;
+
+            var realWorldTimeOfDayMock = new Mock<ITimeOfDay>();
+            realWorldTimeOfDayMock.SetupGet(timeOfDay => timeOfDay.Hour)
+                .Returns(currentRealWorldHour);
+            realWorldTimeOfDayMock.SetupGet(timeOfDay => timeOfDay.Minute)
+                .Returns(0);
+            ITimeOfDay realWorldTimeOfDay = realWorldTimeOfDayMock.Object;
+
+            var currentTimePeriodMock = new Mock<ITimePeriod>();
+            currentTimePeriodMock.SetupGet(period => period.CurrentTime)
+                .Returns(realWorldTimeOfDay);
+            currentTimePeriodMock.SetupGet(period => period.StateStartTime)
+                .Returns(realWorldTimeOfDay);
+            ITimePeriod currentTimePeriod = currentTimePeriodMock.Object;
+
+            var timePeriods = new List<ITimePeriod> { currentTimePeriod, };
+            var world = new MudWorld(Mock.Of<IRealmFactory>(), timePeriods);
+
+            // Act
+            await world.Initialize();
+
+            // Assert
+            Assert.IsNotNull(world.CurrentTimeOfDay);
+            Assert.AreEqual(currentRealWorldHour, world.CurrentTimeOfDay.CurrentTime.Hour);
+        }
+
         [TestMethod]
         public void World_returns_available_time_periods()
         {

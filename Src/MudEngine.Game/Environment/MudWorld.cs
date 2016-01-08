@@ -101,10 +101,10 @@ namespace MudEngine.Game.Environment
         public IRealm[] GetRealmsInWorld() => this.realms.ToArray();
 
         /// <summary>
-        /// Creates an unintialized instance of a realm.
+        /// Creates an uninitialized instance of a realm.
         /// </summary>
         /// <param name="name">The name of the realm.</param>
-        /// <returns>Returns an unintialized instance of IRealm</returns>
+        /// <returns>Returns an uninitialized instance of IRealm</returns>
         public Task<IRealm> CreateRealm(string name) => this.realmFactory.CreateRealm(name, this);
 
         /// <summary>
@@ -317,7 +317,21 @@ namespace MudEngine.Game.Environment
         /// <returns></returns>
         protected override Task Load()
         {
-            this.CurrentTimeOfDay = this.TimePeriodManager.GetTimePeriodForDay(this.CurrentTimeOfDay.CurrentTime);
+            // Find a TimePeriod that matches to the current real-world time.
+            // If none is found, we grab the first time period in the collection.
+            ITimePeriod realWorldTimePeriod = this.timePeriods.FirstOrDefault(
+                period => period.CurrentTime.Hour == DateTime.Now.Hour);
+            if (realWorldTimePeriod == null)
+            {
+                realWorldTimePeriod = this.timePeriods.FirstOrDefault();
+                if (realWorldTimePeriod == null)
+                {
+                    throw new InvalidOperationException("Unable to load a world without at least one time period.");
+                }
+            }
+
+            ITimeOfDay currentTimeOfDay = realWorldTimePeriod.CurrentTime;
+            this.CurrentTimeOfDay = this.TimePeriodManager.GetTimePeriodForDay(currentTimeOfDay);
 
             return Task.FromResult(0);
         }
