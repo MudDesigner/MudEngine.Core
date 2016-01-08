@@ -80,6 +80,7 @@ namespace MudEngine.Game.Environment
                 ? zone = new MudZone(this.roomFactory, owner, weatherStates)
                 : zone = new MudZone(this.roomFactory, owner);
 
+            zone.SetName(name);
             zone.WeatherUpdateFrequency = weatherUpdateFrequency;
             if (rooms.Count() > 0)
             {
