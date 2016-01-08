@@ -106,7 +106,7 @@ namespace MudDesigner.MudEngine.MessageBrokering
                 if (attribute == null)
                 {
                     handler.ProcessMessage(message);
-                    return;
+                    continue;
                 }
 
                 if (attribute.Scope == this.scope || this.scope == MessageScope.Full)
