@@ -71,7 +71,7 @@ namespace MudEngine.Game.Tests.UnitTests
             var game = new MudGame();
             await game.Configure(configuration);
 
-            // We must create a synchronization context as the BeginStart needs one to exist.
+            // We must ensure the synchronization context is null to test that the MudGame creates one itself
             SynchronizationContext.SetSynchronizationContext(null);
 
             // Act
