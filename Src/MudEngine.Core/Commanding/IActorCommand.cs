@@ -5,12 +5,8 @@ namespace MudDesigner.MudEngine.Commanding
 {
     public interface IActorCommand
     {
-        string Name { get; }
+        Task<bool> CanProcessCommand(IPlayer source, string command, params string[] arguments);
 
-        bool IsCompleted { get; }
-
-        Task<bool> CanProcessCommand(IActor source, params string[] arguments);
-
-        Task ProcessCommand(IActor source, params string[] arguments);
+        Task<CommandResult> ProcessCommand(IPlayer source, string command, params string[] arguments);
     }
 }

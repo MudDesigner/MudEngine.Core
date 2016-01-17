@@ -44,6 +44,7 @@
     <Compile Include="ClientData.cs" />
     <Compile Include="ClientMessageReceived.cs" />
     <Compile Include="ConnectionClosedArgs.cs" />
+    <Compile Include="ICommandParser.cs" />
     <Compile Include="IConnection.cs" />
     <Compile Include="IConnectionFactory.cs" />
     <Compile Include="IServer.cs" />

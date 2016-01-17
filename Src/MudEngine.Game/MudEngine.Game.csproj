@@ -45,8 +45,11 @@
     <Compile Include="Actors\MudPlayer.cs" />
     <Compile Include="Actors\MudRace.cs" />
     <Compile Include="Actors\PlayerFactory.cs" />
+    <Compile Include="Commanding\CommandFactory.cs" />
     <Compile Include="Commanding\CommandingConfiguration.cs" />
     <Compile Include="Commanding\CommandManager.cs" />
+    <Compile Include="Commanding\PlayerCommandHistoryItem.cs" />
+    <Compile Include="Commanding\WalkCommand.cs" />
     <Compile Include="Environment\ClearWeather.cs" />
     <Compile Include="Environment\EastDirection.cs" />
     <Compile Include="Environment\MudDoorFactory.cs" />

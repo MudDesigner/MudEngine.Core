@@ -7,14 +7,11 @@ using MudDesigner.MudEngine.Actors;
 
 namespace MudDesigner.MudEngine.Commanding
 {
-    public class CommandRequestedMessage : MessageBase<string>
+    public class CommandRequestedMessage : MessageBase<CommandRequestData>
     {
-        public CommandRequestedMessage(string commandData, IActor target)
+        public CommandRequestedMessage(string commandData, IPlayer target, ICommandProcessedEventFactory commandProcessedFactory)
         {
-            base.Content = commandData;
-            this.Target = target;
+            base.Content = new CommandRequestData(commandData, target, commandProcessedFactory);
         }
-
-        public IActor Target { get; }
     }
 }

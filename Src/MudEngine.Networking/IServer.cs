@@ -3,12 +3,14 @@
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
+using MudDesigner.MudEngine.Actors;
+
 namespace MudDesigner.MudEngine.Networking
 {
     /// <summary>
     /// Provides members that can be used to interact with a server
     /// </summary>
-    public interface IServer : IAdapter
+    public interface IServer : IAdapter, IConfigurable<IServerConfiguration>
     {
         /// <summary>
         /// Gets or sets the owner of the server.
@@ -25,10 +27,8 @@ namespace MudDesigner.MudEngine.Networking
         /// </summary>
         ServerStatus Status { get; }
 
-        /// <summary>
-        /// Configures the server using a given configuration.
-        /// </summary>
-        /// <param name="configuration">The server configuration used to setup the server.</param>
-        void Configure(IServerConfiguration configuration);
+        IConnection[] GetConnections();
+
+        IConnection GetConnectionForPlayer(IPlayer player);
     }
 }

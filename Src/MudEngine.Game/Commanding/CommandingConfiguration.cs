@@ -14,13 +14,16 @@ namespace MudEngine.Game.Commanding
 
         private IEnumerable<IActorCommand> actorCommands;
 
-        public CommandingConfiguration(IEnumerable<IActorCommand> commands)
+        public CommandingConfiguration(IEnumerable<IActorCommand> commands, ICommandFactory commandFactory)
         {
             this.adapter = new List<IAdapter>();
             this.actorCommands = commands;
+            this.CommandFactory = commandFactory;
         }
 
         public IActorCommand[] GetCommands() => this.actorCommands.ToArray();
+
+        public ICommandFactory CommandFactory { get; }
 
         public IAdapter[] GetAdapters()
         {

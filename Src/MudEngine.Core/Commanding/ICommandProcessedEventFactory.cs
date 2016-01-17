@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MudDesigner.MudEngine.Actors;
 
 namespace MudDesigner.MudEngine.Commanding
 {
-    public interface ICommandingConfiguration : IConfiguration
+    public interface ICommandProcessedEventFactory
     {
-        ICommandFactory CommandFactory { get; }
-
-        IActorCommand[] GetCommands();
+        void ProcessCommandForActor(CommandResult state, IPlayer actor);
     }
 }
