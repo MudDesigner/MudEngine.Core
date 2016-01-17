@@ -62,7 +62,9 @@
     <Compile Include="Autosave.cs" />
     <Compile Include="CachedTypeData.cs" />
     <Compile Include="AdapterBase.cs" />
+    <Compile Include="Commanding\CommandRequestedMessage.cs" />
     <Compile Include="Commanding\IActorCommand.cs" />
+    <Compile Include="Commanding\ICommandingConfiguration.cs" />
     <Compile Include="CommandProcessedMessage.cs" />
     <Compile Include="EngineTimer.cs" />
     <Compile Include="Environment\IDoorway.cs" />

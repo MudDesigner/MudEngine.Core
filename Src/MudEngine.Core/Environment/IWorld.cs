@@ -116,11 +116,5 @@ namespace MudDesigner.MudEngine.Environment
         /// </summary>
         /// <param name="hours">The number of hours that defines how long a full day is.</param>
         void SetHoursPerDay(int hours);
-
-        /// <summary>
-        /// Sets the name for this world.
-        /// </summary>
-        /// <param name="worldName">The name of the world.</param>
-        void SetName(string worldName);
     }
 }

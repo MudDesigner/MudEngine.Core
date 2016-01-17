@@ -13,8 +13,6 @@ namespace MudEngine.Game.Actors
     {
         List<IModifier> modifiers = new List<IModifier>();
 
-        public string Description { get; set; }
-
         public IColor EyeColor { get; set; }
 
         public IColor HairColor { get; set; }
@@ -46,11 +44,6 @@ namespace MudEngine.Game.Actors
             }
 
             this.modifiers.Remove(modifier);
-        }
-
-        public void SetName(string name)
-        {
-            this.Name = name ?? string.Empty;
         }
 
         protected override Task Load()

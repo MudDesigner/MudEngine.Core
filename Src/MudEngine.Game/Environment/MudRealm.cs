@@ -162,15 +162,6 @@ namespace MudEngine.Game.Environment
         }
 
         /// <summary>
-        /// Sets the name of this Realm.
-        /// </summary>
-        /// <param name="realmName">Name of the realm.</param>
-        public void SetName(string realmName)
-        {
-            this.Name = realmName;
-        }
-
-        /// <summary>
         /// Clones the properties of this instance to a new instance.
         /// </summary>
         /// <returns>
