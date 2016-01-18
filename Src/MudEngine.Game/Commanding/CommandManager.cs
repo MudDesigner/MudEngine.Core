@@ -2,14 +2,11 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using MudDesigner.MudEngine;
 using MudDesigner.MudEngine.Actors;
-using MudDesigner.MudEngine.Commanding;
 using MudDesigner.MudEngine.MessageBrokering;
 
-namespace MudEngine.Game.Commanding
+namespace MudDesigner.MudEngine.Commanding
 {
     public class CommandManager : AdapterBase<ICommandingConfiguration>
     {
@@ -17,6 +14,10 @@ namespace MudEngine.Game.Commanding
             = new ConcurrentDictionary<IPlayer, Stack<PlayerCommandHistoryItem>>();
 
         private ISubscription commandRequestedSubscription;
+
+        public CommandManager()
+        {
+        }
 
         public override string Name { get; } = "Command Manager";
 
@@ -32,9 +33,9 @@ namespace MudEngine.Game.Commanding
             {
                 throw new ArgumentNullException(nameof(configuration), $"The {typeof(CommandManager).Name} Type requires an instance of {typeof(ICommandingConfiguration).Name} in order to be configured.");
             }
-
-            this.AvailableCommands = configuration.GetCommands();
+            
             this.CommandFactory = configuration.CommandFactory;
+            this.Configuration = configuration;
         }
 
         public override Task Delete()

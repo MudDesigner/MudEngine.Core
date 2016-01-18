@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MudDesigner.MudEngine;
-using MudDesigner.MudEngine.Commanding;
 
-namespace MudEngine.Game.Commanding
+namespace MudDesigner.MudEngine.Commanding
 {
     public class CommandingConfiguration : ICommandingConfiguration
     {
@@ -14,14 +9,11 @@ namespace MudEngine.Game.Commanding
 
         private IEnumerable<IActorCommand> actorCommands;
 
-        public CommandingConfiguration(IEnumerable<IActorCommand> commands, ICommandFactory commandFactory)
+        public CommandingConfiguration(ICommandFactory commandFactory)
         {
             this.adapter = new List<IAdapter>();
-            this.actorCommands = commands;
             this.CommandFactory = commandFactory;
         }
-
-        public IActorCommand[] GetCommands() => this.actorCommands.ToArray();
 
         public ICommandFactory CommandFactory { get; }
 

@@ -1,6 +1,4 @@
-﻿using MudDesigner.MudEngine.Commanding;
-
-namespace MudEngine.Game.Commanding
+﻿namespace MudDesigner.MudEngine.Commanding
 {
     public class PlayerCommandHistoryItem
     {

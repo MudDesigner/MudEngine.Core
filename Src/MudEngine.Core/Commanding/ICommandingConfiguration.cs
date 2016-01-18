@@ -9,7 +9,5 @@ namespace MudDesigner.MudEngine.Commanding
     public interface ICommandingConfiguration : IConfiguration
     {
         ICommandFactory CommandFactory { get; }
-
-        IActorCommand[] GetCommands();
     }
 }
