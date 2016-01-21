@@ -42,9 +42,9 @@ namespace MudDesigner.MudEngine.Commanding
             return this.availableTypes.FirstOrDefault(type =>
             {
                 string typeName = type.Name;
-                if (typeName.EndsWith("command"))
+                if (typeName.EndsWith("Command"))
                 {
-                    typeName = typeName.Remove(typeName.Length - "command".Length);
+                    typeName = typeName.Remove(typeName.Length - "Command".Length);
                 }
 
                 if (string.Equals(typeName, command, StringComparison.OrdinalIgnoreCase))
