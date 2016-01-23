@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{4D375D49-2250-484E-AF15-B7F34421EF6D}"
 EndProject
@@ -16,6 +16,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudEngine.Game.Tests", "Tests\MudEngine.Game.Tests\MudEngine.Game.Tests.csproj", "{92746066-7DF2-477E-9E60-C9F14023843A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudEngine.Networking", "Src\MudEngine.Networking\MudEngine.Networking.csproj", "{A5ACFC67-DEB4-4C80-AC77-B68D03C349A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adapter.MudServer", "..\Adapter.MudServer\src\Adapter.MudServer\Adapter.MudServer.csproj", "{6E4C306E-9004-4AF8-A490-86BF56F4DC18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudServer.Bootstrap", "..\Adapter.MudServer\src\MudServer.Bootstrap\MudServer.Bootstrap.csproj", "{750393D3-3867-4C68-9584-7280FA0E3C72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudServer.Windows", "..\Adapter.MudServer\src\MudServer.Windows\MudServer.Windows.csproj", "{0D304816-7F30-460A-AFA9-D4F4146A50D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +49,18 @@ Global
 		{A5ACFC67-DEB4-4C80-AC77-B68D03C349A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5ACFC67-DEB4-4C80-AC77-B68D03C349A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5ACFC67-DEB4-4C80-AC77-B68D03C349A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E4C306E-9004-4AF8-A490-86BF56F4DC18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E4C306E-9004-4AF8-A490-86BF56F4DC18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E4C306E-9004-4AF8-A490-86BF56F4DC18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E4C306E-9004-4AF8-A490-86BF56F4DC18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{750393D3-3867-4C68-9584-7280FA0E3C72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{750393D3-3867-4C68-9584-7280FA0E3C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{750393D3-3867-4C68-9584-7280FA0E3C72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{750393D3-3867-4C68-9584-7280FA0E3C72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D304816-7F30-460A-AFA9-D4F4146A50D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D304816-7F30-460A-AFA9-D4F4146A50D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D304816-7F30-460A-AFA9-D4F4146A50D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D304816-7F30-460A-AFA9-D4F4146A50D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

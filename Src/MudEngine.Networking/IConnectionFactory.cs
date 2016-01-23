@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 namespace MudDesigner.MudEngine.Networking
 {
+    using Commanding;
     using MudDesigner.MudEngine.Actors;
 
     /// <summary>
@@ -19,6 +20,6 @@ namespace MudDesigner.MudEngine.Networking
         /// <param name="player">The player to associate the connection to.</param>
         /// <param name="server">The server that the connection communicates twith.</param>
         /// <returns>Returns an instance of IConnection</returns>
-        IConnection CreateConnection(IPlayer player, TServer server);
+        IConnection CreateConnection(IPlayer player, TServer server, ICommandProcessedEventFactory commandProcessorFactory);
     }
 }
