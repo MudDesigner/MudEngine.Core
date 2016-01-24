@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Mud Designer - Engine.Core</id>
+    <id>MudDesigner.MudEngine.Core</id>
     <version>1.0.0-PreAlpha1</version>
     <authors>johnathon Sullinger</authors>
     <owners>Johnathon Sullinger</owners>
