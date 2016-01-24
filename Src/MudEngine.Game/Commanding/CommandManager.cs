@@ -103,20 +103,22 @@ namespace MudDesigner.MudEngine.Commanding
                 }
             }
 
-            //If there were no previous commands executed, check to see if it is a valid command and process it
-            //as a new command.
-            if (this.CommandFactory.IsCommandAvailable(command))
+            //If there were no previous commands executed, check to see if it is a new valid command 
+            if (!this.CommandFactory.IsCommandAvailable(command))
             {
-                // TODO: Check if we have any elements in the array first.
-                IActorCommand potentialCommandToExecute = this.CommandFactory.CreateCommand(commandAndArgs.First());
-                if (!(await potentialCommandToExecute.CanProcessCommand(player, command)))
-                {
-                    // TODO: Determine how to notify player of invalid command.
-                    return;
-                }
-
-                await this.RunCommand(player, command, potentialCommandToExecute, requestedCommand);
+                // TODO: Determine how to notify player of invalid command.
+                return;
             }
+
+            // TODO: Check if we have any elements in the array first.
+            IActorCommand potentialCommandToExecute = this.CommandFactory.CreateCommand(commandAndArgs.First());
+            if (!(await potentialCommandToExecute.CanProcessCommand(player, command)))
+            {
+                // TODO: Determine how to notify player that the command can't be executed.
+                return;
+            }
+
+            await this.RunCommand(player, command, potentialCommandToExecute, requestedCommand);
         }
 
         private async Task RunCommand(IPlayer player, string command, IActorCommand commandToExecute, CommandRequestedMessage commandMessage)
