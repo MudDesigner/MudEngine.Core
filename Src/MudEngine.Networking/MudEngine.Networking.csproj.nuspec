@@ -12,5 +12,9 @@
     <releaseNotes>Initial pre-release. Very early stage of development.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Game GameEngine Engine Mud Multi-User-Dungeon MultiUserDungeon M.U.D. Designer Editor</tags>
+    
+    <dependencies>
+        <dependency id="MudDesigner.MudEngine.Core" version="1.0.0-prealpha1">
+    </dependencies>
   </metadata>
 </package>
