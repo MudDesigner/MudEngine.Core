@@ -261,20 +261,6 @@ namespace MudEngine.Game.Environment
         }
 
         /// <summary>
-        /// Sets the name for this world.
-        /// </summary>
-        /// <param name="worldName">The name of the world.</param>
-        public void SetName(string worldName)
-        {
-            if (string.IsNullOrEmpty(worldName))
-            {
-                throw new ArgumentNullException(nameof(worldName));
-            }
-
-            this.Name = worldName;
-        }
-
-        /// <summary>
         /// Clones the properties of this instance to a new instance.
         /// </summary>
         /// <returns>

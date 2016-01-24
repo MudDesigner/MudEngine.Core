@@ -94,11 +94,5 @@ namespace MudDesigner.MudEngine.Environment
         /// Disconnects the departure room from this doorway.
         /// </summary>
         void DisconnectDepartureRoom();
-
-        /// <summary>
-        /// Sets the name of this doorway.
-        /// </summary>
-        /// <param name="doorwayName">Name of the doorway.</param>
-        void SetName(string doorwayName);
     }
 }

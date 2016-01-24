@@ -22,7 +22,7 @@ namespace MudDesigner.MudEngine
         /// <param name="configuration">The configuration.</param>
         protected AdapterBase(TConfiguration configuration) : base(configuration)
         {
-            this.AdapterConfiguration = configuration;
+            this.Configuration = configuration;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Gets or sets the adapter configuration that will be used to configure this adapter.
         /// </summary>
-        public TConfiguration AdapterConfiguration { get; protected set; }
+        public TConfiguration Configuration { get; protected set; }
 
         /// <summary>
         /// Configures this adapter using the given configuration.
@@ -53,7 +53,7 @@ namespace MudDesigner.MudEngine
                 return;
             }
 
-            this.Configure(this.AdapterConfiguration);
+            this.Configure(this.Configuration);
         }
     }
 

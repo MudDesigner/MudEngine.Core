@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MudDesigner.MudEngine.Actors;
 
 namespace MudDesigner.MudEngine.Commanding
 {
     public interface IActorCommand
     {
-        string Name { get; }
+        Task<bool> CanProcessCommand(IPlayer source, string command, params string[] arguments);
 
-        bool IsCompleted { get; }
-
-        string[] GetArguments();
-
-        Task<bool> CanProcessCommand(IActor source, params string[] arguments);
-
-        Task ProcessCommand(IActor source, params string[] arguments);
+        Task<CommandResult> ProcessCommand(IPlayer source, string command, params string[] arguments);
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MudDesigner.MudEngine.Environment;
 
 namespace MudDesigner.MudEngine.Actors
 {
@@ -10,7 +6,7 @@ namespace MudDesigner.MudEngine.Actors
     {
         IRace Race { get; }
 
-        string Description { get; set; }
+        IRoom CurrentRoom { get; }
 
         IGender Gender { get; }
 

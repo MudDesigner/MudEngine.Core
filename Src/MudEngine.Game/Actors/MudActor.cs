@@ -2,12 +2,13 @@
 using System.Threading.Tasks;
 using MudDesigner.MudEngine;
 using MudDesigner.MudEngine.Actors;
+using MudDesigner.MudEngine.Environment;
 
 namespace MudEngine.Game.Actors
 {
     public abstract class MudActor : GameComponent, IActor
     {
-        public string Description { get; set; }
+        public IRoom CurrentRoom { get; protected internal set; }
 
         public IGender Gender { get; private set; }
 

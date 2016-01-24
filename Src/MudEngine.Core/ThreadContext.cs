@@ -85,14 +85,20 @@ namespace MudDesigner.MudEngine
         /// <param name="item">The item passed into the callback.</param>
         public void Invoke(T item)
         {
-            this.context.Post(this.ContextHandler, item);
+            if (this.context != null)
+            {
+                this.context.Post(this.ContextHandler, item);
+                return;
+            }
+
+            this.callback(item);
         }
 
         /// <summary>
         /// Handles the SynchronizationContext posting.
         /// </summary>
         /// <param name="item">The parameter to pass into the callback.</param>
-        void ContextHandler(object item)
+        private void ContextHandler(object item)
         {
             this.callback((T)item);
         }
