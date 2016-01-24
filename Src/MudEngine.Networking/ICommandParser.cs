@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MudEngine.Networking
+namespace MudDesigner.MudEngine.Networking
 {
     public interface ICommandParser
     {

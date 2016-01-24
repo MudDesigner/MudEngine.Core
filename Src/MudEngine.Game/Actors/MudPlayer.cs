@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
-using MudDesigner.MudEngine.Actors;
 using MudDesigner.MudEngine.Commanding;
 
-namespace MudEngine.Game.Actors
+namespace MudDesigner.MudEngine.Actors
 {
     public class MudPlayer : MudCharacter, IPlayer
     {

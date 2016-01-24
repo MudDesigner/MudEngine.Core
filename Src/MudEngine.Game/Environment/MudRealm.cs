@@ -3,7 +3,7 @@
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudEngine.Game.Environment
+namespace MudDesigner.MudEngine.Environment
 {
     using System;
     using System.Collections.Generic;

@@ -3,15 +3,14 @@
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudEngine.Game.Environment
+namespace MudDesigner.MudEngine.Environment
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Actors;
     using MudDesigner.MudEngine;
-    using MudDesigner.MudEngine.Actors;
-    using MudDesigner.MudEngine.Environment;
 
     public class MudRoom : GameComponent, IRoom
     {

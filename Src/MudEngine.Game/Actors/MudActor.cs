@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
-using MudDesigner.MudEngine;
-using MudDesigner.MudEngine.Actors;
 using MudDesigner.MudEngine.Environment;
 
-namespace MudEngine.Game.Actors
+namespace MudDesigner.MudEngine.Actors
 {
     public abstract class MudActor : GameComponent, IActor
     {

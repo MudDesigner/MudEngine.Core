@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MudDesigner.MudEngine.Actors;
 
-namespace MudEngine.Game.Actors
+namespace MudDesigner.MudEngine.Actors
 {
     public abstract class MudCharacter : MudActor, ICharacter
     {

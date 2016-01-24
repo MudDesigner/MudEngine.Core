@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MudDesigner.MudEngine;
-using MudDesigner.MudEngine.Environment;
-using MudDesigner.MudEngine.Game;
 using MudEngine.Game.Tests.Fixtures;
 
 namespace MudEngine.Game.Tests.UnitTests
