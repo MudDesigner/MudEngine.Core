@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using MudDesigner.MudEngine;
-using MudDesigner.MudEngine.Actors;
 
-namespace MudEngine.Game.Actors
+namespace MudDesigner.MudEngine.Actors
 {
     public class MudRace : GameComponent, IRace
     {

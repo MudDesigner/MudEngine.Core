@@ -3,11 +3,9 @@
 //     Copyright (c) Johnathon Sullinger. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace MudEngine.Game.Environment
+namespace MudDesigner.MudEngine.Environment
 {
     using System.Threading.Tasks;
-    using MudDesigner.MudEngine;
-    using MudDesigner.MudEngine.Environment;
 
     /// <summary>
     /// Provides methods for linking two rooms together via a doorway

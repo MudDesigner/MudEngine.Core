@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MudDesigner.MudEngine;
-using MudDesigner.MudEngine.Environment;
-using MudDesigner.MudEngine.Game;
 using MudEngine.Game.Tests.Fixtures;
 
 namespace MudEngine.Game.Tests.UnitTests
@@ -44,18 +41,18 @@ namespace MudEngine.Game.Tests.UnitTests
             var configuration = Mock.Of<IGameConfiguration>();
             var game = new MudGame();
             await game.Configure(configuration);
-            bool callbackHit = false;
-
-            // We must create a synchronization context as the BeginStart needs one to exist.
-            SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
+            var taskCompletionSource = new TaskCompletionSource<bool>();
 
             // Act
-            game.BeginStart(g => callbackHit = true);
+            game.BeginStart(g =>
+            {
+                taskCompletionSource.SetResult(true);
+            });
 
-            await Task.Delay(100);
+            bool result = await taskCompletionSource.Task;
 
             // Assert
-            Assert.IsTrue(callbackHit, "Callback was not hit.");
+            Assert.IsTrue(result, "Callback was not hit.");
             Assert.IsTrue(game.IsRunning);
         }
 

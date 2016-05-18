@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MudDesigner.MudEngine.Environment;
-using MudEngine.Game.Environment;
 
 namespace MudEngine.Game.Tests.UnitTests.Environment
 {

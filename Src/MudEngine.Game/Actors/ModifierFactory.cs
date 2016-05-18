@@ -1,6 +1,4 @@
-﻿using MudDesigner.MudEngine.Actors;
-
-namespace MudEngine.Game.Actors
+﻿namespace MudDesigner.MudEngine.Actors
 {
     public class ModifierFactory : IModifierFactory
     {

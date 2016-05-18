@@ -1,7 +1,6 @@
-﻿using MudDesigner.MudEngine.Actors;
-using MudDesigner.MudEngine.Commanding;
+﻿using MudDesigner.MudEngine.Commanding;
 
-namespace MudEngine.Game.Actors
+namespace MudDesigner.MudEngine.Actors
 {
     public class PlayerFactory : IPlayerFactory
     {
