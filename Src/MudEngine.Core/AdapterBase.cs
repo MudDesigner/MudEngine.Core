@@ -35,7 +35,7 @@ namespace MudDesigner.MudEngine
         /// <summary>
         /// Gets or sets the adapter configuration that will be used to configure this adapter.
         /// </summary>
-        public TConfiguration Configuration { get; protected set; }
+        public new TConfiguration Configuration { get; protected set; }
 
         /// <summary>
         /// Configures this adapter using the given configuration.
