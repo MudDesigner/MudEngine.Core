@@ -2,6 +2,12 @@ version: 1.0.0-{branch}-{build}
 branches:
   only:
   - Preview1
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
 build_script:
 - cmd: >-
     dotnet restore
@@ -10,7 +16,7 @@ build_script:
 
     dotnet build
 
-    dotnet pack
+    dotnet pack --version-suffix {version}
 test: off
 artifacts:
 - path: '**\*.nupkg'
@@ -19,5 +25,5 @@ deploy:
 - provider: NuGet
   server: https://www.myget.org/F/muddesigner-ci/api/v2/package
   api_key:
-    secure: 0jEkt3zBkVm27WjCFT8b8Se6Ze3lw+16BviCQbYk6127Ap2/yN9nu3hMB8+WcMnJ
+    secure: IkeQE03X+pt2REvzU7LsLRxY64Y5a3CRTRTzFFNjHW8D8XvXVH3v5ebR3fFLoAhG
   skip_symbols: true
