@@ -16,7 +16,7 @@ build_script:
 
     dotnet build
 
-    dotnet pack --version-suffix {version}
+    dotnet pack --version-suffix {build}
 test: off
 artifacts:
 - path: '**\*.nupkg'
