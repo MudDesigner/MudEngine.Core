@@ -9,14 +9,14 @@
     }
   },
   
+  "name": "MudDesigner.MudEngine.Game",
   "version": "1.0.0-preview1",
   "authors": [ "scionwest" ],
   "title": "Mud Engine Game",
   
   "dependencies":{
     "MudEngine.Core": {
-      "version": "1.0.0-preview1",
-      "target": "project"
+      "version": "1.0.0-preview1"
     }
   },
   

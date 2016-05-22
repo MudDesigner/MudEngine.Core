@@ -6,6 +6,7 @@
 namespace MudDesigner.MudEngine.Networking
 {
     using System;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Represents a connection to the server
@@ -27,6 +28,6 @@ namespace MudDesigner.MudEngine.Networking
         /// Sends a message to the client
         /// </summary>
         /// <param name="message">The message content</param>
-        void SendMessage(string message);
+        Task SendMessage(string message);
     }
 }
