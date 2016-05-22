@@ -10,7 +10,7 @@
   },
   
   "name": "MudDesigner.MudEngine.Core",
-  "version": "1.0.0-preview1-*",
+  "version": "1.0.0-*",
   "authors": [ "scionwest" ],
   "title": "Mud Engine Core",
   
