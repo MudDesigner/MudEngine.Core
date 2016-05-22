@@ -1,0 +1,23 @@
+version: 1.0.0-{branch}-{build}
+branches:
+  only:
+  - Preview1
+build_script:
+- cmd: >-
+    dotnet restore
+
+    cd C:\projects\mudengine-core\src
+
+    dotnet build
+
+    dotnet pack
+test: off
+artifacts:
+- path: '**\*.nupkg'
+  name: NuGet-Dev
+deploy:
+- provider: NuGet
+  server: https://www.myget.org/F/muddesigner-ci/api/v2/package
+  api_key:
+    secure: 0jEkt3zBkVm27WjCFT8b8Se6Ze3lw+16BviCQbYk6127Ap2/yN9nu3hMB8+WcMnJ
+  skip_symbols: true

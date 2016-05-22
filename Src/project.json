@@ -5,7 +5,7 @@
     "owners": [ "scionwest" ],
     "repository": {
       "type": "git",
-      "url": "https://github.com/muddesigner/mudengine"
+      "url": "https://github.com/muddesigner/mudengine.core"
     }
   },
   
