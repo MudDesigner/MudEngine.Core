@@ -2,6 +2,7 @@ version: 1.0.0-{branch}-{build}
 branches:
   only:
   - Preview1
+  - Dev
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
@@ -11,13 +12,13 @@ assembly_info:
 build_script:
 - ps: >-
     $version = -join($env:APPVEYOR_REPO_BRANCH, "-", $env:APPVEYOR_BUILD_NUMBER);
-    dotnet restore
+        dotnet restore
 
-    cd C:\projects\mudengine-core\src
+        cd C:\projects\mudengine-core\src
 
-    dotnet build
+        dotnet build
 
-    dotnet pack --version-suffix $version
+        dotnet pack --version-suffix $version
 test: off
 artifacts:
 - path: '**\*.nupkg'
