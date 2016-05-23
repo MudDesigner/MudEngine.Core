@@ -1,6 +1,6 @@
 ﻿{
   "packOptions": {
-    "summary": "The Core API Contracts for the Mud Game Engine",
+    "summary": "The Core API for the Mud Game Engine",
     "tags": [ "Game-Engine", "game engine", "gameengine", "mud", "multi-user-dungeon", "mmo", "mmorpg", "game" ],
     "owners": [ "scionwest" ],
     "repository": {
@@ -12,7 +12,7 @@
   "name": "MudDesigner.MudEngine.Core",
   "version": "1.0.0-*",
   "authors": [ "scionwest" ],
-  "title": "Mud Engine Core",
+  "title": "Mud Designer Engine Core",
   
   "dependencies":{
   },
