@@ -59,7 +59,7 @@ namespace MudDesigner.MudEngine.Commanding
 
             this.Game = game;
             this.commandRequestedSubscription = MessageBrokerFactory.Instance.Subscribe<CommandRequestedMessage>(
-                (msg, sub) => this.ProcessCommand(msg));
+                async (msg, sub) => await this.ProcessCommand(msg));
 
             return Task.FromResult(0);
         }
