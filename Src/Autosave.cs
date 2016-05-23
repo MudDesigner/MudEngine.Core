@@ -7,6 +7,7 @@ namespace MudDesigner.MudEngine
 {
     using System;
     using System.Threading.Tasks;
+    using MessageBrokering;
 
     public sealed class Autosave<TComponent> : IDisposable, IInitializableComponent where TComponent : class, IComponent
     {
@@ -86,7 +87,11 @@ namespace MudDesigner.MudEngine
                 autosaveInterval,
                 autosaveInterval,
                 0,
-                (game, timer) => this.saveDelegate());
+                async (game, timer) => 
+                {
+                    await this.saveDelegate();
+                    MessageBrokerFactory.Instance.Publish(new AutosaveMessage<TComponent>(this.ItemToSave));
+                });
 
             return Task.FromResult(true);
         }
