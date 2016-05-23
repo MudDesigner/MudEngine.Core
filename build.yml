@@ -10,13 +10,14 @@ assembly_info:
   assembly_informational_version: '{version}'
 build_script:
 - ps: >-
+    $version = -join($env:APPVEYOR_REPO_BRANCH, $env:APPVEYOR_BUILD_VERSION);
     dotnet restore
 
     cd C:\projects\mudengine-core\src
 
     dotnet build
 
-    Write-Host "dotnet pack --version-suffix $($env:APPVEYOR_REPO_BRANCH)-$($env:APPVEYOR_BUILD_VERSION)
+    dotnet pack --version-suffix $version
 test: off
 artifacts:
 - path: '**\*.nupkg'
