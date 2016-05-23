@@ -16,7 +16,7 @@ build_script:
 
     dotnet build
 
-    dotnet pack --version-suffix $env:APPVEYOR_BUILD_NUMBER
+    dotnet pack --version-suffix $env:APPVEYOR_BUILD_VERSION
 test: off
 artifacts:
 - path: '**\*.nupkg'
